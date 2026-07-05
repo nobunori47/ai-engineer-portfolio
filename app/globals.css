@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --font-display: -apple-system, "Hiragino Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", "Menlo", "Consolas", monospace;
+
+  --color-bg: #0F1417;
+  --color-bg-card: #161C21;
+  --color-text: #E8EAED;
+  --color-text-sub: #8B95A1;
+  --color-accent: #5EEAD4;
+  --color-border: #232B31;
+}
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --color-bg: var(--color-bg);
+  --color-bg-card: var(--color-bg-card);
+  --color-text: var(--color-text);
+  --color-text-sub: var(--color-text-sub);
+  --color-accent: var(--color-accent);
+  --color-border: var(--color-border);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #0F1417;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
