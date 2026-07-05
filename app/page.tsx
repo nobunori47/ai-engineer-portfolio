@@ -63,7 +63,7 @@ export default function Home() {
               Next.js、TypeScript、Supabase、Claude APIなどを活用し、実務を想定したAIアプリケーションの設計・開発を行っています。
             </p>
             <p className="leading-relaxed text-[var(--color-text-sub)]">
-              AI講座では、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実際の業務を想定した開発案件に取り組み、要件整理から実装・納品までのプロセスを経験してきました。
+            これまで、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実際の業務を想定した開発案件に取り組み、要件整理から実装・納品までのプロセスを経験してきました。
             </p>
           </div>
         </div>

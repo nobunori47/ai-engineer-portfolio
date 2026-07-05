@@ -137,7 +137,7 @@ export const cases: CaseStudy[] = [
     effort: "WBS見積り約24時間 → 実績約33時間(約37%超過)。差分は振り返りとして記録し次案件に活用",
     result: [
       "Vercelへ本番デプロイ(cs-chatbot-flame.vercel.app)",
-      "講座プラットフォームに解説記事を公開",
+      "技術解説記事を公開",
       "Git Worktreeは概念学習に留め、次回Case 5での実践を計画",
     ],
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Claude API"],
