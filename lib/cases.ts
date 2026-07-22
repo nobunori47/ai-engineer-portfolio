@@ -197,4 +197,48 @@ export const cases: CaseStudy[] = [
     github: "https://github.com/nobunori47/switchboard-ai-notify",
     demo: "https://switchboard-ai-notify.vercel.app",
   },
+  {
+    slug: "case-6-rag-slack-bot",
+    number: "06",
+    title: "RAGナレッジ検索 + Slack連携Bot",
+    oneLiner: "部署別アクセス制御を備えた企業向けRAGシステム",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "pgvector",
+      "OpenAI Embeddings",
+      "Slack API",
+      "Claude Code",
+    ],
+    metric: "部署別アクセス制御",
+    challenge:
+      "社内のナレッジは部署ごとに存在しており、Slackから自然言語で横断検索できる仕組みがない一方、無秩序に検索可能にすると部署をまたいだ情報漏洩のリスクが生じる（案件7を想定）。",
+    proposal:
+      "pgvector・OpenAI Embeddingsによる社内文書のRAG検索をSlack Botとして提供し、部署ごとのアクセス制御・監査ログ・Fail-Closed設計を組み込むことで、利便性と安全性を両立するアーキテクチャを設計した。",
+    implementation: [
+      "Next.js App Router + TypeScriptでSlack Events APIエンドポイントを構築（署名検証・URL検証・リトライ制御）",
+      "Supabase pgvector + OpenAI Embeddingsでベクトル検索基盤を構築",
+      "match_chunks SQL関数内でSlackユーザーの所属部署によるフィルタリングを実装（Supabase RLSではなくSQL関数フィルタ、fail-closed設計）",
+      "slack_user_departmentsテーブルでユーザー×部署の権限を管理",
+      "query_logsに質問・回答・根拠チャンク・ステータスを記録する監査ログを実装",
+      "Claude Codeと協働し、コードレビュー・実データ検証・ドキュメントと実装の整合性チェックを実施",
+    ],
+    effort: "設計〜実装〜Slack実地検証〜レビュー対応まで一貫対応",
+    result: [
+      "IT部署ユーザーが他部署文書にアクセスできないことを実データで検証",
+      "Slack実チャンネルでのメンション→出典付き回答のE2E動作を確認",
+      "query_logsにより「誰が・いつ・何を質問したか」を追跡可能な監査ログを実現",
+      "README・ガバナンス手順書を実装と整合させ、提出物としてクローズ可能な状態に整理",
+    ],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "pgvector",
+      "OpenAI Embeddings",
+      "Slack API",
+      "Claude Code",
+    ],
+  },
 ];
