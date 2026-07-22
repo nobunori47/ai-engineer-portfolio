@@ -240,5 +240,6 @@ export const cases: CaseStudy[] = [
       "Slack API",
       "Claude Code",
     ],
+    github: "https://github.com/nobunori47/case7-rag-slack",
   },
 ];
