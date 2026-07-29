@@ -51,36 +51,139 @@ export default async function CasePage({
             ))}
           </div>
 
+          {c.screenshots && c.screenshots.length > 0 && (
+            <div className="mt-14 space-y-6">
+              {c.screenshots.map((shot) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={shot.src}
+                  src={shot.src}
+                  alt={shot.alt}
+                  className="w-full rounded-lg border border-[var(--color-border)]"
+                />
+              ))}
+            </div>
+          )}
+
           <div className="mt-16 space-y-14">
-            <Section title="課題" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.challenge}</p>} />
-            <Section title="提案" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.proposal}</p>} />
-            <Section
-              title="実装"
-              content={
-                <ul className="space-y-3">
-                  {c.implementation.map((item) => (
-                    <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
-                      <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              }
-            />
-            <Section title="工数" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.effort}</p>} />
-            <Section
-              title="成果"
-              content={
-                <ul className="space-y-3">
-                  {c.result.map((item) => (
-                    <li key={item} className="flex gap-3 leading-relaxed">
-                      <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              }
-            />
+            {c.overview && (
+              <Section title="概要" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.overview}</p>} />
+            )}
+            {c.challenge && (
+              <Section title="課題" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.challenge}</p>} />
+            )}
+            {c.value && (
+              <Section title="提供価値" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.value}</p>} />
+            )}
+            {c.features && c.features.length > 0 && (
+              <Section
+                title="主な機能"
+                content={
+                  <ul className="space-y-3">
+                    {c.features.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
+                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
+            {c.useCases && c.useCases.length > 0 && (
+              <Section
+                title="利用シーン"
+                content={
+                  <ul className="space-y-3">
+                    {c.useCases.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
+                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">・</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
+            {c.architecture && (
+              <Section
+                title="システム構成"
+                content={
+                  <pre className="whitespace-pre-wrap font-[family-name:var(--font-mono)] text-xs leading-relaxed text-[var(--color-text-sub)] bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg p-4">
+                    {c.architecture}
+                  </pre>
+                }
+              />
+            )}
+            {c.techNotes && c.techNotes.length > 0 && (
+              <Section
+                title="技術的工夫"
+                content={
+                  <ul className="space-y-3">
+                    {c.techNotes.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
+                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
+            {c.differentiation && (
+              <Section title="差別化" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.differentiation}</p>} />
+            )}
+            {c.futureScope && c.futureScope.length > 0 && (
+              <Section
+                title="今後の拡張"
+                content={
+                  <ul className="space-y-3">
+                    {c.futureScope.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
+                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
+            {c.proposal && (
+              <Section title="提案" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.proposal}</p>} />
+            )}
+            {c.implementation && c.implementation.length > 0 && (
+              <Section
+                title="実装"
+                content={
+                  <ul className="space-y-3">
+                    {c.implementation.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
+                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
+            {c.effort && (
+              <Section title="工数" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.effort}</p>} />
+            )}
+            {c.result && c.result.length > 0 && (
+              <Section
+                title="成果"
+                content={
+                  <ul className="space-y-3">
+                    {c.result.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed">
+                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
             <Section
               title="使用技術"
               content={
