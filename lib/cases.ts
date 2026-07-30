@@ -18,6 +18,7 @@ export type CaseStudy = {
   stack: string[];
   github?: string;
   demo?: string;
+  images?: string[];
   // 顧客価値を軸にしたケーススタディ用の拡張フィールド（既存ケースは未設定のため表示に影響しない）
   overview?: string;
   value?: string;
@@ -256,6 +257,50 @@ export const cases: CaseStudy[] = [
       "Claude Code",
     ],
     github: "https://github.com/nobunori47/case7-rag-slack",
+  },
+  {
+    slug: "case-7-sales-dashboard",
+    number: "07",
+    title: "LUMINA AI売上分析ダッシュボード",
+    oneLiner:
+      "CSVアップロードした売上データをAIが分析し、KPI・ランキング・改善アクションを自動生成する業務支援システム。",
+    tags: ["Next.js", "Supabase", "Claude API"],
+    metric: "レポート作成 83%削減",
+    challenge:
+      "月次レポート作成(グラフ作成・数値集計・コメント執筆)に毎回3時間かかり、翌月のアクション提案も感覚頼りになっていた(架空クライアント アパレルEC「LUMINA」を想定)。",
+    proposal:
+      "CSVアップロード→Supabaseへの蓄積→KPI自動計算→Claude APIの構造化出力(JSON Schema)によるAI分析コメント生成という一気通貫のパイプラインを設計し、AI・データ分析に詳しくない経営層でも数値の意味を数十秒で理解できるダッシュボードとして提案した。",
+    implementation: [
+      "Next.js App Router + TypeScriptでCSVアップロード〜KPI集計〜AI分析までのAPIを構築",
+      "PapaParseで全行事前検証するCSVバリデーション(行番号つきエラー返却)を実装",
+      "Supabaseにcsv_imports / sales_transactions / ai_analysesの3テーブルを設計し、月次データを蓄積する構成に",
+      "Claude APIのoutput_config(JSON Schema)で構造化出力を強制し、パース失敗しない分析コメント生成を実現",
+      "AI分析結果をアプリ側でも型検証する二重防御を実装し、Vitestのスナップショットテストで回帰を検知",
+      "GitHub Actions(TypeCheck→Lint→Test→Build)とVercelのGit連携による自動デプロイ(CI/CD)を構築",
+    ],
+    effort: "要件定義〜DB設計〜API実装〜AI連携〜CI/CD構築〜本番デプロイまで一貫対応",
+    result: [
+      "CSVアップロードからAI分析コメント生成までを実データでE2E検証(ローカル・本番URL双方)",
+      "月次レポート作成時間を3時間→数分規模に短縮する設計を実現",
+      "APIキー等のシークレットをコードに一切含めない設計とし、Vercel環境変数のみで運用",
+      "GitHub Actions CIとVercel本番デプロイまで公開済み",
+    ],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Claude API",
+      "Recharts",
+      "Vercel",
+      "GitHub Actions",
+    ],
+    github: "https://github.com/nobunori47/case8-sales-dashboard",
+    demo: "https://case8-sales-dashboard.vercel.app",
+    images: [
+      "/works/case8/01-dashboard-home.png",
+      "/works/case8/02-csv-upload.png",
+      "/works/case8/03-ai-analysis.png",
+    ],
   },
   {
     slug: "case-9-ai-sales-agent",

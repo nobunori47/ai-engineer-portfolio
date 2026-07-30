@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cases } from "@/lib/cases";
@@ -50,6 +51,25 @@ export default async function CasePage({
               </span>
             ))}
           </div>
+
+          {c.images && c.images.length > 0 && (
+            <div className="mt-12 grid gap-4 sm:grid-cols-3">
+              {c.images.map((src) => (
+                <div
+                  key={src}
+                  className="overflow-hidden rounded-lg border border-[var(--color-border)]"
+                >
+                  <Image
+                    src={src}
+                    alt={c.title}
+                    width={600}
+                    height={323}
+                    className="h-auto w-full"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           {c.screenshots && c.screenshots.length > 0 && (
             <div className="mt-14 space-y-6">
