@@ -1,0 +1,42 @@
+<svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif">
+  <rect x="0" y="0" width="900" height="360" rx="16" fill="#161C21" stroke="#232B31" stroke-width="1"/>
+
+  <!-- Step 1: 質問 -->
+  <rect x="30" y="140" width="170" height="90" rx="10" fill="#0F1417" stroke="#232B31" stroke-width="1.5"/>
+  <text x="115" y="178" text-anchor="middle" fill="#E8EAED" font-size="15" font-weight="600">社員が質問</text>
+  <text x="115" y="200" text-anchor="middle" fill="#8B95A1" font-size="12">「有休の繰越条件は？」</text>
+
+  <!-- Arrow -->
+  <line x1="200" y1="185" x2="248" y2="185" stroke="#8B95A1" stroke-width="1.5"/>
+  <polygon points="248,185 238,180 238,190" fill="#8B95A1"/>
+
+  <!-- Step 2: ベクトル検索 -->
+  <rect x="250" y="140" width="190" height="90" rx="10" fill="#0F1417" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="345" y="172" text-anchor="middle" fill="#5EEAD4" font-size="15" font-weight="700">意味検索</text>
+  <text x="345" y="194" text-anchor="middle" fill="#8B95A1" font-size="12">pgvector + Embeddings</text>
+  <text x="345" y="212" text-anchor="middle" fill="#8B95A1" font-size="11">キーワード一致に頼らない</text>
+
+  <!-- Arrow -->
+  <line x1="440" y1="185" x2="488" y2="185" stroke="#8B95A1" stroke-width="1.5"/>
+  <polygon points="488,185 478,180 478,190" fill="#8B95A1"/>
+
+  <!-- Step 3: 関連文書抽出 -->
+  <rect x="490" y="140" width="190" height="90" rx="10" fill="#0F1417" stroke="#232B31" stroke-width="1.5"/>
+  <text x="585" y="172" text-anchor="middle" fill="#E8EAED" font-size="15" font-weight="600">関連文書を抽出</text>
+  <text x="585" y="194" text-anchor="middle" fill="#8B95A1" font-size="12">社内規程・マニュアル</text>
+  <text x="585" y="212" text-anchor="middle" fill="#8B95A1" font-size="11">章単位チャンク検索</text>
+
+  <!-- Arrow -->
+  <line x1="680" y1="185" x2="728" y2="185" stroke="#8B95A1" stroke-width="1.5"/>
+  <polygon points="728,185 718,180 718,190" fill="#8B95A1"/>
+
+  <!-- Step 4: 回答生成 -->
+  <rect x="730" y="140" width="150" height="90" rx="10" fill="#0F1417" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="805" y="172" text-anchor="middle" fill="#5EEAD4" font-size="15" font-weight="700">回答生成</text>
+  <text x="805" y="194" text-anchor="middle" fill="#8B95A1" font-size="12">Claude API</text>
+  <text x="805" y="212" text-anchor="middle" fill="#8B95A1" font-size="11">出典付きで回答</text>
+
+  <!-- Bottom summary -->
+  <line x1="115" y1="230" x2="115" y2="270" stroke="#232B31" stroke-width="1"/>
+  <text x="450" y="300" text-anchor="middle" fill="#8B95A1" font-size="13">検索精度92% — 探す手間・担当者への確認を削減し、社内ナレッジ活用を促進</text>
+</svg>

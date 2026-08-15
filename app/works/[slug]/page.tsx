@@ -153,23 +153,8 @@ export default async function CasePage({
             {c.differentiation && (
               <Section title="差別化" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.differentiation}</p>} />
             )}
-            {c.futureScope && c.futureScope.length > 0 && (
-              <Section
-                title="今後の拡張"
-                content={
-                  <ul className="space-y-3">
-                    {c.futureScope.map((item) => (
-                      <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
-                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                }
-              />
-            )}
             {c.proposal && (
-              <Section title="提案" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.proposal}</p>} />
+              <Section title="解決" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.proposal}</p>} />
             )}
             {c.implementation && c.implementation.length > 0 && (
               <Section
@@ -191,12 +176,27 @@ export default async function CasePage({
             )}
             {c.result && c.result.length > 0 && (
               <Section
-                title="成果"
+                title="効果"
                 content={
                   <ul className="space-y-3">
                     {c.result.map((item) => (
                       <li key={item} className="flex gap-3 leading-relaxed">
                         <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                }
+              />
+            )}
+            {c.futureScope && c.futureScope.length > 0 && (
+              <Section
+                title="今後の拡張提案"
+                content={
+                  <ul className="space-y-3">
+                    {c.futureScope.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
+                        <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
                         {item}
                       </li>
                     ))}
