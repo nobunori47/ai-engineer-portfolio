@@ -106,6 +106,20 @@ export const cases: CaseStudy[] = [
     title: "AIブログ記事 自動生成パイプライン",
     oneLiner: "Google Sheets起点でWordPressまで自動投稿。",
     tags: ["GAS", "Claude API", "WordPress"],
+    screenshots: [
+      {
+        src: "/works/case2/screenshot-sheet.png",
+        alt: "Google Sheetsによるキーワード・ステータス管理画面",
+      },
+      {
+        src: "/works/case2/screenshot-article.png",
+        alt: "Claude APIによる記事本文の自動生成結果",
+      },
+      {
+        src: "/works/case2/screenshot-log.png",
+        alt: "GAS実行ログ（記事生成の処理状況を確認）",
+      },
+    ],
     target:
       "オウンドメディアを運営する担当者様・Webマーケター様・個人ブロガー様",
     challenge:
