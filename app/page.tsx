@@ -79,6 +79,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Process */}
+      <section className="py-24 px-6 border-b border-[var(--color-border)]">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
+          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
+            Process
+          </p>
+          <div className="max-w-2xl">
+            <p className="leading-relaxed text-[var(--color-text-sub)] mb-10">
+              ご相談から納品後の運用サポートまで、一貫して対応します。初めてご発注いただく方にも安心して進めていただけるよう、各ステップを明確にしています。
+            </p>
+            <ol className="space-y-8">
+              {[
+                {
+                  step: "1",
+                  title: "ヒアリング",
+                  desc: "現在の課題や実現したいことを、業務の背景から丁寧にお伺いします。",
+                },
+                {
+                  step: "2",
+                  title: "要件定義・お見積もり",
+                  desc: "ヒアリング内容をもとに実装範囲・スケジュール・費用感をご提示します。",
+                },
+                {
+                  step: "3",
+                  title: "開発・テスト",
+                  desc: "MVP思考で素早く形にし、動作確認・テストを重ねながら仕上げます。",
+                },
+                {
+                  step: "4",
+                  title: "納品・運用サポート",
+                  desc: "納品後も、改善提案や機能追加、運用面のサポートまで継続してご対応します。",
+                },
+              ].map((item) => (
+                <li key={item.step} className="flex gap-5">
+                  <span className="shrink-0 w-9 h-9 rounded-full bg-[var(--color-accent)] text-white flex items-center justify-center font-[family-name:var(--font-mono)] text-sm">
+                    {item.step}
+                  </span>
+                  <div>
+                    <p className="font-medium">{item.title}</p>
+                    <p className="mt-1 text-sm text-[var(--color-text-sub)] leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
       {/* Strength */}
       <section className="py-24 px-6 border-b border-[var(--color-border)] bg-[var(--color-bg-card)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
