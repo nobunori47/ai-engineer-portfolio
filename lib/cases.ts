@@ -58,27 +58,44 @@ export const cases: CaseStudy[] = [
     slug: "case-1-line-bot",
     number: "01",
     title: "美容サロン向け LINE Bot",
-    oneLiner: "AI自動応答によるお問い合わせ対応の自動化。",
+    oneLiner:
+      "美容サロンの問い合わせ対応をAIで効率化し、スタッフが接客に集中できる環境を構築。",
     tags: ["LINE Bot", "Claude API", "Supabase"],
     challenge:
-      "美容サロンにおける日常的な問い合わせ対応の負荷を軽減し、対応品質を安定させたい。",
+      "美容サロンでは、予約・営業時間・料金などの問い合わせが電話やLINEで日常的に発生する。施術中のスタッフが手を止めて対応したり、同じ質問に何度も答えたりする負担が生じやすい。特に営業時間外の問い合わせには翌営業日まで返信できず、予約機会を逃すリスクもある。",
     proposal:
-      "LINE Messaging APIとClaude APIを組み合わせ、よくある質問には自動応答、複雑な相談は人へエスカレーションする設計とした。",
+      "LINE Messaging APIとClaude APIを組み合わせ、よくある質問（営業時間・料金・予約方法など）にはAIが24時間自動応答し、判断が必要な相談は人へエスカレーションする設計とした。会話・顧客データはSupabaseで管理している。",
     implementation: [
       "Next.js + TypeScriptでバックエンドを構築",
       "Supabaseで会話・ユーザーデータを管理",
       "LINE Messaging APIと連携したメッセージ送受信",
-      "統合テストスイート(50/50 PASS)を整備",
+      "統合テストスイート(50/50 PASS)を整備し応答品質を担保",
       "未認証のデバッグ用エンドポイントを削除するセキュリティ監査を実施",
     ],
-    effort: "要件整理〜実装〜テスト〜デプロイまで一貫して対応",
+    effort: "要件整理 → 設計 → 実装 → テスト → デプロイまで一貫対応",
     result: [
-      "統合テスト50/50 PASSで品質を担保",
-      "モバイルUIのレスポンシブ対応を実施",
-      "Vercelへ本番デプロイ",
+      "営業時間外でも問い合わせ対応が可能となり、予約検討中のお客様への対応機会を逃しにくい環境を実現",
+      "よくある質問対応をAIが肩代わりすることで、スタッフの接客業務への集中につながり、業務負担軽減が見込める",
+      "本番環境へのデプロイまで完了し、実運用を想定したAI問い合わせ対応基盤を構築",
     ],
     stack: ["Next.js", "TypeScript", "Supabase", "Claude API", "LINE Messaging API"],
     github: "https://github.com/nobunori47/line-bot-mvp",
+    demo: "https://line-bot-mvp.vercel.app",
+    screenshots: [
+      {
+        src: "https://github.com/user-attachments/assets/40a37596-f24d-41a6-80c4-4ad2d8367100",
+        alt: "管理画面 ダッシュボード",
+      },
+      {
+        src: "https://github.com/user-attachments/assets/0f716a6e-4be2-4c4f-88d2-709f9c705afd",
+        alt: "FAQ管理画面",
+      },
+      {
+        src: "https://github.com/user-attachments/assets/c2707b3c-bee1-4ef2-a45a-1672c7f48b7f",
+        alt: "会話ログ画面",
+      },
+      { src: "/works/case1/flow.svg", alt: "LINE Bot 自動応答フロー図" },
+    ],
   },
   {
     slug: "case-2-blog-automation",
@@ -112,9 +129,9 @@ export const cases: CaseStudy[] = [
     tags: ["RAG", "Supabase pgvector", "OpenAI Embeddings"],
     metric: "92%",
     challenge:
-      "社内ドキュメントが散在し、必要な情報を探すのに時間がかかっていた（架空クライアント TechBridge を想定）。",
+      "社内資料が複数の場所に散在し、必要な情報を探すのに時間がかかる。マニュアル化されていない知識も多く、都度担当者に確認しないと分からない情報が発生していた（架空クライアント TechBridge を想定）。",
     proposal:
-      "Supabase pgvectorとOpenAI Embeddingsを用いたRAG構成を設計し、Claude APIで自然な回答を生成する検索システムを提案した。",
+      "Supabase pgvectorとOpenAI Embeddingsを用いたRAG検索システムを設計し、キーワード完全一致に頼らず、自然文での質問に対応できる検索精度92%を実現した。",
     implementation: [
       "Next.js + TypeScriptでフロントエンド・APIを構築",
       "Supabase pgvectorでベクトル検索基盤を構築",
@@ -122,14 +139,30 @@ export const cases: CaseStudy[] = [
       "章単位のチャンク分割(chapter-aware chunking)に変更し類似度スコアを改善",
       "マッチング閾値を0.5→0.45に調整し精度を最適化",
       "Supabase Authでマジックリンク+メールドメイン制限を実装",
+      "Vercel上に本番稼働（rag-search-ai.vercel.app）、Qiita記事として技術解説を公開",
     ],
-    effort: "設計〜実装〜精度検証まで一貫対応",
+    effort: "設計 → 実装 → 精度検証まで一貫対応",
     result: [
-      "テスト12問中11問正解、92%の精度を達成",
-      "Vercel上に本番稼働（rag-search-ai.vercel.app）",
-      "Qiita記事として技術解説を公開",
+      "資料を探し回る手間や、担当者への都度確認にかかる工数の削減が期待できる",
+      "従来のキーワード検索では見つけにくかった関連情報も、質問文の意図を理解して検索できるため、社内ナレッジ活用の促進につながる",
+      "テスト12問中11問正解、92%の精度を達成。誤情報を拾うリスクを抑えた実用レベルの検索体験を実現",
+      "平均応答時間2,622ms、テスト全12問で5秒以内に回答を返却し、実務利用に耐える応答速度を確認",
+    ],
+    futureScope: [
+      "Word・Confluenceなど対応ファイル形式の拡張",
+      "部署別アクセス制御（RLS）の実装",
+      "Slack連携によるBot化",
+      "差分更新パイプラインの構築",
+      "質問ログ・分析ができる管理画面の追加",
     ],
     stack: ["Next.js", "TypeScript", "Supabase pgvector", "OpenAI Embeddings", "Claude API"],
+    screenshots: [
+      {
+        src: "/works/case3/02-chat-answer.png",
+        alt: "実際のチャット画面（有給休暇に関する質問への回答例）",
+      },
+      { src: "/works/case3/flow.svg", alt: "社内文書検索AI 検索フロー図" },
+    ],
     github: "https://github.com/nobunori47/rag-search-ai",
     demo: "https://rag-search-ai.vercel.app",
   },
@@ -163,7 +196,7 @@ export const cases: CaseStudy[] = [
   {
     slug: "case-5-switchboard-notification-hub",
     number: "05",
-    title: "AI Multi-Channel Notification Hub (SwitchBoard)",
+    title: "問い合わせ対応自動振り分けAI（SwitchBoard）",
     oneLiner:
       "メール・LINEの問い合わせをAIで自動分類し、Slack・LINEへ最適な経路で通知するマルチチャネル通知システム。",
     tags: [
@@ -178,9 +211,9 @@ export const cases: CaseStudy[] = [
     ],
     metric: "5分以内SLA",
     challenge:
-      "メール・LINEなど複数チャネルから届く問い合わせを手作業で振り分けており、対応漏れや緊急案件の見落としが発生していた（架空クライアント 不動産管理会社 を想定）。",
+      "メール・LINEなど複数チャネルからの問い合わせが窓口に集中し、内容の分類や適切な担当への振り分けに時間がかかる。対応漏れ・対応遅延が発生するリスクがあり、特に問い合わせ量が多い店舗や営業チームでは機会損失につながりやすい（架空クライアント 不動産管理会社 を想定）。",
     proposal:
-      "Webhookで各チャネルを統合し、AIによる自動分類・緊急判定・Slack通知・LINE Push通知を組み合わせることで、取りこぼし防止と迅速な対応を実現する。",
+      "メール・LINEからの問い合わせをAIが自動分類し、内容に応じて最適な経路（Slack・LINE）へリアルタイム通知するマルチチャネル通知Hubを構築。Webhook/Cronによる自動処理で、人手を介さず一次振り分けを完結させ、5分以内の初動対応を想定したSLA設計とした。",
     implementation: [
       "LINE Webhook署名検証（HMAC-SHA256、タイミングセーフ比較）",
       "external_idによる冪等性（重複通知防止）",
@@ -195,11 +228,10 @@ export const cases: CaseStudy[] = [
     ],
     effort: "T-11（リスク管理）→ヒアリング→設計・提案→実装→デプロイ→セキュリティ監査まで一貫対応",
     result: [
-      "署名検証付きWebhook受信器を実装",
-      "AI自動分類と通知フローを構築",
-      "5分以内SLAを満たす緊急通知パスを設計",
-      "重複通知防止・状態管理・リトライを実装",
-      "GitHub公開・Vercelデプロイ完了",
+      "問い合わせの見落とし・対応遅延のリスク軽減につながる",
+      "分類作業の自動化により、初動対応のスピードアップが期待できる（5分以内SLAを想定した設計）",
+      "複数チャネルの問い合わせをSlack上で一元的に把握できる体制になり、運用状況に応じて効果測定が可能",
+      "デモ環境で総受信758件・通知成功率99.6%を実データ相当のフィクスチャで検証済み",
     ],
     stack: [
       "Next.js",
@@ -301,5 +333,30 @@ export const cases: CaseStudy[] = [
       "/works/case8/02-csv-upload.png",
       "/works/case8/03-ai-analysis.png",
     ],
+  },
+  {
+    slug: "case-8-headless-wordpress",
+    number: "08",
+    title: "ヘッドレスWordPress × Next.js 事例管理基盤",
+    oneLiner:
+      "WordPressをヘッドレスCMSとして活用し、カスタム投稿タイプ・タクソノミー設計からNext.js連携まで構築した事例管理基盤。",
+    tags: ["Next.js", "TypeScript", "WordPress REST API", "Docker"],
+    challenge:
+      "案件事例やブログ記事のような構造化されたコンテンツを、コードを触らずに更新できる仕組みが欲しい。かつ、表示側はNext.jsのパフォーマンス・開発体験を維持したい。",
+    proposal:
+      "WordPressをヘッドレスCMSとして採用し、カスタム投稿タイプ「事例（case_study）」とカスタムタクソノミー「技術スタック（tech_stack）」を設計。表示側はNext.js（App Router）で構築し、REST API経由でコンテンツを取得することで、コンテンツ更新の柔軟性とフロントエンドのパフォーマンス・開発体験を両立する構成を提案した。",
+    implementation: [
+      "WordPressプラグインとしてカスタム投稿タイプ・カスタムタクソノミーをREST API公開込みで登録（register_post_type / register_taxonomy / register_post_meta）",
+      "成果指標（result_summary）をカスタムフィールドとして追加し、REST APIレスポンスに技術タグ名の配列を含めるフィルタを実装",
+      "Next.js（App Router）側でISR（60秒キャッシュ）を使い、WordPress REST APIから一覧・詳細ページを取得・表示",
+      "Docker Compose + wp-cliで環境構築を完全自動化し、docker compose up -d だけでWordPress・MySQL・サンプルデータ投入まで完了する構成に",
+    ],
+    effort: "環境設計〜実装〜動作確認まで1日",
+    result: [
+      "コード変更なしにコンテンツ更新が可能な基盤を構築",
+      "Docker Composeによる自動セットアップで、環境構築の再現性を担保",
+    ],
+    stack: ["Next.js", "TypeScript", "WordPress REST API", "Docker"],
+    github: "https://github.com/nobunori47/wp-nextjs-headless-demo",
   },
 ];

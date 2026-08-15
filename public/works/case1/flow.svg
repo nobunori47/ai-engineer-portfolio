@@ -1,0 +1,45 @@
+<svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif">
+  <rect x="0" y="0" width="900" height="420" rx="16" fill="#161C21" stroke="#232B31" stroke-width="1"/>
+
+  <!-- Step 1: 顧客 -->
+  <rect x="40" y="150" width="150" height="80" rx="10" fill="#0F1417" stroke="#232B31" stroke-width="1.5"/>
+  <text x="115" y="185" text-anchor="middle" fill="#E8EAED" font-size="16" font-weight="600">顧客</text>
+  <text x="115" y="208" text-anchor="middle" fill="#8B95A1" font-size="12">予約・料金の質問</text>
+
+  <!-- Arrow 1 -->
+  <line x1="190" y1="190" x2="248" y2="190" stroke="#8B95A1" stroke-width="1.5"/>
+  <polygon points="248,190 238,185 238,195" fill="#8B95A1"/>
+
+  <!-- Step 2: LINE -->
+  <rect x="250" y="150" width="150" height="80" rx="10" fill="#0F1417" stroke="#232B31" stroke-width="1.5"/>
+  <text x="325" y="185" text-anchor="middle" fill="#E8EAED" font-size="16" font-weight="600">LINE</text>
+  <text x="325" y="208" text-anchor="middle" fill="#8B95A1" font-size="12">問い合わせ受付</text>
+
+  <!-- Arrow 2 -->
+  <line x1="400" y1="190" x2="458" y2="190" stroke="#8B95A1" stroke-width="1.5"/>
+  <polygon points="458,190 448,185 448,195" fill="#8B95A1"/>
+
+  <!-- Step 3: AI -->
+  <rect x="460" y="150" width="180" height="80" rx="10" fill="#0F1417" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="550" y="182" text-anchor="middle" fill="#5EEAD4" font-size="16" font-weight="700">AI自動判定</text>
+  <text x="550" y="205" text-anchor="middle" fill="#8B95A1" font-size="12">Claude API</text>
+
+  <!-- Branch arrows -->
+  <line x1="510" y1="230" x2="330" y2="300" stroke="#8B95A1" stroke-width="1.5"/>
+  <polygon points="330,300 342,297 338,308" fill="#8B95A1"/>
+
+  <line x1="590" y1="230" x2="700" y2="300" stroke="#8B95A1" stroke-width="1.5"/>
+  <polygon points="700,300 688,300 693,311" fill="#8B95A1"/>
+
+  <!-- Box A: よくある質問 -->
+  <rect x="120" y="305" width="260" height="90" rx="10" fill="#0F1417" stroke="#5EEAD4" stroke-width="1.5"/>
+  <text x="250" y="335" text-anchor="middle" fill="#5EEAD4" font-size="14" font-weight="600">よくある質問</text>
+  <text x="250" y="358" text-anchor="middle" fill="#E8EAED" font-size="13">AIが24時間自動応答</text>
+  <text x="250" y="378" text-anchor="middle" fill="#8B95A1" font-size="11">対応時間・待ち時間ゼロ</text>
+
+  <!-- Box B: 判断が必要な相談 -->
+  <rect x="560" y="305" width="280" height="90" rx="10" fill="#0F1417" stroke="#232B31" stroke-width="1.5"/>
+  <text x="700" y="335" text-anchor="middle" fill="#E8EAED" font-size="14" font-weight="600">判断が必要な相談</text>
+  <text x="700" y="358" text-anchor="middle" fill="#E8EAED" font-size="13">スタッフへエスカレーション</text>
+  <text x="700" y="378" text-anchor="middle" fill="#8B95A1" font-size="11">複雑な相談のみ人が対応</text>
+</svg>
