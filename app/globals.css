@@ -5,12 +5,12 @@
   --font-body: -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "SF Mono", "Menlo", "Consolas", monospace;
 
-  --color-bg: #0F1417;
-  --color-bg-card: #161C21;
-  --color-text: #E8EAED;
-  --color-text-sub: #8B95A1;
-  --color-accent: #5EEAD4;
-  --color-border: #232B31;
+  --color-bg: #FFFFFF;
+  --color-bg-card: #F8FAFC;
+  --color-text: #0F172A;
+  --color-text-sub: #475569;
+  --color-accent: #2563EB;
+  --color-border: #E2E8F0;
 }
 
 @theme inline {
@@ -39,7 +39,7 @@ body {
 
 ::selection {
   background: var(--color-accent);
-  color: #0F1417;
+  color: #FFFFFF;
 }
 
 :focus-visible {

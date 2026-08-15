@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="flex flex-col">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0F1417]/80 border-b border-[var(--color-border)]">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#FFFFFF]/80 border-b border-[var(--color-border)]">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-[family-name:var(--font-display)] font-bold tracking-tight">
             N. Nakamura
