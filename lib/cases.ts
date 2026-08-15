@@ -228,6 +228,16 @@ export const cases: CaseStudy[] = [
       "Webhook",
       "Cron",
     ],
+    screenshots: [
+      {
+        src: "/works/case5/control-board.png",
+        alt: "問い合わせ管制盤（結線図でリアルタイムの処理経路を可視化）",
+      },
+      {
+        src: "/works/case5/inquiry-log.png",
+        alt: "問い合わせ一覧（AIによるカテゴリ分類・信頼度スコア・状態管理）",
+      },
+    ],
     metric: "5分以内SLA",
     target:
       "複数チャネルからの問い合わせが集中し、振り分けに時間がかかる不動産管理会社様などの営業・サポート部門（架空クライアント 不動産管理会社 を想定）",
