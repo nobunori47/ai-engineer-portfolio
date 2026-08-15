@@ -238,6 +238,21 @@ export default async function CasePage({
               )}
             </div>
           )}
+
+          <div className="mt-16 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-6 py-10 text-center sm:px-10">
+            <p className="leading-relaxed">
+              このようなシステムの構築・自動化をご検討中の方は
+              <br className="hidden sm:block" />
+              お気軽にご相談ください。
+            </p>
+            <Link
+              href="/#contact"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              無料相談してみる
+              <span className="font-[family-name:var(--font-mono)]">→</span>
+            </Link>
+          </div>
         </div>
       </article>
 

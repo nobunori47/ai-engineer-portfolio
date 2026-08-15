@@ -35,6 +35,16 @@ export default function Home() {
             ヒアリングから設計、MVP開発、改善まで一貫して対応し、実務で使えるシステムを短期間で形にします。
           </p>
 
+          <div className="mt-8">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              無料相談・お見積もりはこちら
+              <span className="font-[family-name:var(--font-mono)]">→</span>
+            </a>
+          </div>
+
           {/* Process line — signature element */}
           <div className="mt-16 flex items-center gap-2 sm:gap-4 flex-wrap font-[family-name:var(--font-mono)] text-xs sm:text-sm text-[var(--color-text-sub)]">
             {["ヒアリング", "設計", "MVP開発", "改善"].map((step, i) => (
