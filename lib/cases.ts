@@ -179,6 +179,16 @@ export const cases: CaseStudy[] = [
     title: "カスタマーサポート チャットボット",
     oneLiner: "FAQ自動応答とエスカレーションを備えたフルスタックCSツール。",
     tags: ["Next.js", "Supabase Realtime", "Claude API"],
+    screenshots: [
+      {
+        src: "/works/case4/chat-widget.png",
+        alt: "顧客側チャットウィジェット（FAQ自動応答の様子）",
+      },
+      {
+        src: "/works/case4/operator-dashboard.png",
+        alt: "オペレーター管理画面（会話一覧・返信対応の様子）",
+      },
+    ],
     target:
       "FAQ対応の負荷が高く、複雑な相談への引き継ぎ体制を整えたいECサイト様・SaaS事業者様のカスタマーサポートチーム（架空クライアント BOTANICA を想定）",
     challenge:
