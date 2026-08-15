@@ -10,6 +10,7 @@ export type CaseStudy = {
   oneLiner: string;
   tags: string[];
   metric?: string;
+  target?: string;
   challenge?: string;
   proposal?: string;
   implementation?: string[];
@@ -61,6 +62,8 @@ export const cases: CaseStudy[] = [
     oneLiner:
       "美容サロンの問い合わせ対応をAIで効率化し、スタッフが接客に集中できる環境を構築。",
     tags: ["LINE Bot", "Claude API", "Supabase"],
+    target:
+      "予約・問い合わせ対応に追われる美容サロン・エステサロンなどのオーナー様・スタッフ様",
     challenge:
       "美容サロンでは、予約・営業時間・料金などの問い合わせが電話やLINEで日常的に発生する。施術中のスタッフが手を止めて対応したり、同じ質問に何度も答えたりする負担が生じやすい。特に営業時間外の問い合わせには翌営業日まで返信できず、予約機会を逃すリスクもある。",
     proposal:
@@ -103,6 +106,8 @@ export const cases: CaseStudy[] = [
     title: "AIブログ記事 自動生成パイプライン",
     oneLiner: "Google Sheets起点でWordPressまで自動投稿。",
     tags: ["GAS", "Claude API", "WordPress"],
+    target:
+      "オウンドメディアを運営する担当者様・Webマーケター様・個人ブロガー様",
     challenge:
       "ブログ記事の企画から執筆、投稿までの作業負荷を減らし、継続的な情報発信を仕組み化したい。",
     proposal:
@@ -128,6 +133,8 @@ export const cases: CaseStudy[] = [
     oneLiner: "92%の精度を実現した社内向けRAG検索システム。",
     tags: ["RAG", "Supabase pgvector", "OpenAI Embeddings"],
     metric: "92%",
+    target:
+      "社内マニュアルや規程の検索に時間を取られているバックオフィス担当者様・情報システム担当者様（架空クライアント TechBridge を想定）",
     challenge:
       "社内資料が複数の場所に散在し、必要な情報を探すのに時間がかかる。マニュアル化されていない知識も多く、都度担当者に確認しないと分からない情報が発生していた（架空クライアント TechBridge を想定）。",
     proposal:
@@ -172,6 +179,8 @@ export const cases: CaseStudy[] = [
     title: "カスタマーサポート チャットボット",
     oneLiner: "FAQ自動応答とエスカレーションを備えたフルスタックCSツール。",
     tags: ["Next.js", "Supabase Realtime", "Claude API"],
+    target:
+      "FAQ対応の負荷が高く、複雑な相談への引き継ぎ体制を整えたいECサイト様・SaaS事業者様のカスタマーサポートチーム（架空クライアント BOTANICA を想定）",
     challenge:
       "問い合わせ対応をFAQベースで自動化しつつ、対応できない相談は運用担当者へスムーズに引き継ぎたい（架空クライアント BOTANICA を想定）。",
     proposal:
@@ -210,6 +219,8 @@ export const cases: CaseStudy[] = [
       "Cron",
     ],
     metric: "5分以内SLA",
+    target:
+      "複数チャネルからの問い合わせが集中し、振り分けに時間がかかる不動産管理会社様などの営業・サポート部門（架空クライアント 不動産管理会社 を想定）",
     challenge:
       "メール・LINEなど複数チャネルからの問い合わせが窓口に集中し、内容の分類や適切な担当への振り分けに時間がかかる。対応漏れ・対応遅延が発生するリスクがあり、特に問い合わせ量が多い店舗や営業チームでは機会損失につながりやすい（架空クライアント 不動産管理会社 を想定）。",
     proposal:
@@ -260,6 +271,8 @@ export const cases: CaseStudy[] = [
       "Claude Code",
     ],
     metric: "部署別アクセス制御",
+    target:
+      "部署ごとに機密度の異なる情報を扱う企業の情報システム部門様・Slack運用チーム様",
     challenge:
       "社内のナレッジは部署ごとに存在しており、Slackから自然言語で横断検索できる仕組みがない一方、無秩序に検索可能にすると部署をまたいだ情報漏洩のリスクが生じる（案件7を想定）。",
     proposal:
@@ -298,6 +311,8 @@ export const cases: CaseStudy[] = [
       "CSVアップロードした売上データをAIが分析し、KPI・ランキング・改善アクションを自動生成する業務支援システム。",
     tags: ["Next.js", "Supabase", "Claude API"],
     metric: "レポート作成 83%削減",
+    target:
+      "毎月の売上レポート作成に時間を取られているアパレルEC様等の店舗運営者様・経営層様（架空クライアント アパレルEC「LUMINA」を想定）",
     challenge:
       "月次レポート作成(グラフ作成・数値集計・コメント執筆)に毎回3時間かかり、翌月のアクション提案も感覚頼りになっていた(架空クライアント アパレルEC「LUMINA」を想定)。",
     proposal:
@@ -341,6 +356,8 @@ export const cases: CaseStudy[] = [
     oneLiner:
       "WordPressをヘッドレスCMSとして活用し、カスタム投稿タイプ・タクソノミー設計からNext.js連携まで構築した事例管理基盤。",
     tags: ["Next.js", "TypeScript", "WordPress REST API", "Docker"],
+    target:
+      "案件事例やブログなど構造化コンテンツの更新頻度が高く、表示速度・SEOを重視するWeb担当者様・事業者様",
     challenge:
       "案件事例やブログ記事のような構造化されたコンテンツを、コードを触らずに更新できる仕組みが欲しい。かつ、表示側はNext.jsのパフォーマンス・開発体験を維持したい。",
     proposal:

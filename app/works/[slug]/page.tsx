@@ -89,6 +89,9 @@ export default async function CasePage({
             {c.overview && (
               <Section title="概要" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.overview}</p>} />
             )}
+            {c.target && (
+              <Section title="対象" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.target}</p>} />
+            )}
             {c.challenge && (
               <Section title="課題" content={<p className="leading-relaxed text-[var(--color-text-sub)]">{c.challenge}</p>} />
             )}
