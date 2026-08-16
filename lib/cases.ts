@@ -304,6 +304,16 @@ export const cases: CaseStudy[] = [
       "Slack API",
       "Claude Code",
     ],
+    screenshots: [
+      {
+        src: "/works/case6/slack-thread.png",
+        alt: "Slackでのメンション質問と、出典付きで返答するBotのスレッド画面",
+      },
+      {
+        src: "/works/case6/query-logs.png",
+        alt: "Supabaseのquery_logsテーブル（質問・回答・根拠チャンクを記録した監査ログ）",
+      },
+    ],
     metric: "部署別アクセス制御",
     target:
       "部署ごとに機密度の異なる情報を扱う企業の情報システム部門様・Slack運用チーム様",
