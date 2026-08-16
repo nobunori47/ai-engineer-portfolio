@@ -52,6 +52,26 @@ export default async function CasePage({
             ))}
           </div>
 
+          {c.beforeAfter && (
+            <div className="mt-10 grid sm:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-6 items-stretch rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6">
+              <div>
+                <p className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)] mb-2">
+                  Before
+                </p>
+                <p className="leading-relaxed">{c.beforeAfter.before}</p>
+              </div>
+              <div className="flex items-center justify-center text-[var(--color-accent)] font-[family-name:var(--font-mono)] text-xl">
+                →
+              </div>
+              <div>
+                <p className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)] mb-2">
+                  After
+                </p>
+                <p className="leading-relaxed">{c.beforeAfter.after}</p>
+              </div>
+            </div>
+          )}
+
           {c.images && c.images.length > 0 && (
             <div className="mt-12 grid gap-4 sm:grid-cols-3">
               {c.images.map((src) => (
@@ -233,7 +253,7 @@ export default async function CasePage({
               )}
               {c.demo && (
                 <a href={c.demo} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-accent)] transition-colors">
-                  → Demo
+                  → Demoを見る
                 </a>
               )}
             </div>

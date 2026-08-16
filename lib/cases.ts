@@ -3,6 +3,11 @@ export type Screenshot = {
   alt: string;
 };
 
+export type BeforeAfter = {
+  before: string;
+  after: string;
+};
+
 export type CaseStudy = {
   slug: string;
   number: string;
@@ -10,6 +15,7 @@ export type CaseStudy = {
   oneLiner: string;
   tags: string[];
   metric?: string;
+  beforeAfter?: BeforeAfter;
   target?: string;
   challenge?: string;
   proposal?: string;
@@ -62,6 +68,10 @@ export const cases: CaseStudy[] = [
     oneLiner:
       "美容サロンの問い合わせ対応をAIで効率化し、スタッフが接客に集中できる環境を構築。",
     tags: ["LINE Bot", "Claude API", "Supabase"],
+    beforeAfter: {
+      before: "予約・料金の問い合わせに、施術中のスタッフが都度対応",
+      after: "AIが24時間自動応答、判断が必要な相談のみ人へ引き継ぎ",
+    },
     target:
       "予約・問い合わせ対応に追われる美容サロン・エステサロンなどのオーナー様・スタッフ様",
     challenge:
@@ -120,6 +130,10 @@ export const cases: CaseStudy[] = [
         alt: "GAS実行ログ（記事生成の処理状況を確認）",
       },
     ],
+    beforeAfter: {
+      before: "記事の企画・執筆・投稿をすべて手作業で実施",
+      after: "Sheetsにテーマを入力するだけでAIが執筆しWordPressへ自動投稿",
+    },
     target:
       "オウンドメディアを運営する担当者様・Webマーケター様・個人ブロガー様",
     challenge:
@@ -147,6 +161,10 @@ export const cases: CaseStudy[] = [
     oneLiner: "92%の精度を実現した社内向けRAG検索システム。",
     tags: ["RAG", "Supabase pgvector", "OpenAI Embeddings"],
     metric: "92%",
+    beforeAfter: {
+      before: "社内資料が複数箇所に散在し、必要な情報を探すのに時間がかかる",
+      after: "自然文で質問するだけでAIが該当箇所を検索・回答（精度92%）",
+    },
     target:
       "社内マニュアルや規程の検索に時間を取られているバックオフィス担当者様・情報システム担当者様（架空クライアント TechBridge を想定）",
     challenge:
@@ -203,6 +221,10 @@ export const cases: CaseStudy[] = [
         alt: "オペレーター管理画面（会話一覧・返信対応の様子）",
       },
     ],
+    beforeAfter: {
+      before: "FAQ対応も複雑な相談も、すべて運用担当者が個別に対応",
+      after: "AIがFAQを自動回答、対応できない相談のみ人へエスカレーション",
+    },
     target:
       "FAQ対応の負荷が高く、複雑な相談への引き継ぎ体制を整えたいECサイト様・SaaS事業者様のカスタマーサポートチーム（架空クライアント BOTANICA を想定）",
     challenge:
@@ -253,6 +275,10 @@ export const cases: CaseStudy[] = [
       },
     ],
     metric: "5分以内SLA",
+    beforeAfter: {
+      before: "メール・LINEの問い合わせが窓口に集中し、分類・振り分けに時間がかかる",
+      after: "AIが内容を自動分類し、最適な担当チャンネルへリアルタイム通知",
+    },
     target:
       "複数チャネルからの問い合わせが集中し、振り分けに時間がかかる不動産管理会社様などの営業・サポート部門（架空クライアント 不動産管理会社 を想定）",
     challenge:
@@ -315,6 +341,10 @@ export const cases: CaseStudy[] = [
       },
     ],
     metric: "部署別アクセス制御",
+    beforeAfter: {
+      before: "部署ごとに散在するナレッジをSlackから横断検索できない",
+      after: "Slackでメンションするだけで、自部署の文書のみを検索し出典付きで回答",
+    },
     target:
       "部署ごとに機密度の異なる情報を扱う企業の情報システム部門様・Slack運用チーム様",
     challenge:
@@ -355,6 +385,10 @@ export const cases: CaseStudy[] = [
       "CSVアップロードした売上データをAIが分析し、KPI・ランキング・改善アクションを自動生成する業務支援システム。",
     tags: ["Next.js", "Supabase", "Claude API"],
     metric: "レポート作成 83%削減",
+    beforeAfter: {
+      before: "月次レポート作成（集計・グラフ・コメント執筆）に毎回3時間",
+      after: "CSVをアップロードするだけでKPI集計とAI分析コメントを自動生成",
+    },
     target:
       "毎月の売上レポート作成に時間を取られているアパレルEC様等の店舗運営者様・経営層様（架空クライアント アパレルEC「LUMINA」を想定）",
     challenge:
@@ -400,6 +434,10 @@ export const cases: CaseStudy[] = [
     oneLiner:
       "WordPressをヘッドレスCMSとして活用し、カスタム投稿タイプ・タクソノミー設計からNext.js連携まで構築した事例管理基盤。",
     tags: ["Next.js", "TypeScript", "WordPress REST API", "Docker"],
+    beforeAfter: {
+      before: "案件事例やブログの更新にコード修正が必要",
+      after: "WordPress管理画面から更新するだけでNext.js側に反映（コード変更不要）",
+    },
     target:
       "案件事例やブログなど構造化コンテンツの更新頻度が高く、表示速度・SEOを重視するWeb担当者様・事業者様",
     challenge:
