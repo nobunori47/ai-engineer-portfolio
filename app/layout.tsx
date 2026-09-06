@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Nobunori Nakamura | AI Engineer Portfolio",
   description:
     "AIを活用したWebアプリケーションや業務効率化システムを設計・開発するAIエンジニアのポートフォリオ。",
+  verification: {
+    google: "fIIT9bALHVrhw9zBGAVkGjPtyhpHRiYgGwHc4PiHB3o",
+  },
 };
 
 export default function RootLayout({
