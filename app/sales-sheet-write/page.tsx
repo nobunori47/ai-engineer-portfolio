@@ -60,6 +60,13 @@ export default function SalesSheetWriteOverviewPage() {
               >
                 プライバシーポリシー
               </Link>
+              を、利用条件の詳細は
+              <Link
+                href="/sales-sheet-write/terms"
+                className="text-[var(--color-accent)] underline underline-offset-2"
+              >
+                利用規約
+              </Link>
               をご確認ください。
             </p>
 
@@ -71,14 +78,22 @@ export default function SalesSheetWriteOverviewPage() {
       </article>
 
       <footer className="px-6 py-8 border-t border-[var(--color-border)]">
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between gap-2 text-xs text-[var(--color-text-sub)]">
+        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between gap-4 text-xs text-[var(--color-text-sub)]">
           <span>© {new Date().getFullYear()} Nobunori Nakamura</span>
-          <Link
-            href="/sales-sheet-write/privacy"
-            className="hover:text-[var(--color-accent)] transition-colors font-[family-name:var(--font-mono)]"
-          >
-            Privacy Policy
-          </Link>
+          <div className="flex gap-4 font-[family-name:var(--font-mono)]">
+            <Link
+              href="/sales-sheet-write/privacy"
+              className="hover:text-[var(--color-accent)] transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/sales-sheet-write/terms"
+              className="hover:text-[var(--color-accent)] transition-colors"
+            >
+              Terms of Use
+            </Link>
+          </div>
         </div>
       </footer>
     </main>
