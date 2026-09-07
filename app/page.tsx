@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cases } from "@/lib/cases";
+import ContactForm from "@/app/components/ContactForm";
 
 const workCases = cases.filter((c) => c.slug !== "case-0-portfolio");
 
@@ -91,7 +92,7 @@ export default function Home() {
               href="#contact"
               className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
             >
-              無料相談・お見積もりはこちら
+              AIで業務改善できるか相談する
               <span className="font-[family-name:var(--font-mono)]">→</span>
             </a>
           </div>
@@ -370,12 +371,18 @@ export default function Home() {
           </p>
           <div className="max-w-2xl">
             <p className="leading-relaxed mb-3">
-              「これ、AIで自動化できる？」という段階でも大丈夫です。
+              「これ、AIで減らせる？」という段階からご相談いただけます。
             </p>
-            <p className="leading-relaxed text-[var(--color-text-sub)] mb-8">
-              ご相談・お仕事のご依頼はお気軽にご連絡ください。
+            <p className="leading-relaxed text-[var(--color-text-sub)] mb-10">
+              相談内容が具体的に決まっていなくても、現在困っている作業や業務を簡単にお知らせください。フォームからのご連絡は、内容を確認のうえ通常1〜2営業日以内にご返信します。
             </p>
-            <div className="flex flex-col gap-3 font-[family-name:var(--font-mono)] text-sm">
+
+            <ContactForm />
+
+            <div className="mt-10 pt-8 border-t border-[var(--color-border)] flex flex-col gap-3 font-[family-name:var(--font-mono)] text-sm">
+              <p className="text-xs text-[var(--color-text-sub)] mb-1 font-[family-name:var(--font-body)]">
+                メールやGitHubから直接ご連絡いただくことも可能です。
+              </p>
               <a href="mailto:nobunori47@gmail.com" className="hover:text-[var(--color-accent)] transition-colors w-fit">
                 → Email
               </a>
@@ -391,9 +398,14 @@ export default function Home() {
       <footer className="px-6 py-8 border-t border-[var(--color-border)]">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between gap-2 text-xs text-[var(--color-text-sub)]">
           <span>© {new Date().getFullYear()} Nobunori Nakamura</span>
-          <span className="font-[family-name:var(--font-mono)]">
-            Built with MVP thinking. Improved through real projects.
-          </span>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-[var(--color-accent)] transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="font-[family-name:var(--font-mono)]">
+              Built with MVP thinking. Improved through real projects.
+            </span>
+          </div>
         </div>
       </footer>
     </main>

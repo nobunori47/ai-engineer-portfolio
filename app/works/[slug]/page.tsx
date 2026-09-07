@@ -266,10 +266,10 @@ export default async function CasePage({
               お気軽にご相談ください。
             </p>
             <Link
-              href="/#contact"
+              href={`/?case=${c.slug}#contact`}
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
             >
-              無料相談してみる
+              このような仕組みについて相談する
               <span className="font-[family-name:var(--font-mono)]">→</span>
             </Link>
           </div>
