@@ -66,11 +66,11 @@ export default function Home() {
     <main className="flex flex-col">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#FFFFFF]/80 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
-          <span className="font-[family-name:var(--font-display)] font-bold tracking-tight whitespace-nowrap shrink-0">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
+          <span className="font-[family-name:var(--font-display)] font-bold tracking-tight whitespace-nowrap shrink-0 text-sm sm:text-base">
             N. Nakamura
           </span>
-          <nav className="flex gap-4 sm:gap-6 text-sm text-[var(--color-text-sub)] overflow-x-auto whitespace-nowrap min-w-0">
+          <nav className="flex gap-2 sm:gap-6 text-xs sm:text-sm text-[var(--color-text-sub)] overflow-x-auto whitespace-nowrap min-w-0">
             <a href="#about" className="hover:text-[var(--color-text)] transition-colors">About</a>
             <a href="#works" className="hover:text-[var(--color-text)] transition-colors">Works</a>
             <a href="#services" className="hover:text-[var(--color-text)] transition-colors">Services</a>
