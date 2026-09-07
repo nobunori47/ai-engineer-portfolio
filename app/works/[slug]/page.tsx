@@ -278,7 +278,7 @@ export default async function CasePage({
 
       <footer className="px-6 py-8 border-t border-[var(--color-border)]">
         <div className="max-w-3xl mx-auto text-xs text-[var(--color-text-sub)] font-[family-name:var(--font-mono)]">
-          Built with MVP thinking. Improved through real projects.
+          Built with MVP thinking. Refined through hands-on iteration.
         </div>
       </footer>
     </main>

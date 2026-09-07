@@ -66,11 +66,11 @@ export default function Home() {
     <main className="flex flex-col">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#FFFFFF]/80 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-[family-name:var(--font-display)] font-bold tracking-tight">
+        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+          <span className="font-[family-name:var(--font-display)] font-bold tracking-tight whitespace-nowrap shrink-0">
             N. Nakamura
           </span>
-          <nav className="flex gap-6 text-sm text-[var(--color-text-sub)]">
+          <nav className="flex gap-4 sm:gap-6 text-sm text-[var(--color-text-sub)] overflow-x-auto whitespace-nowrap min-w-0">
             <a href="#about" className="hover:text-[var(--color-text)] transition-colors">About</a>
             <a href="#works" className="hover:text-[var(--color-text)] transition-colors">Works</a>
             <a href="#services" className="hover:text-[var(--color-text)] transition-colors">Services</a>
@@ -109,6 +109,10 @@ export default function Home() {
               実績を見る →
             </a>
           </div>
+
+          <p className="mt-3 text-xs text-[var(--color-text-sub)]">
+            相談内容が固まっていなくてもご相談いただけます。
+          </p>
 
           {/* Trust badges */}
           <div className="mt-10 flex items-center gap-2 flex-wrap font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)]">
@@ -508,7 +512,7 @@ export default function Home() {
               Privacy Policy
             </Link>
             <span className="font-[family-name:var(--font-mono)]">
-              Built with MVP thinking. Improved through real projects.
+              Built with MVP thinking. Refined through hands-on iteration.
             </span>
           </div>
         </div>
