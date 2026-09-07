@@ -4,6 +4,13 @@ import ContactForm from "@/app/components/ContactForm";
 
 const workCases = cases.filter((c) => c.slug !== "case-0-portfolio");
 
+// 代表実績として大きく紹介する3件（実データでの検証・デプロイ実績がある3件を選定）
+const featuredSlugs = ["case-1-line-bot", "case-3-rag-search", "case-7-sales-dashboard"];
+const featuredCases = featuredSlugs
+  .map((slug) => workCases.find((c) => c.slug === slug))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+const otherCases = workCases.filter((c) => !featuredSlugs.includes(c.slug));
+
 const highlights = [
   {
     number: "92%",
@@ -79,15 +86,15 @@ export default function Home() {
             AI Engineer
           </p>
           <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-6xl font-bold leading-[1.15] max-w-3xl">
-            AIで、面倒な業務を
+            面倒な作業を手放して、
             <br />
-            自動化します。
+            時間を取り戻す。
           </h1>
           <p className="mt-8 text-lg text-[var(--color-text-sub)] max-w-xl leading-relaxed">
-            AIチャットボット・社内RAG検索・業務自動化システムなどを、要件のヒアリングから設計・開発・改善まで一貫して対応します。実務で使えるシステムを短期間で形にします。
+            総務・バックオフィス業務の現場感を踏まえ、AIチャットボット・社内RAG検索・業務自動化などを、要件のヒアリングから設計・開発・改善まで一貫して手がけています。AIの導入自体ではなく、そこで生まれた時間を本来やるべき仕事へ使えるようにすることを目指しています。
           </p>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href="#contact"
               className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
@@ -95,12 +102,18 @@ export default function Home() {
               AIで業務改善できるか相談する
               <span className="font-[family-name:var(--font-mono)]">→</span>
             </a>
+            <a
+              href="#works"
+              className="inline-flex items-center gap-2 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              実績を見る →
+            </a>
           </div>
 
           {/* Trust badges */}
           <div className="mt-10 flex items-center gap-2 flex-wrap font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)]">
             {[
-              `開発実績 ${workCases.length}件+`,
+              `個人開発の実績 ${workCases.length}件+`,
               "AI / Webアプリ開発",
               "Next.js / TypeScript / Supabase",
               "要件整理〜実装まで対応",
@@ -129,30 +142,61 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Numbers */}
-      <section className="py-16 px-6 border-b border-[var(--color-border)] bg-[var(--color-bg-card)]">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-8">
-            Numbers
+      {/* About: どのような人物か */}
+      <section id="about" className="py-24 px-6 border-b border-[var(--color-border)]">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
+          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
+            About
           </p>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {highlights.map((h) => (
-              <Link
-                key={h.href}
-                href={h.href}
-                className="group block rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-6 hover:border-[var(--color-accent)] transition-colors"
-              >
-                <p className="font-[family-name:var(--font-display)] text-4xl font-bold text-[var(--color-accent)]">
-                  {h.number}
-                </p>
-                <p className="mt-3 text-sm text-[var(--color-text-sub)] leading-relaxed">
-                  {h.label}
-                </p>
-                <p className="mt-4 text-xs font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] group-hover:text-[var(--color-accent)] transition-colors">
-                  詳しく見る →
-                </p>
-              </Link>
-            ))}
+          <div className="space-y-6 max-w-2xl">
+            <p className="leading-relaxed">
+              総務・バックオフィス業務の現場感を持ちながら、AIを活用した業務効率化やWebシステム開発に取り組んでいます。
+            </p>
+            <p className="leading-relaxed text-[var(--color-text-sub)]">
+              AIやWeb開発の技術だけでなく、実際の業務整理から考えることを大切にしています。専門用語だけで説明を終わらせず、実際に使う人に伝わる形で提案することも意識しています。
+            </p>
+            <p className="leading-relaxed text-[var(--color-text-sub)]">
+              個人開発として、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実務を想定した開発に取り組み、要件整理から設計・実装・検証までを一人で担当してきました。Next.js、TypeScript、Supabase、Claude APIなどを主に活用しています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Strength: 得意なこと・仕事への向き合い方 */}
+      <section className="py-24 px-6 border-b border-[var(--color-border)] bg-[var(--color-bg-card)]">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
+          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
+            Strength
+          </p>
+          <div className="max-w-2xl">
+            <p className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-medium leading-snug">
+              「まず動くものを作り、
+              <br />
+              実際に使いながら改善すること」
+            </p>
+            <p className="mt-6 leading-relaxed text-[var(--color-text-sub)]">
+              面倒な定型作業や、必要な情報を探し回る時間をどう減らせるか。そこから逆算して設計することを心がけています。完璧な作り込みより先に小さく形にし、実際に使いながら改善を重ねることで、スピードと実用性を両立したいと考えています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Values: なぜこの仕事に取り組んでいるのか・大切にしている価値観 */}
+      <section className="py-24 px-6 border-b border-[var(--color-border)]">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
+          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
+            Values
+          </p>
+          <div className="max-w-2xl">
+            <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold">
+              時間を取り戻す。
+            </h2>
+            <p className="mt-6 leading-relaxed text-[var(--color-text-sub)]">
+              目指しているのは、AIを導入すること自体ではありません。面倒な作業や非効率な仕組みに奪われている時間を減らし、その分の時間を人が本来取り組むべき仕事や、挑戦したいことへ使える状態にすることです。
+            </p>
+            <p className="mt-4 leading-relaxed text-[var(--color-text-sub)]">
+              AIと自動化は、人を置き換えるためではなく、人が価値のある仕事に集中するために使うものだと考えています。現場の課題を整理し、必要な範囲から小さく改善する。作って終わりにせず、実際に使いながら改善を重ねる。この考え方を軸に開発に取り組んでいます。
+            </p>
           </div>
         </div>
       </section>
@@ -188,70 +232,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Works */}
-      <section id="works" className="py-24 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-10">
-            Works
-          </p>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {workCases.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/works/${c.slug}`}
-                className="group block p-6 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
-                    {c.number}
-                  </span>
-                  {c.metric && (
-                    <span className="font-[family-name:var(--font-display)] text-lg font-bold text-[var(--color-accent)] text-right leading-tight">
-                      {c.metric}
-                    </span>
-                  )}
-                </div>
-                <h3 className="mt-4 font-[family-name:var(--font-display)] text-xl font-bold group-hover:text-[var(--color-accent)] transition-colors">
-                  {c.title}
-                </h3>
-                <p className="mt-2 text-sm text-[var(--color-text-sub)] leading-relaxed">
-                  {c.oneLiner}
-                </p>
-
-                {c.beforeAfter && (
-                  <div className="mt-4 flex flex-col gap-1.5 text-xs leading-relaxed border-l-2 border-[var(--color-border)] pl-3">
-                    <p className="text-[var(--color-text-sub)]">
-                      <span className="font-[family-name:var(--font-mono)] text-[var(--color-text-sub)]">Before　</span>
-                      {c.beforeAfter.before}
-                    </p>
-                    <p>
-                      <span className="font-[family-name:var(--font-mono)] text-[var(--color-accent)]">After　</span>
-                      {c.beforeAfter.after}
-                    </p>
-                  </div>
-                )}
-
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {c.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {c.demo && (
-                    <span className="text-xs px-2 py-1 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)] font-[family-name:var(--font-mono)]">
-                      Demoあり
-                    </span>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Services */}
       <section id="services" className="py-24 px-6 border-b border-[var(--color-border)] bg-[var(--color-bg-card)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
@@ -274,42 +254,167 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="py-24 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
-            About
+      {/* Numbers */}
+      <section className="py-16 px-6 border-b border-[var(--color-border)]">
+        <div className="max-w-5xl mx-auto">
+          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-8">
+            Numbers
           </p>
-          <div className="space-y-6 max-w-2xl">
-            <p className="leading-relaxed">
-              私は、AIを活用した業務効率化やWebシステム開発に取り組むAIエンジニアです。
-            </p>
-            <p className="leading-relaxed text-[var(--color-text-sub)]">
-              Next.js、TypeScript、Supabase、Claude APIなどを活用し、実務を想定したAIアプリケーションの設計・開発を行っています。
-            </p>
-            <p className="leading-relaxed text-[var(--color-text-sub)]">
-            これまで、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実際の業務を想定した開発案件に取り組み、要件整理から実装・納品までのプロセスを経験してきました。
-            </p>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {highlights.map((h) => (
+              <Link
+                key={h.href}
+                href={h.href}
+                className="group block rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 hover:border-[var(--color-accent)] transition-colors"
+              >
+                <p className="font-[family-name:var(--font-display)] text-4xl font-bold text-[var(--color-accent)]">
+                  {h.number}
+                </p>
+                <p className="mt-3 text-sm text-[var(--color-text-sub)] leading-relaxed">
+                  {h.label}
+                </p>
+                <p className="mt-4 text-xs font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] group-hover:text-[var(--color-accent)] transition-colors">
+                  詳しく見る →
+                </p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Strength */}
-      <section className="py-24 px-6 border-b border-[var(--color-border)] bg-[var(--color-bg-card)]">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
-            Strength
+      {/* Works */}
+      <section id="works" className="py-24 px-6 border-b border-[var(--color-border)]">
+        <div className="max-w-5xl mx-auto">
+          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-4">
+            Works
           </p>
-          <div className="max-w-2xl">
-            <p className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-medium leading-snug">
-              「まず動くものを作り、
-              <br />
-              実際に使いながら改善すること」
-            </p>
-            <p className="mt-6 leading-relaxed text-[var(--color-text-sub)]">
-              最小限の機能で素早く価値を届け、その後の改善を前提とした開発を行うことで、スピードと品質を両立したシステム開発を目指しています。
-            </p>
+          <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold mb-4">
+            制作実績
+          </h2>
+          <p className="max-w-2xl text-sm text-[var(--color-text-sub)] leading-relaxed mb-12">
+            学習・検証を目的として、個人で企画から設計・実装まで行った自主制作です。架空のクライアントを想定して進めたケースを含みます。実際の受注・納品実績ではありません。
+          </p>
+
+          {/* 代表実績 3件 */}
+          <p className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)] mb-5">
+            代表実績
+          </p>
+          <div className="grid gap-6">
+            {featuredCases.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/works/${c.slug}`}
+                className="group block p-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
+              >
+                <div className="flex items-start justify-between gap-3 flex-wrap">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
+                      Case {c.number}
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
+                      自主制作
+                    </span>
+                  </div>
+                  {c.metric && (
+                    <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-accent)] text-right leading-tight">
+                      {c.metric}
+                    </span>
+                  )}
+                </div>
+                <h3 className="mt-4 font-[family-name:var(--font-display)] text-2xl font-bold group-hover:text-[var(--color-accent)] transition-colors">
+                  {c.title}
+                </h3>
+                <p className="mt-2 text-[var(--color-text-sub)] leading-relaxed max-w-2xl">
+                  {c.oneLiner}
+                </p>
+
+                {c.beforeAfter && (
+                  <div className="mt-5 grid sm:grid-cols-[1fr_auto_1fr] gap-3 sm:gap-4 items-center text-sm leading-relaxed rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 max-w-2xl">
+                    <p className="text-[var(--color-text-sub)]">
+                      <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)] block mb-1">Before</span>
+                      {c.beforeAfter.before}
+                    </p>
+                    <div className="hidden sm:block text-[var(--color-accent)] font-[family-name:var(--font-mono)]">→</div>
+                    <p>
+                      <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)] block mb-1">After</span>
+                      {c.beforeAfter.after}
+                    </p>
+                  </div>
+                )}
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {c.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-2 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {c.demo && (
+                    <span className="text-xs px-2 py-1 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)] font-[family-name:var(--font-mono)]">
+                      Demoあり
+                    </span>
+                  )}
+                </div>
+
+                <p className="mt-5 text-xs font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] group-hover:text-[var(--color-accent)] transition-colors">
+                  詳しく見る →
+                </p>
+              </Link>
+            ))}
           </div>
+
+          {/* その他の実績（展開表示） */}
+          {otherCases.length > 0 && (
+            <details className="mt-10 group/details">
+              <summary className="cursor-pointer select-none list-none inline-flex items-center gap-2 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] hover:text-[var(--color-accent)] transition-colors">
+                <span className="transition-transform group-open/details:rotate-90">→</span>
+                その他の実績（{otherCases.length}件）を見る
+              </summary>
+              <div className="mt-6 grid sm:grid-cols-2 gap-4">
+                {otherCases.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/works/${c.slug}`}
+                    className="group block p-5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
+                          {c.number}
+                        </span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
+                          自主制作
+                        </span>
+                      </div>
+                      {c.metric && (
+                        <span className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-accent)]">
+                          {c.metric}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="mt-3 font-[family-name:var(--font-display)] font-bold group-hover:text-[var(--color-accent)] transition-colors">
+                      {c.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm text-[var(--color-text-sub)] leading-relaxed">
+                      {c.oneLiner}
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {c.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </details>
+          )}
         </div>
       </section>
 
