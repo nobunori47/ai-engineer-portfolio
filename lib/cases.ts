@@ -8,12 +8,42 @@ export type BeforeAfter = {
   after: string;
 };
 
+// Case（Works）の性質区分。「自主制作」という一括表記は使わず、
+// 一次情報（本リポジトリのCLAUDE.md・Git履歴等）から個別に確認できた事実のみを表示する。
+// - self-developed: 個人で企画・設計・実装したポートフォリオ作品
+// - learning-verification: 講座受講や技術検証を主目的として取り組んだもの
+// - real-client: 一次情報（契約・納品記録等）で実際の受注・納品が確認できるもの
+// - undetermined: 上記いずれとも一次情報で確認できないもの（バッジは表示しない）
+export type ProjectClassification =
+  | "self-developed"
+  | "learning-verification"
+  | "real-client"
+  | "undetermined";
+
+export const classificationLabels: Record<
+  Exclude<ProjectClassification, "undetermined">,
+  string
+> = {
+  "self-developed": "自主開発",
+  "learning-verification": "学習・検証",
+  "real-client": "実案件",
+};
+
+// undetermined の場合は無理にバッジを付けず null を返す
+export function classificationBadgeLabel(
+  classification: ProjectClassification
+): string | null {
+  if (classification === "undetermined") return null;
+  return classificationLabels[classification];
+}
+
 export type CaseStudy = {
   slug: string;
   number: string;
   title: string;
   oneLiner: string;
   tags: string[];
+  classification: ProjectClassification;
   metric?: string;
   beforeAfter?: BeforeAfter;
   target?: string;
@@ -45,6 +75,7 @@ export const cases: CaseStudy[] = [
     title: "ポートフォリオサイト",
     oneLiner: "このサイト自体もMVP思考で構築した成果物です。",
     tags: ["Next.js", "TypeScript", "Vercel"],
+    classification: "self-developed",
     challenge:
       "案件獲得のために、実績と強みを一目で伝えられる場所が必要だった。",
     proposal:
@@ -68,6 +99,7 @@ export const cases: CaseStudy[] = [
     oneLiner:
       "美容サロンの問い合わせ対応をAIで効率化し、スタッフが接客に集中できる環境を構築。",
     tags: ["LINE Bot", "Claude API", "Supabase"],
+    classification: "learning-verification",
     beforeAfter: {
       before: "予約・料金の問い合わせに、施術中のスタッフが都度対応",
       after: "AIが24時間自動応答、判断が必要な相談のみ人へ引き継ぎ",
@@ -116,6 +148,7 @@ export const cases: CaseStudy[] = [
     title: "AIブログ記事 自動生成パイプライン",
     oneLiner: "Google Sheets起点でWordPressまで自動投稿。",
     tags: ["GAS", "Claude API", "WordPress"],
+    classification: "learning-verification",
     screenshots: [
       {
         src: "/works/case2/screenshot-sheet.png",
@@ -160,6 +193,7 @@ export const cases: CaseStudy[] = [
     title: "社内文書検索AI (RAG)",
     oneLiner: "92%の精度を実現した社内向けRAG検索システム。",
     tags: ["RAG", "Supabase pgvector", "OpenAI Embeddings"],
+    classification: "learning-verification",
     metric: "92%",
     beforeAfter: {
       before: "社内資料が複数箇所に散在し、必要な情報を探すのに時間がかかる",
@@ -211,6 +245,7 @@ export const cases: CaseStudy[] = [
     title: "カスタマーサポート チャットボット",
     oneLiner: "FAQ自動応答とエスカレーションを備えたフルスタックCSツール。",
     tags: ["Next.js", "Supabase Realtime", "Claude API"],
+    classification: "learning-verification",
     screenshots: [
       {
         src: "/works/case4/chat-widget.png",
@@ -264,6 +299,7 @@ export const cases: CaseStudy[] = [
       "Webhook",
       "Cron",
     ],
+    classification: "self-developed",
     screenshots: [
       {
         src: "/works/case5/control-board.png",
@@ -330,6 +366,7 @@ export const cases: CaseStudy[] = [
       "Slack API",
       "Claude Code",
     ],
+    classification: "self-developed",
     screenshots: [
       {
         src: "/works/case6/slack-thread.png",
@@ -384,6 +421,7 @@ export const cases: CaseStudy[] = [
     oneLiner:
       "CSVアップロードした売上データをAIが分析し、KPI・ランキング・改善アクションを自動生成する業務支援システム。",
     tags: ["Next.js", "Supabase", "Claude API"],
+    classification: "self-developed",
     metric: "レポート作成 83%削減",
     beforeAfter: {
       before: "月次レポート作成（集計・グラフ・コメント執筆）に毎回3時間",
@@ -434,6 +472,7 @@ export const cases: CaseStudy[] = [
     oneLiner:
       "WordPressをヘッドレスCMSとして活用し、カスタム投稿タイプ・タクソノミー設計からNext.js連携まで構築した事例管理基盤。",
     tags: ["Next.js", "TypeScript", "WordPress REST API", "Docker"],
+    classification: "self-developed",
     beforeAfter: {
       before: "案件事例やブログの更新にコード修正が必要",
       after: "WordPress管理画面から更新するだけでNext.js側に反映（コード変更不要）",

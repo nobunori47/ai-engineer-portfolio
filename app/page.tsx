@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cases } from "@/lib/cases";
+import { cases, classificationBadgeLabel } from "@/lib/cases";
 import ContactForm from "@/app/components/ContactForm";
 
 const workCases = cases.filter((c) => c.slug !== "case-0-portfolio");
@@ -296,7 +296,7 @@ export default function Home() {
             制作実績
           </h2>
           <p className="max-w-2xl text-sm text-[var(--color-text-sub)] leading-relaxed mb-12">
-            学習・検証を目的として、個人で企画から設計・実装まで行った自主制作です。架空のクライアントを想定して進めたケースを含みます。実際の受注・納品実績ではありません。
+            各事例には「自主開発」（個人で企画・設計・実装したもの）または「学習・検証」（講座受講や技術検証を主目的としたもの）の区分をバッジで表示しています。架空のクライアントを想定して進めたケースを含み、実際の受注・納品実績ではありません。
           </p>
 
           {/* 代表実績 3件 */}
@@ -315,9 +315,11 @@ export default function Home() {
                     <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
                       Case {c.number}
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
-                      自主制作
-                    </span>
+                    {classificationBadgeLabel(c.classification) && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
+                        {classificationBadgeLabel(c.classification)}
+                      </span>
+                    )}
                   </div>
                   {c.metric && (
                     <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-accent)] text-right leading-tight">
@@ -388,9 +390,11 @@ export default function Home() {
                         <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
                           {c.number}
                         </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
-                          自主制作
-                        </span>
+                        {classificationBadgeLabel(c.classification) && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
+                            {classificationBadgeLabel(c.classification)}
+                          </span>
+                        )}
                       </div>
                       {c.metric && (
                         <span className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-accent)]">

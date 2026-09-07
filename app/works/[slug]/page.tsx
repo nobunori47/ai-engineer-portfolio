@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cases } from "@/lib/cases";
+import { cases, classificationBadgeLabel } from "@/lib/cases";
 
 export function generateStaticParams() {
   return cases.map((c) => ({ slug: c.slug }));
@@ -31,9 +31,16 @@ export default async function CasePage({
 
       <article className="flex-1 px-6 py-20">
         <div className="max-w-3xl mx-auto">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-4">
-            Case {c.number}
-          </p>
+          <div className="flex items-center gap-3 flex-wrap mb-4">
+            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)]">
+              Case {c.number}
+            </p>
+            {classificationBadgeLabel(c.classification) && (
+              <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
+                {classificationBadgeLabel(c.classification)}
+              </span>
+            )}
+          </div>
           <h1 className="font-[family-name:var(--font-display)] text-3xl sm:text-5xl font-bold leading-tight">
             {c.title}
           </h1>

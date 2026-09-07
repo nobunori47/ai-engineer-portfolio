@@ -93,5 +93,13 @@ Hero文言は「面倒な作業を手放して、時間を取り戻す。」（2
 - 効果（result）は「〜が期待できる」「〜につながる」など、断定を避けた表現を基本とする
 - 新しいCaseを追加する際は、何らかの定量的な指標（時間・件数・％等）を必ず含める
 
+## Works各事例の分類再定義（2026-09-08）
+2026-09-07に追加した「制作実績の自主制作表示」セクションの「case-1〜8はすべて自主制作」という一括判定はオーナーの同意を得ていなかったため撤回し、`lib/cases.ts`の`CaseStudy.classification`フィールド（`self-developed` / `learning-verification` / `real-client` / `undetermined`）で個別に区分し直した。判定は本ファイルの記述とGit履歴（特に一次情報として、初回コミット`51fa8a7`時点のAboutセクション本文「AI講座では、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実際の業務を想定した開発案件に取り組み」、およびcase-4の当時のresult「講座プラットフォームに解説記事を公開」。これらはコミット`159bc72`「Remove course references」で文言上は削除されたが、事実として一次情報に残る）を根拠にした。
+- `self-developed`（自主開発）: case-0, case-5, case-6, case-7, case-8 — Git履歴上、講座受講を示す記述が見つからず、個人で企画・設計・実装したことを示す記述（要件定義〜デプロイまでの一貫対応、WBS見積り、セキュリティ監査等）がある
+- `learning-verification`（学習・検証）: case-1, case-2, case-3, case-4 — 初回コミット時点のAboutセクション本文で「AI講座」の教材として明示的に言及されていた一次情報がある
+- `real-client`（実案件）: 該当なし — 契約・納品記録等の一次情報で実際の受注が確認できるCaseは現時点で存在しない
+- `undetermined`（判断不能）: 該当なし
+「自主制作」という一括バッジ表記は廃止し、`app/page.tsx`・`app/works/[slug]/page.tsx`は`classification`に応じたバッジ（自主開発／学習・検証）を個別表示する。`real-client`と`undetermined`のバッジ文言・表示可否は`lib/cases.ts`の`classificationBadgeLabel`に定義済み（`undetermined`はバッジを表示しない）。新しいCaseを追加する際は、`classification`フィールドを一次情報に基づいて必ず設定すること。
+
 ## GitHub・デモリンクの扱い
 `github?` / `demo?` はoptional。値がある場合のみ詳細ページ下部にリンクを表示する（例: case-6・case-8はgithubのみでdemoなし）。
