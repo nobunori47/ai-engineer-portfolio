@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { cases, classificationBadgeLabel } from "@/lib/cases";
 import ContactForm from "@/app/components/ContactForm";
-import HeroArt from "@/app/components/illustrations/HeroArt";
+import HeroAICore from "@/app/components/illustrations/HeroAICore";
 import ConceptDiagram from "@/app/components/illustrations/ConceptDiagram";
 import WorkspaceScene from "@/app/components/illustrations/WorkspaceScene";
 import SpotIcon, { type SpotIconName } from "@/app/components/illustrations/SpotIcon";
@@ -165,12 +165,12 @@ export default function Home() {
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,400px)] lg:gap-12 lg:items-center">
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,480px)] lg:gap-12 lg:items-center">
           <div className="order-1">
             <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-5">
               AI Engineer ／ 業務改善・自動化
             </p>
-            <h1 className="font-[family-name:var(--font-display)] text-[1.7rem] sm:text-4xl lg:text-[2.7rem] xl:text-5xl font-bold leading-[1.2] sm:leading-[1.15]">
+            <h1 className="font-[family-name:var(--font-display)] text-[1.7rem] sm:text-4xl lg:text-[2.7rem] font-bold leading-[1.2] sm:leading-[1.15]">
               面倒な作業を手放して、
               <br />
               時間を取り戻す。
@@ -200,9 +200,9 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Hero イラスト（装飾）。モバイルでは導線の下、PCでは右カラム */}
-          <div className="order-2 mt-10 lg:mt-0">
-            <HeroArt className="w-full max-w-md mx-auto lg:max-w-none text-[var(--color-text-sub)]" />
+          {/* Hero メインビジュアル（装飾）。モバイルでは導線の下、PCでは右カラム */}
+          <div className="order-2 mt-12 lg:mt-0 lg:-my-6 pointer-events-none select-none">
+            <HeroAICore className="w-full max-w-lg mx-auto lg:max-w-none" />
           </div>
 
           <div className="order-3 lg:col-span-2">

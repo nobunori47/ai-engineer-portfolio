@@ -55,3 +55,52 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ===== Hero AI コアビジュアルの軽微なアニメーション ===== */
+/* すべて装飾。上の prefers-reduced-motion: reduce ブロックで無効化される */
+@keyframes hac-flow-move {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -172; }
+}
+@keyframes hac-breathe-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.94; }
+  50% { transform: scale(1.035); opacity: 1; }
+}
+@keyframes hac-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes hac-drift-move {
+  0%, 100% { transform: translate(0, 0); opacity: inherit; }
+  50% { transform: translate(6px, -10px); }
+}
+
+.hac-flow {
+  animation: hac-flow-move 3.8s linear infinite;
+}
+.hac-flow-d1 { animation-delay: -1s; }
+.hac-flow-d2 { animation-delay: -2s; }
+.hac-flow-d3 { animation-delay: -2.8s; }
+
+.hac-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hac-breathe-pulse 6.5s ease-in-out infinite;
+}
+
+.hac-orbit {
+  transform-box: view-box;
+  transform-origin: 286px 212px;
+  animation: hac-orbit-spin 16s linear infinite;
+}
+.hac-orbit-rev {
+  animation-duration: 22s;
+  animation-direction: reverse;
+}
+
+.hac-drift {
+  animation: hac-drift-move 14s ease-in-out infinite;
+}
+.hac-drift-d1 { animation-delay: -3s; animation-duration: 17s; }
+.hac-drift-d2 { animation-delay: -6s; animation-duration: 12s; }
+.hac-drift-d3 { animation-delay: -9s; animation-duration: 19s; }
