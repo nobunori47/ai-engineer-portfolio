@@ -71,7 +71,7 @@ body {
   to { transform: rotate(360deg); }
 }
 @keyframes hac-drift-move {
-  0%, 100% { transform: translate(0, 0); opacity: inherit; }
+  0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(6px, -10px); }
 }
 

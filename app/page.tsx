@@ -165,12 +165,12 @@ export default function Home() {
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,480px)] lg:gap-12 lg:items-center">
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,460px)] lg:gap-12 lg:items-center">
           <div className="order-1">
             <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-5">
               AI Engineer ／ 業務改善・自動化
             </p>
-            <h1 className="font-[family-name:var(--font-display)] text-[1.7rem] sm:text-4xl lg:text-[2.7rem] font-bold leading-[1.2] sm:leading-[1.15]">
+            <h1 className="font-[family-name:var(--font-display)] text-[1.7rem] sm:text-4xl lg:text-[2.4rem] xl:text-[2.7rem] font-bold leading-[1.2] sm:leading-[1.15]">
               面倒な作業を手放して、
               <br />
               時間を取り戻す。
@@ -272,7 +272,7 @@ export default function Home() {
                 個人開発として LINE Bot・AIブログ自動生成・RAG検索・CSチャットボットなどに取り組み、Next.js／TypeScript／Supabase／Claude API を主に活用しています。
               </p>
             </div>
-            <WorkspaceScene className="w-full max-w-xs mx-auto lg:max-w-none text-[var(--color-text-sub)]" />
+            <WorkspaceScene className="w-full max-w-xs mx-auto lg:max-w-none" />
           </div>
         </div>
       </section>
