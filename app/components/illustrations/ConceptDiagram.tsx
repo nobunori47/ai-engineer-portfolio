@@ -9,7 +9,7 @@ export default function ConceptDiagram({ className }: { className?: string }) {
   return (
     <figure className={className}>
       <svg
-        viewBox="0 0 480 200"
+        viewBox="0 30 480 118"
         className="w-full h-auto"
         fill="none"
         stroke="currentColor"

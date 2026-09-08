@@ -4,6 +4,7 @@ import { cases, classificationBadgeLabel } from "@/lib/cases";
 import ContactForm from "@/app/components/ContactForm";
 import HeroArt from "@/app/components/illustrations/HeroArt";
 import ConceptDiagram from "@/app/components/illustrations/ConceptDiagram";
+import WorkspaceScene from "@/app/components/illustrations/WorkspaceScene";
 import SpotIcon, { type SpotIconName } from "@/app/components/illustrations/SpotIcon";
 
 const workCases = cases.filter((c) => c.slug !== "case-0-portfolio");
@@ -70,25 +71,44 @@ const services: { name: string; desc: string; icon: SpotIconName }[] = [
   },
 ];
 
-// 代表実績カードのサムネイル。安全な実スクリーンショットが無いものは統一トーンのアイコンで表す
+// About: 事実として確認できる範囲での人物像（現場感／伝わる説明／一貫対応）
+const aboutPoints: { icon: SpotIconName; title: string; body: string }[] = [
+  {
+    icon: "person",
+    title: "現場の感覚を持っている",
+    body: "総務・バックオフィス業務の経験を踏まえ、実際に使う人の目線で考えます。",
+  },
+  {
+    icon: "hearing",
+    title: "伝わる言葉で話す",
+    body: "専門用語だけで終わらせず、業務の言葉で提案・説明することを大切にしています。",
+  },
+  {
+    icon: "build",
+    title: "要件整理から検証まで一人で",
+    body: "ヒアリング・設計・実装・検証まで一貫して担当。小さく作って使いながら改善します。",
+  },
+];
+
+// 代表実績カードのサムネイル。個人情報・識別子・ブラウザchromeが写っていない実画面のみを使用する
 type FeaturedThumb =
   | { type: "image"; src: string; alt: string }
   | { type: "icon"; name: SpotIconName; label: string };
 
 const featuredThumb: Record<string, FeaturedThumb> = {
   "case-1-line-bot": {
-    type: "icon",
-    name: "bot",
-    label: "LINE上でAIが予約・料金の質問へ自動応答する仕組みのイメージ",
+    type: "image",
+    src: "/works/case1/admin-dashboard.png",
+    alt: "美容サロン向けLINE Botの管理画面。FAQ件数・問い合わせ数・エスカレーション件数のダッシュボード（サンプルデータ）",
   },
   "case-3-rag-search": {
-    type: "icon",
-    name: "search",
-    label: "社内文書をAIが意味検索して出典付きで回答する仕組みのイメージ",
+    type: "image",
+    src: "/works/case3/chat-preview.png",
+    alt: "社内文書検索AIのチャット画面。有給休暇に関する質問へ出典付きでAIが回答している例",
   },
   "case-7-sales-dashboard": {
     type: "image",
-    src: "/works/case8/01-dashboard-home.png",
+    src: "/works/case8/dashboard-preview.png",
     alt: "AI売上分析ダッシュボードのCSVアップロード画面（架空クライアントLUMINAを想定）",
   },
 };
@@ -144,25 +164,25 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section className="pt-40 pb-20 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,380px)] lg:gap-10 lg:items-center">
+      <section className="pt-32 pb-20 px-6 border-b border-[var(--color-border)]">
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,400px)] lg:gap-12 lg:items-center">
           <div className="order-1">
-            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-6">
-              AI Engineer
+            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-5">
+              AI Engineer ／ 業務改善・自動化
             </p>
             <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-bold leading-[1.15]">
               面倒な作業を手放して、
               <br />
               時間を取り戻す。
             </h1>
-            <p className="mt-8 text-lg text-[var(--color-text-sub)] max-w-xl leading-relaxed">
-              総務・バックオフィス業務の現場感を踏まえ、AIチャットボット・社内RAG検索・業務自動化などを、要件のヒアリングから設計・開発・改善まで一貫して手がけています。AIの導入自体ではなく、そこで生まれた時間を本来やるべき仕事へ使えるようにすることを目指しています。
+            <p className="mt-7 text-lg text-[var(--color-text-sub)] max-w-xl leading-relaxed">
+              「これ、AIで減らせない？」という段階から一緒に考えます。総務・バックオフィス業務の現場感を持って、要件整理から設計・実装・改善まで一人で対応します。
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-7 py-3.5 text-sm font-medium hover:opacity-90 transition-opacity"
               >
                 AIで業務改善できるか相談する
                 <span className="font-[family-name:var(--font-mono)]">→</span>
@@ -181,8 +201,8 @@ export default function Home() {
           </div>
 
           {/* Hero イラスト（装飾）。モバイルでは導線の下、PCでは右カラム */}
-          <div className="order-2 mt-12 lg:mt-0">
-            <HeroArt className="w-full max-w-sm mx-auto lg:max-w-none text-[var(--color-text-sub)]" />
+          <div className="order-2 mt-10 lg:mt-0">
+            <HeroArt className="w-full max-w-md mx-auto lg:max-w-none text-[var(--color-text-sub)]" />
           </div>
 
           <div className="order-3 lg:col-span-2">
@@ -222,49 +242,38 @@ export default function Home() {
       {/* About: どのような人物か */}
       <section id="about" className="py-24 px-6 border-b border-[var(--color-border)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
-          <div className="flex sm:flex-col items-center sm:items-start gap-4">
-            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] shrink-0">
-              About
-            </p>
-            <span
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-sub)]"
-              aria-hidden="true"
-            >
-              <SpotIcon name="person" size={30} />
-            </span>
+          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
+            About
+          </p>
+          <div className="grid gap-10 lg:grid-cols-[1fr_300px] lg:gap-12 lg:items-center">
+            <div>
+              <p className="font-[family-name:var(--font-display)] text-lg sm:text-xl font-medium leading-relaxed">
+                総務・バックオフィスの現場感を持ち、要件整理から実装・改善まで一人で対応するAIエンジニアです。
+              </p>
+              <ul className="mt-8 space-y-6">
+                {aboutPoints.map((point) => (
+                  <li key={point.title} className="flex gap-4">
+                    <span
+                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-accent)]"
+                      aria-hidden="true"
+                    >
+                      <SpotIcon name={point.icon} size={20} />
+                    </span>
+                    <span>
+                      <span className="font-medium">{point.title}</span>
+                      <span className="mt-1 block text-sm text-[var(--color-text-sub)] leading-relaxed">
+                        {point.body}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-8 text-xs text-[var(--color-text-sub)] leading-relaxed">
+                個人開発として LINE Bot・AIブログ自動生成・RAG検索・CSチャットボットなどに取り組み、Next.js／TypeScript／Supabase／Claude API を主に活用しています。
+              </p>
+            </div>
+            <WorkspaceScene className="w-full max-w-xs mx-auto lg:max-w-none text-[var(--color-text-sub)]" />
           </div>
-          <ul className="space-y-6 max-w-2xl">
-            <li className="flex gap-4">
-              <SpotIcon
-                name="person"
-                size={22}
-                className="mt-1 shrink-0 text-[var(--color-accent)]"
-              />
-              <p className="leading-relaxed">
-                総務・バックオフィス業務の現場感を持ちながら、AIを活用した業務効率化やWebシステム開発に取り組んでいます。
-              </p>
-            </li>
-            <li className="flex gap-4">
-              <SpotIcon
-                name="hearing"
-                size={22}
-                className="mt-1 shrink-0 text-[var(--color-accent)]"
-              />
-              <p className="leading-relaxed text-[var(--color-text-sub)]">
-                AIやWeb開発の技術だけでなく、実際の業務整理から考えることを大切にしています。専門用語だけで説明を終わらせず、実際に使う人に伝わる形で提案することも意識しています。
-              </p>
-            </li>
-            <li className="flex gap-4">
-              <SpotIcon
-                name="build"
-                size={22}
-                className="mt-1 shrink-0 text-[var(--color-accent)]"
-              />
-              <p className="leading-relaxed text-[var(--color-text-sub)]">
-                個人開発として、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実務を想定した開発に取り組み、要件整理から設計・実装・検証までを一人で担当してきました。Next.js、TypeScript、Supabase、Claude APIなどを主に活用しています。
-              </p>
-            </li>
-          </ul>
         </div>
       </section>
 
@@ -305,15 +314,11 @@ export default function Home() {
             <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold">
               時間を取り戻す。
             </h2>
-
-            <ConceptDiagram className="mt-8 mb-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 sm:p-6" />
-
-            <p className="mt-6 leading-relaxed text-[var(--color-text-sub)]">
-              目指しているのは、AIを導入すること自体ではありません。面倒な作業や非効率な仕組みに奪われている時間を減らし、その分の時間を人が本来取り組むべき仕事や、挑戦したいことへ使える状態にすることです。
-            </p>
             <p className="mt-4 leading-relaxed text-[var(--color-text-sub)]">
-              AIと自動化は、人を置き換えるためではなく、人が価値のある仕事に集中するために使うものだと考えています。現場の課題を整理し、必要な範囲から小さく改善する。作って終わりにせず、実際に使いながら改善を重ねる。この考え方を軸に開発に取り組んでいます。
+              面倒な作業を減らす → 時間が戻る → 人が本来やるべき仕事へ集中できる。AIの導入自体が目的ではなく、この流れをつくるために使います。
             </p>
+
+            <ConceptDiagram className="mt-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 sm:p-6" />
           </div>
         </div>
       </section>
@@ -422,37 +427,32 @@ export default function Home() {
             代表実績
           </p>
           <div className="grid gap-6">
-            {featuredCases.map((c) => (
+            {featuredCases.map((c) => {
+              const thumb = featuredThumb[c.slug];
+              return (
               <Link
                 key={c.slug}
                 href={`/works/${c.slug}`}
-                className="group block p-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
+                className="group block overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
               >
-               <div className="sm:flex sm:gap-8">
-                {(() => {
-                  const thumb = featuredThumb[c.slug];
-                  if (!thumb) return null;
-                  return (
-                    <div className="mb-6 sm:mb-0 sm:order-last sm:w-52 sm:shrink-0">
-                      <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)]">
-                        {thumb.type === "image" ? (
-                          <Image
-                            src={thumb.src}
-                            alt={thumb.alt}
-                            fill
-                            sizes="(max-width: 640px) 100vw, 208px"
-                            className="object-cover object-left-top"
-                          />
-                        ) : (
-                          <span className="flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-accent)]">
-                            <SpotIcon name={thumb.name} size={30} title={thumb.label} />
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })()}
-                <div className="min-w-0 flex-1">
+                {thumb && (
+                  <div className="relative aspect-[16/5] overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-bg)]">
+                    {thumb.type === "image" ? (
+                      <Image
+                        src={thumb.src}
+                        alt={thumb.alt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 900px"
+                        className="object-cover object-top"
+                      />
+                    ) : (
+                      <span className="absolute inset-0 flex items-center justify-center text-[var(--color-accent)]">
+                        <SpotIcon name={thumb.name} size={44} title={thumb.label} />
+                      </span>
+                    )}
+                  </div>
+                )}
+                <div className="p-6 sm:p-8">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
@@ -516,9 +516,9 @@ export default function Home() {
                   詳しく見る →
                 </p>
                 </div>
-               </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
 
           {/* その他の実績（展開表示） */}

@@ -8,76 +8,72 @@
 export default function HeroArt({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 480 380"
+      viewBox="0 0 460 340"
       className={className}
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.5}
+      strokeWidth={1.6}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
       {/* 背景パネル */}
       <rect
-        x="10"
-        y="40"
-        width="460"
-        height="300"
-        rx="22"
+        x="6"
+        y="10"
+        width="448"
+        height="320"
+        rx="20"
         fill="var(--color-bg-card)"
         stroke="var(--color-border)"
       />
       {/* 机のライン */}
-      <path d="M44 300h392" stroke="var(--color-border)" />
+      <path d="M38 262h384" stroke="var(--color-border)" />
 
       {/* 匿名の人物（顔は描かない） */}
-      <circle cx="112" cy="150" r="22" fill="var(--color-bg)" stroke="var(--color-text-sub)" />
+      <circle cx="116" cy="118" r="23" fill="var(--color-bg)" stroke="var(--color-text-sub)" />
       <path
-        d="M74 300C74 236 84 184 112 184s38 52 38 116"
+        d="M70 262c2-42 20-74 46-74s44 32 46 74"
         fill="var(--color-bg-card)"
         stroke="var(--color-text-sub)"
       />
       {/* アシスタントへ差し出す腕 */}
-      <path d="M140 214c22 3 42 0 58-10" stroke="var(--color-text-sub)" />
+      <path d="M150 190c24 4 44 0 60 -11" stroke="var(--color-text-sub)" />
 
       {/* 反復作業：少し重なる書類＋くり返しの弧 */}
       <g stroke="var(--color-text-sub)" fill="var(--color-bg)">
-        <rect x="182" y="196" width="44" height="32" rx="4" transform="rotate(-6 204 212)" />
-        <rect x="192" y="192" width="44" height="32" rx="4" />
+        <rect x="184" y="172" width="48" height="34" rx="4" transform="rotate(-6 208 189)" />
+        <rect x="196" y="166" width="48" height="34" rx="4" />
       </g>
-      <path
-        d="M196 186a18 14 0 0 1 33 2"
-        stroke="var(--color-accent)"
-        opacity="0.5"
-      />
-      <path d="M229 190l1-8-7 2" stroke="var(--color-accent)" opacity="0.5" />
+      <path d="M200 158a19 15 0 0 1 36 3" stroke="var(--color-accent)" opacity="0.5" />
+      <path d="M236 162l1-9-8 3" stroke="var(--color-accent)" opacity="0.5" />
 
       {/* 手渡しの矢印 */}
-      <path d="M262 204h40m0 0-8-6m8 6-8 6" stroke="var(--color-text-sub)" />
+      <path d="M270 184h42m0 0-9-7m9 7-9 7" stroke="var(--color-text-sub)" />
 
       {/* アシスタント（AI）タイル */}
       <rect
-        x="330"
-        y="158"
-        width="94"
-        height="94"
-        rx="18"
+        x="322"
+        y="134"
+        width="100"
+        height="100"
+        rx="20"
         fill="var(--color-bg-card)"
         stroke="var(--color-accent)"
       />
       <path
-        d="M377 178c3 15 8 20 23 23-15 3-20 8-23 23-3-15-8-20-23-23 15-3 20-8 23-23Z"
+        d="M372 154c3 16 9 22 25 25-16 3-22 9-25 25-3-16-9-22-25-25 16-3 22-9 25-25Z"
         fill="var(--color-accent)"
         fillOpacity="0.16"
         stroke="var(--color-accent)"
       />
 
       {/* 戻ってくる時間：時計＋立ちのぼる点 */}
-      <circle cx="396" cy="96" r="18" stroke="var(--color-accent)" />
-      <path d="M396 84v12l8 5" stroke="var(--color-accent)" />
-      <circle cx="360" cy="146" r="3" fill="var(--color-accent)" stroke="none" />
-      <circle cx="374" cy="128" r="2.6" fill="var(--color-accent)" fillOpacity="0.6" stroke="none" />
-      <circle cx="366" cy="112" r="2.2" fill="var(--color-accent)" fillOpacity="0.35" stroke="none" />
+      <circle cx="374" cy="72" r="19" stroke="var(--color-accent)" />
+      <path d="M374 59v13l8 5" stroke="var(--color-accent)" />
+      <circle cx="338" cy="116" r="3.2" fill="var(--color-accent)" stroke="none" />
+      <circle cx="351" cy="99" r="2.7" fill="var(--color-accent)" fillOpacity="0.6" stroke="none" />
+      <circle cx="343" cy="84" r="2.2" fill="var(--color-accent)" fillOpacity="0.35" stroke="none" />
     </svg>
   );
 }

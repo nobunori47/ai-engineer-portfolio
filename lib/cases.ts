@@ -147,16 +147,16 @@ export const cases: CaseStudy[] = [
     demo: "https://line-bot-mvp.vercel.app",
     screenshots: [
       {
-        src: "https://github.com/user-attachments/assets/40a37596-f24d-41a6-80c4-4ad2d8367100",
-        alt: "管理画面 ダッシュボード",
+        src: "/works/case1/admin-dashboard.png",
+        alt: "管理画面ダッシュボード。FAQ件数・本日の問い合わせ・エスカレーション件数を表示（サンプルデータ）",
+        width: 2940,
+        height: 640,
       },
       {
-        src: "https://github.com/user-attachments/assets/0f716a6e-4be2-4c4f-88d2-709f9c705afd",
-        alt: "FAQ管理画面",
-      },
-      {
-        src: "https://github.com/user-attachments/assets/c2707b3c-bee1-4ef2-a45a-1672c7f48b7f",
-        alt: "会話ログ画面",
+        src: "/works/case1/faq-manage.png",
+        alt: "FAQ管理画面。営業時間・アクセス・料金などの質問をカテゴリ別に登録・編集できる（サンプルデータ）",
+        width: 2940,
+        height: 1180,
       },
     ],
     flow: {
