@@ -89,7 +89,7 @@ const featuredThumb: Record<string, FeaturedThumb> = {
   "case-7-sales-dashboard": {
     type: "image",
     src: "/works/case8/01-dashboard-home.png",
-    alt: "AI売上分析ダッシュボードの画面。架空クライアントLUMINAのKPIカードを表示（架空データ）",
+    alt: "AI売上分析ダッシュボードのCSVアップロード画面（架空クライアントLUMINAを想定）",
   },
 };
 
