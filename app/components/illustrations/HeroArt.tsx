@@ -30,15 +30,15 @@ export default function HeroArt({ className }: { className?: string }) {
       {/* 机のライン */}
       <path d="M38 262h384" stroke="var(--color-border)" />
 
-      {/* 匿名の人物（顔は描かない） */}
-      <circle cx="116" cy="118" r="23" fill="var(--color-bg)" stroke="var(--color-text-sub)" />
+      {/* 匿名の人物（顔は描かない・机に向かって座っている） */}
+      <circle cx="112" cy="150" r="22" fill="var(--color-bg)" stroke="var(--color-text-sub)" />
       <path
-        d="M70 262c2-42 20-74 46-74s44 32 46 74"
+        d="M58 262c0-44 24-72 54-72s54 28 54 72"
         fill="var(--color-bg-card)"
         stroke="var(--color-text-sub)"
       />
       {/* アシスタントへ差し出す腕 */}
-      <path d="M150 190c24 4 44 0 60 -11" stroke="var(--color-text-sub)" />
+      <path d="M152 210c24 3 44 -1 60 -14" stroke="var(--color-text-sub)" />
 
       {/* 反復作業：少し重なる書類＋くり返しの弧 */}
       <g stroke="var(--color-text-sub)" fill="var(--color-bg)">
