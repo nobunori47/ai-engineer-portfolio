@@ -150,7 +150,7 @@ export const cases: CaseStudy[] = [
         src: "/works/case1/admin-dashboard.png",
         alt: "管理画面ダッシュボード。FAQ件数・本日の問い合わせ・エスカレーション件数を表示（サンプルデータ）",
         width: 2940,
-        height: 640,
+        height: 1100,
       },
       {
         src: "/works/case1/faq-manage.png",

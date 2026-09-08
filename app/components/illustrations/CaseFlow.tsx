@@ -34,18 +34,18 @@ export default function CaseFlow({
 }) {
   return (
     <figure className={className}>
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 sm:p-6">
+      <div className="overflow-x-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 sm:p-6">
         <ol className="flex flex-wrap items-stretch gap-2 sm:gap-3">
           {steps.map((step, i) => {
             const isLast = i === steps.length - 1;
             return (
               <li key={step.label} className="flex items-center gap-2 sm:gap-3">
                 {isLast && branches ? (
-                  <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
                     <StepBox step={step} />
                     <span
                       aria-hidden="true"
-                      className="font-[family-name:var(--font-mono)] text-[var(--color-accent)]"
+                      className="font-[family-name:var(--font-mono)] text-[var(--color-accent)] rotate-90 sm:rotate-0"
                     >
                       →
                     </span>

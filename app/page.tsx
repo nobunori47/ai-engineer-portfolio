@@ -170,7 +170,7 @@ export default function Home() {
             <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-5">
               AI Engineer ／ 業務改善・自動化
             </p>
-            <h1 className="font-[family-name:var(--font-display)] text-[1.7rem] sm:text-4xl lg:text-5xl font-bold leading-[1.2] sm:leading-[1.15]">
+            <h1 className="font-[family-name:var(--font-display)] text-[1.7rem] sm:text-4xl lg:text-[2.7rem] xl:text-5xl font-bold leading-[1.2] sm:leading-[1.15]">
               面倒な作業を手放して、
               <br />
               時間を取り戻す。
