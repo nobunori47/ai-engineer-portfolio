@@ -1,6 +1,20 @@
 export type Screenshot = {
   src: string;
   alt: string;
+  // ローカル画像は実寸を持たせ next/image で最適化・レイアウトシフト防止する。
+  // 外部ホスト画像（width/height 未設定）は素の img で遅延読み込みする。
+  width?: number;
+  height?: number;
+};
+
+export type FlowStep = { label: string; sub?: string };
+
+// 事例の処理フロー。旧 flow.svg（ダークテーマ＋画像内テキスト）の置き換え。
+// 文言は HTML 側で描画し、画像には文字を持たせない。
+export type CaseFlowSpec = {
+  steps: FlowStep[];
+  branches?: FlowStep[];
+  caption?: string;
 };
 
 export type BeforeAfter = {
@@ -70,6 +84,7 @@ export type CaseStudy = {
   differentiation?: string;
   futureScope?: string[];
   screenshots?: Screenshot[];
+  flow?: CaseFlowSpec;
 };
 
 export const cases: CaseStudy[] = [
@@ -143,8 +158,20 @@ export const cases: CaseStudy[] = [
         src: "https://github.com/user-attachments/assets/c2707b3c-bee1-4ef2-a45a-1672c7f48b7f",
         alt: "会話ログ画面",
       },
-      { src: "/works/case1/flow.svg", alt: "LINE Bot 自動応答フロー図" },
     ],
+    flow: {
+      steps: [
+        { label: "顧客", sub: "予約・料金の質問" },
+        { label: "LINE", sub: "問い合わせ受付" },
+        { label: "AI自動判定", sub: "Claude API" },
+      ],
+      branches: [
+        { label: "よくある質問", sub: "AIが24時間自動応答" },
+        { label: "判断が必要な相談", sub: "スタッフへエスカレーション" },
+      ],
+      caption:
+        "よくある質問はAIが即時に自動応答し、判断が必要な相談だけを人が対応する切り分けにしています。",
+    },
   },
   {
     slug: "case-2-blog-automation",
@@ -157,14 +184,20 @@ export const cases: CaseStudy[] = [
       {
         src: "/works/case2/screenshot-sheet.png",
         alt: "Google Sheetsによるキーワード・ステータス管理画面",
+        width: 1800,
+        height: 830,
       },
       {
         src: "/works/case2/screenshot-article.png",
         alt: "Claude APIによる記事本文の自動生成結果",
+        width: 1800,
+        height: 831,
       },
       {
         src: "/works/case2/screenshot-log.png",
         alt: "GAS実行ログ（記事生成の処理状況を確認）",
+        width: 1800,
+        height: 829,
       },
     ],
     beforeAfter: {
@@ -236,10 +269,21 @@ export const cases: CaseStudy[] = [
     screenshots: [
       {
         src: "/works/case3/02-chat-answer.png",
-        alt: "実際のチャット画面（有給休暇に関する質問への回答例）",
+        alt: "実際のチャット画面。有給休暇に関する質問へ、出典付きでAIが回答している例",
+        width: 2940,
+        height: 1384,
       },
-      { src: "/works/case3/flow.svg", alt: "社内文書検索AI 検索フロー図" },
     ],
+    flow: {
+      steps: [
+        { label: "社員が質問", sub: "「有休の繰越条件は？」" },
+        { label: "意味検索", sub: "pgvector + Embeddings" },
+        { label: "関連文書を抽出", sub: "社内規程・マニュアル" },
+        { label: "回答生成", sub: "Claude API・出典付き" },
+      ],
+      caption:
+        "キーワード一致に頼らない意味検索で関連する社内文書を絞り込み、出典を添えて回答します。",
+    },
     github: "https://github.com/nobunori47/rag-search-ai",
     demo: "https://rag-search-ai.vercel.app",
   },
@@ -254,10 +298,14 @@ export const cases: CaseStudy[] = [
       {
         src: "/works/case4/chat-widget.png",
         alt: "顧客側チャットウィジェット（FAQ自動応答の様子）",
+        width: 800,
+        height: 1150,
       },
       {
         src: "/works/case4/operator-dashboard.png",
         alt: "オペレーター管理画面（会話一覧・返信対応の様子）",
+        width: 2940,
+        height: 1500,
       },
     ],
     beforeAfter: {
@@ -308,10 +356,14 @@ export const cases: CaseStudy[] = [
       {
         src: "/works/case5/control-board.png",
         alt: "問い合わせ管制盤（結線図でリアルタイムの処理経路を可視化）",
+        width: 1512,
+        height: 788,
       },
       {
         src: "/works/case5/inquiry-log.png",
         alt: "問い合わせ一覧（AIによるカテゴリ分類・信頼度スコア・状態管理）",
+        width: 1512,
+        height: 788,
       },
     ],
     metric: "5分以内SLA",
@@ -375,10 +427,14 @@ export const cases: CaseStudy[] = [
       {
         src: "/works/case6/slack-thread.png",
         alt: "Slackでのメンション質問と、出典付きで返答するBotのスレッド画面",
+        width: 838,
+        height: 640,
       },
       {
         src: "/works/case6/query-logs.png",
         alt: "Supabaseのquery_logsテーブル（質問・回答・根拠チャンクを記録した監査ログ）",
+        width: 2936,
+        height: 1624,
       },
     ],
     metric: "部署別アクセス制御",

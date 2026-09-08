@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cases, classificationBadgeLabel } from "@/lib/cases";
+import CaseFlow from "@/app/components/illustrations/CaseFlow";
 
 export function generateStaticParams() {
   return cases.map((c) => ({ slug: c.slug }));
@@ -100,15 +101,43 @@ export default async function CasePage({
 
           {c.screenshots && c.screenshots.length > 0 && (
             <div className="mt-14 space-y-6">
-              {c.screenshots.map((shot) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={shot.src}
-                  src={shot.src}
-                  alt={shot.alt}
-                  className="w-full rounded-lg border border-[var(--color-border)]"
-                />
-              ))}
+              {c.screenshots.map((shot) =>
+                shot.width && shot.height ? (
+                  <Image
+                    key={shot.src}
+                    src={shot.src}
+                    alt={shot.alt}
+                    width={shot.width}
+                    height={shot.height}
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    className="h-auto w-full rounded-lg border border-[var(--color-border)]"
+                  />
+                ) : (
+                  // 外部ホスト画像（本人の GitHub 添付）。remotePatterns 未設定のため素の img で遅延読み込み
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={shot.src}
+                    src={shot.src}
+                    alt={shot.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full rounded-lg border border-[var(--color-border)]"
+                  />
+                )
+              )}
+            </div>
+          )}
+
+          {c.flow && (
+            <div className="mt-14">
+              <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-4">
+                処理の流れ
+              </p>
+              <CaseFlow
+                steps={c.flow.steps}
+                branches={c.flow.branches}
+                caption={c.flow.caption}
+              />
             </div>
           )}
 

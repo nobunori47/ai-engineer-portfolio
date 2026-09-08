@@ -1,6 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cases, classificationBadgeLabel } from "@/lib/cases";
 import ContactForm from "@/app/components/ContactForm";
+import HeroArt from "@/app/components/illustrations/HeroArt";
+import ConceptDiagram from "@/app/components/illustrations/ConceptDiagram";
+import SpotIcon, { type SpotIconName } from "@/app/components/illustrations/SpotIcon";
 
 const workCases = cases.filter((c) => c.slug !== "case-0-portfolio");
 
@@ -38,26 +42,86 @@ const painPoints = [
   "まずは小さくAIを試してみたい",
 ];
 
-const services = [
+const services: { name: string; desc: string; icon: SpotIconName }[] = [
   {
     name: "AIチャットボット",
     desc: "FAQ・問い合わせ対応をAIで自動化",
+    icon: "bot",
   },
   {
     name: "社内RAG検索",
     desc: "社内文書・マニュアルをAIで検索・回答",
+    icon: "search",
   },
   {
     name: "業務自動化",
     desc: "Excel・スプレッドシート・メールなどの定型業務を自動化",
+    icon: "automate",
   },
   {
     name: "AIダッシュボード",
     desc: "売上・顧客データをAIが分析しレポート化",
+    icon: "dashboard",
   },
   {
     name: "Webアプリ・MVP開発",
     desc: "新規サービスのプロトタイプ〜MVPを一気通貫で開発",
+    icon: "mvp",
+  },
+];
+
+// 代表実績カードのサムネイル。安全な実スクリーンショットが無いものは統一トーンのアイコンで表す
+type FeaturedThumb =
+  | { type: "image"; src: string; alt: string }
+  | { type: "icon"; name: SpotIconName; label: string };
+
+const featuredThumb: Record<string, FeaturedThumb> = {
+  "case-1-line-bot": {
+    type: "icon",
+    name: "bot",
+    label: "LINE上でAIが予約・料金の質問へ自動応答する仕組みのイメージ",
+  },
+  "case-3-rag-search": {
+    type: "icon",
+    name: "search",
+    label: "社内文書をAIが意味検索して出典付きで回答する仕組みのイメージ",
+  },
+  "case-7-sales-dashboard": {
+    type: "image",
+    src: "/works/case8/01-dashboard-home.png",
+    alt: "AI売上分析ダッシュボードの画面。架空クライアントLUMINAのKPIカードを表示（架空データ）",
+  },
+};
+
+const processSteps: {
+  step: string;
+  title: string;
+  desc: string;
+  icon: SpotIconName;
+}[] = [
+  {
+    step: "1",
+    title: "ヒアリング",
+    desc: "現在の課題や実現したいことを、業務の背景から丁寧にお伺いします。",
+    icon: "hearing",
+  },
+  {
+    step: "2",
+    title: "要件定義・お見積もり",
+    desc: "ヒアリング内容をもとに実装範囲・スケジュール・費用感をご提示します。",
+    icon: "design",
+  },
+  {
+    step: "3",
+    title: "開発・テスト",
+    desc: "MVP思考で素早く形にし、動作確認・テストを重ねながら仕上げます。",
+    icon: "build",
+  },
+  {
+    step: "4",
+    title: "納品・運用サポート",
+    desc: "納品後も、改善提案や機能追加、運用面のサポートまで継続してご対応します。",
+    icon: "improve",
   },
 ];
 
@@ -81,41 +145,49 @@ export default function Home() {
 
       {/* Hero */}
       <section className="pt-40 pb-20 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-6">
-            AI Engineer
-          </p>
-          <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-6xl font-bold leading-[1.15] max-w-3xl">
-            面倒な作業を手放して、
-            <br />
-            時間を取り戻す。
-          </h1>
-          <p className="mt-8 text-lg text-[var(--color-text-sub)] max-w-xl leading-relaxed">
-            総務・バックオフィス業務の現場感を踏まえ、AIチャットボット・社内RAG検索・業務自動化などを、要件のヒアリングから設計・開発・改善まで一貫して手がけています。AIの導入自体ではなく、そこで生まれた時間を本来やるべき仕事へ使えるようにすることを目指しています。
-          </p>
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,380px)] lg:gap-10 lg:items-center">
+          <div className="order-1">
+            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-6">
+              AI Engineer
+            </p>
+            <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl font-bold leading-[1.15]">
+              面倒な作業を手放して、
+              <br />
+              時間を取り戻す。
+            </h1>
+            <p className="mt-8 text-lg text-[var(--color-text-sub)] max-w-xl leading-relaxed">
+              総務・バックオフィス業務の現場感を踏まえ、AIチャットボット・社内RAG検索・業務自動化などを、要件のヒアリングから設計・開発・改善まで一貫して手がけています。AIの導入自体ではなく、そこで生まれた時間を本来やるべき仕事へ使えるようにすることを目指しています。
+            </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              AIで業務改善できるか相談する
-              <span className="font-[family-name:var(--font-mono)]">→</span>
-            </a>
-            <a
-              href="#works"
-              className="inline-flex items-center gap-2 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] hover:text-[var(--color-accent)] transition-colors"
-            >
-              実績を見る →
-            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+              >
+                AIで業務改善できるか相談する
+                <span className="font-[family-name:var(--font-mono)]">→</span>
+              </a>
+              <a
+                href="#works"
+                className="inline-flex items-center gap-2 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] hover:text-[var(--color-accent)] transition-colors"
+              >
+                実績を見る →
+              </a>
+            </div>
+
+            <p className="mt-3 text-xs text-[var(--color-text-sub)]">
+              相談内容が固まっていなくてもご相談いただけます。
+            </p>
           </div>
 
-          <p className="mt-3 text-xs text-[var(--color-text-sub)]">
-            相談内容が固まっていなくてもご相談いただけます。
-          </p>
+          {/* Hero イラスト（装飾）。モバイルでは導線の下、PCでは右カラム */}
+          <div className="order-2 mt-12 lg:mt-0">
+            <HeroArt className="w-full max-w-sm mx-auto lg:max-w-none text-[var(--color-text-sub)]" />
+          </div>
 
+          <div className="order-3 lg:col-span-2">
           {/* Trust badges */}
-          <div className="mt-10 flex items-center gap-2 flex-wrap font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)]">
+          <div className="mt-12 flex items-center gap-2 flex-wrap font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)]">
             {[
               `個人開発の実績 ${workCases.length}件+`,
               "AI / Webアプリ開発",
@@ -143,35 +215,73 @@ export default function Home() {
               </div>
             ))}
           </div>
+          </div>
         </div>
       </section>
 
       {/* About: どのような人物か */}
       <section id="about" className="py-24 px-6 border-b border-[var(--color-border)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
-            About
-          </p>
-          <div className="space-y-6 max-w-2xl">
-            <p className="leading-relaxed">
-              総務・バックオフィス業務の現場感を持ちながら、AIを活用した業務効率化やWebシステム開発に取り組んでいます。
+          <div className="flex sm:flex-col items-center sm:items-start gap-4">
+            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] shrink-0">
+              About
             </p>
-            <p className="leading-relaxed text-[var(--color-text-sub)]">
-              AIやWeb開発の技術だけでなく、実際の業務整理から考えることを大切にしています。専門用語だけで説明を終わらせず、実際に使う人に伝わる形で提案することも意識しています。
-            </p>
-            <p className="leading-relaxed text-[var(--color-text-sub)]">
-              個人開発として、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実務を想定した開発に取り組み、要件整理から設計・実装・検証までを一人で担当してきました。Next.js、TypeScript、Supabase、Claude APIなどを主に活用しています。
-            </p>
+            <span
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-sub)]"
+              aria-hidden="true"
+            >
+              <SpotIcon name="person" size={30} />
+            </span>
           </div>
+          <ul className="space-y-6 max-w-2xl">
+            <li className="flex gap-4">
+              <SpotIcon
+                name="person"
+                size={22}
+                className="mt-1 shrink-0 text-[var(--color-accent)]"
+              />
+              <p className="leading-relaxed">
+                総務・バックオフィス業務の現場感を持ちながら、AIを活用した業務効率化やWebシステム開発に取り組んでいます。
+              </p>
+            </li>
+            <li className="flex gap-4">
+              <SpotIcon
+                name="hearing"
+                size={22}
+                className="mt-1 shrink-0 text-[var(--color-accent)]"
+              />
+              <p className="leading-relaxed text-[var(--color-text-sub)]">
+                AIやWeb開発の技術だけでなく、実際の業務整理から考えることを大切にしています。専門用語だけで説明を終わらせず、実際に使う人に伝わる形で提案することも意識しています。
+              </p>
+            </li>
+            <li className="flex gap-4">
+              <SpotIcon
+                name="build"
+                size={22}
+                className="mt-1 shrink-0 text-[var(--color-accent)]"
+              />
+              <p className="leading-relaxed text-[var(--color-text-sub)]">
+                個人開発として、LINE Bot、AIブログ自動生成、RAG検索システム、CSチャットボットなど、実務を想定した開発に取り組み、要件整理から設計・実装・検証までを一人で担当してきました。Next.js、TypeScript、Supabase、Claude APIなどを主に活用しています。
+              </p>
+            </li>
+          </ul>
         </div>
       </section>
 
       {/* Strength: 得意なこと・仕事への向き合い方 */}
       <section className="py-24 px-6 border-b border-[var(--color-border)] bg-[var(--color-bg-card)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
-            Strength
-          </p>
+          <div className="flex sm:flex-col items-center sm:items-start gap-4">
+            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
+              Strength
+            </p>
+            <SpotIcon
+              name="improve"
+              size={28}
+              className="text-[var(--color-accent)]"
+              aria-hidden="true"
+            />
+          </div>
           <div className="max-w-2xl">
             <p className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-medium leading-snug">
               「まず動くものを作り、
@@ -195,6 +305,9 @@ export default function Home() {
             <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold">
               時間を取り戻す。
             </h2>
+
+            <ConceptDiagram className="mt-8 mb-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 sm:p-6" />
+
             <p className="mt-6 leading-relaxed text-[var(--color-text-sub)]">
               目指しているのは、AIを導入すること自体ではありません。面倒な作業や非効率な仕組みに奪われている時間を減らし、その分の時間を人が本来取り組むべき仕事や、挑戦したいことへ使える状態にすることです。
             </p>
@@ -244,8 +357,13 @@ export default function Home() {
           </p>
           <ul className="max-w-2xl space-y-5">
             {services.map((service) => (
-              <li key={service.name} className="flex gap-3 leading-relaxed">
-                <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
+              <li key={service.name} className="flex gap-4 leading-relaxed">
+                <span
+                  className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-accent)]"
+                  aria-hidden="true"
+                >
+                  <SpotIcon name={service.icon} size={20} />
+                </span>
                 <span>
                   <span className="font-medium">{service.name}</span>
                   <span className="block text-sm text-[var(--color-text-sub)] mt-0.5">
@@ -310,6 +428,31 @@ export default function Home() {
                 href={`/works/${c.slug}`}
                 className="group block p-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
               >
+               <div className="sm:flex sm:gap-8">
+                {(() => {
+                  const thumb = featuredThumb[c.slug];
+                  if (!thumb) return null;
+                  return (
+                    <div className="mb-6 sm:mb-0 sm:order-last sm:w-52 sm:shrink-0">
+                      <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)]">
+                        {thumb.type === "image" ? (
+                          <Image
+                            src={thumb.src}
+                            alt={thumb.alt}
+                            fill
+                            sizes="(max-width: 640px) 100vw, 208px"
+                            className="object-cover object-left-top"
+                          />
+                        ) : (
+                          <span className="flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-accent)]">
+                            <SpotIcon name={thumb.name} size={30} title={thumb.label} />
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })()}
+                <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
@@ -372,6 +515,8 @@ export default function Home() {
                 <p className="mt-5 text-xs font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] group-hover:text-[var(--color-accent)] transition-colors">
                   詳しく見る →
                 </p>
+                </div>
+               </div>
               </Link>
             ))}
           </div>
@@ -442,34 +587,21 @@ export default function Home() {
               ご相談から納品後の運用サポートまで、一貫して対応します。初めてご発注いただく方にも安心して進めていただけるよう、各ステップを明確にしています。
             </p>
             <ol className="space-y-8">
-              {[
-                {
-                  step: "1",
-                  title: "ヒアリング",
-                  desc: "現在の課題や実現したいことを、業務の背景から丁寧にお伺いします。",
-                },
-                {
-                  step: "2",
-                  title: "要件定義・お見積もり",
-                  desc: "ヒアリング内容をもとに実装範囲・スケジュール・費用感をご提示します。",
-                },
-                {
-                  step: "3",
-                  title: "開発・テスト",
-                  desc: "MVP思考で素早く形にし、動作確認・テストを重ねながら仕上げます。",
-                },
-                {
-                  step: "4",
-                  title: "納品・運用サポート",
-                  desc: "納品後も、改善提案や機能追加、運用面のサポートまで継続してご対応します。",
-                },
-              ].map((item) => (
+              {processSteps.map((item) => (
                 <li key={item.step} className="flex gap-5">
-                  <span className="shrink-0 w-9 h-9 rounded-full bg-[var(--color-accent)] text-white flex items-center justify-center font-[family-name:var(--font-mono)] text-sm">
+                  <span className="relative shrink-0 w-9 h-9 rounded-full bg-[var(--color-accent)] text-white flex items-center justify-center font-[family-name:var(--font-mono)] text-sm">
                     {item.step}
                   </span>
                   <div>
-                    <p className="font-medium">{item.title}</p>
+                    <p className="flex items-center gap-2 font-medium">
+                      <SpotIcon
+                        name={item.icon}
+                        size={18}
+                        className="text-[var(--color-accent)]"
+                        aria-hidden="true"
+                      />
+                      {item.title}
+                    </p>
                     <p className="mt-1 text-sm text-[var(--color-text-sub)] leading-relaxed">
                       {item.desc}
                     </p>
