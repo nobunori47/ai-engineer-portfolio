@@ -357,9 +357,14 @@ export default function Home() {
                       {tag}
                     </span>
                   ))}
-                  {c.demo && (
+                  {c.demo && !c.demoDisabled && (
                     <span className="text-xs px-2 py-1 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)] font-[family-name:var(--font-mono)]">
                       Demoあり
+                    </span>
+                  )}
+                  {c.demo && c.demoDisabled && (
+                    <span className="text-xs px-2 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)] font-[family-name:var(--font-mono)]">
+                      デモ環境は現在停止中
                     </span>
                   )}
                 </div>

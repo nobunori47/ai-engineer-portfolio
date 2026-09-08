@@ -55,6 +55,10 @@ export type CaseStudy = {
   stack: string[];
   github?: string;
   demo?: string;
+  // デモ環境（接続先インフラ等）を一時的に停止している場合に true にする。
+  // demo のURL自体は削除せず保持し、表示側でリンクを無効化・注記表示に切り替える。
+  // 再開時はこのフラグを外す（または false にする）だけでリンクを復元できる。
+  demoDisabled?: boolean;
   images?: string[];
   // 顧客価値を軸にしたケーススタディ用の拡張フィールド（既存ケースは未設定のため表示に影響しない）
   overview?: string;
@@ -459,6 +463,9 @@ export const cases: CaseStudy[] = [
     ],
     github: "https://github.com/nobunori47/case8-sales-dashboard",
     demo: "https://case8-sales-dashboard.vercel.app",
+    // 接続先Supabaseプロジェクトを一時停止しているため、デモ環境は現在停止中（2026-09-08時点）。
+    // 再開時は demoDisabled を false にする（または削除する）ことでリンクを復元できる。
+    demoDisabled: true,
     images: [
       "/works/case8/01-dashboard-home.png",
       "/works/case8/02-csv-upload.png",

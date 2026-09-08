@@ -258,10 +258,15 @@ export default async function CasePage({
                   → GitHub
                 </a>
               )}
-              {c.demo && (
+              {c.demo && !c.demoDisabled && (
                 <a href={c.demo} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-accent)] transition-colors">
                   → Demoを見る
                 </a>
+              )}
+              {c.demo && c.demoDisabled && (
+                <span className="text-[var(--color-text-sub)]" aria-disabled="true">
+                  デモ環境は現在停止中
+                </span>
               )}
             </div>
           )}
