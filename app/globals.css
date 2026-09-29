@@ -11,6 +11,20 @@
   --color-text-sub: #475569;
   --color-accent: #2563EB;
   --color-border: #E2E8F0;
+
+  /* 刷新デザイン（①〜③から段階導入）：アイボリー × ネイビー × 極細ゴールド。
+     既存トークンは④以降の既存セクションが使うため残す（移行完了後に整理）。 */
+  --color-ivory: #FAF7F0;
+  --color-ivory-deep: #F3EEE3;
+  --color-navy: #1B2A4A;
+  --color-navy-deep: #0B1630;
+  --color-ink: #1B2233;
+  --color-ink-sub: #4A5468;
+  --color-gold: #B8955A;
+  --color-gold-soft: #DCC9A0;
+  /* 文字に使う金（アイボリー上で 4.5:1 以上）。線・装飾は --color-gold */
+  --color-gold-text: #8A6D3B;
+  --color-line: #E4DDCD;
 }
 
 @theme inline {
@@ -23,6 +37,16 @@
   --color-text-sub: var(--color-text-sub);
   --color-accent: var(--color-accent);
   --color-border: var(--color-border);
+  --color-ivory: var(--color-ivory);
+  --color-ivory-deep: var(--color-ivory-deep);
+  --color-navy: var(--color-navy);
+  --color-navy-deep: var(--color-navy-deep);
+  --color-ink: var(--color-ink);
+  --color-ink-sub: var(--color-ink-sub);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
+  --color-gold-text: var(--color-gold-text);
+  --color-line: var(--color-line);
 }
 
 * {
@@ -31,6 +55,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* 固定ヘッダーの下にアンカー先の見出しが隠れないようにする */
+  scroll-padding-top: 72px;
 }
 
 body {

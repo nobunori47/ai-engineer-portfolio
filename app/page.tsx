@@ -2,7 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { cases, classificationBadgeLabel } from "@/lib/cases";
 import ContactForm from "@/app/components/ContactForm";
-import HeroAICore from "@/app/components/illustrations/HeroAICore";
+import SiteHeader from "@/app/components/SiteHeader";
+import HeroSection from "@/app/components/sections/HeroSection";
+import ProblemSection from "@/app/components/sections/ProblemSection";
+import SolutionSection from "@/app/components/sections/SolutionSection";
 import ConceptDiagram from "@/app/components/illustrations/ConceptDiagram";
 import WorkspaceScene from "@/app/components/illustrations/WorkspaceScene";
 import SpotIcon, { type SpotIconName } from "@/app/components/illustrations/SpotIcon";
@@ -31,43 +34,6 @@ const highlights = [
     number: "5分以内",
     label: "問い合わせ自動振り分けの初動SLA設計",
     href: "/works/case-5-switchboard-notification-hub",
-  },
-];
-
-const painPoints = [
-  "Excelへの二重入力が多い",
-  "毎月同じレポートを手作業で作っている",
-  "問い合わせ対応に時間がかかっている",
-  "社内資料を探すのに時間がかかる",
-  "AIを導入したいが、何から始めればいいか分からない",
-  "まずは小さくAIを試してみたい",
-];
-
-const services: { name: string; desc: string; icon: SpotIconName }[] = [
-  {
-    name: "AIチャットボット",
-    desc: "FAQ・問い合わせ対応をAIで自動化",
-    icon: "bot",
-  },
-  {
-    name: "社内RAG検索",
-    desc: "社内文書・マニュアルをAIで検索・回答",
-    icon: "search",
-  },
-  {
-    name: "業務自動化",
-    desc: "Excel・スプレッドシート・メールなどの定型業務を自動化",
-    icon: "automate",
-  },
-  {
-    name: "AIダッシュボード",
-    desc: "売上・顧客データをAIが分析しレポート化",
-    icon: "dashboard",
-  },
-  {
-    name: "Webアプリ・MVP開発",
-    desc: "新規サービスのプロトタイプ〜MVPを一気通貫で開発",
-    icon: "mvp",
   },
 ];
 
@@ -148,97 +114,13 @@ const processSteps: {
 export default function Home() {
   return (
     <main className="flex flex-col">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#FFFFFF]/80 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
-          <span className="font-[family-name:var(--font-display)] font-bold tracking-tight whitespace-nowrap shrink-0 text-sm sm:text-base">
-            N. Nakamura
-          </span>
-          <nav className="flex gap-2 sm:gap-6 text-xs sm:text-sm text-[var(--color-text-sub)] overflow-x-auto whitespace-nowrap min-w-0">
-            <a href="#about" className="hover:text-[var(--color-text)] transition-colors">About</a>
-            <a href="#works" className="hover:text-[var(--color-text)] transition-colors">Works</a>
-            <a href="#services" className="hover:text-[var(--color-text)] transition-colors">Services</a>
-            <a href="#contact" className="hover:text-[var(--color-text)] transition-colors">Contact</a>
-          </nav>
-        </div>
-      </header>
+      {/* 刷新（Phase 1）：ナビゲーション ＋ ① HERO ② PROBLEM ③ SOLUTION */}
+      <SiteHeader />
+      <HeroSection />
+      <ProblemSection />
+      <SolutionSection />
 
-      {/* Hero */}
-      <section className="pt-32 pb-20 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_minmax(0,460px)] lg:gap-12 lg:items-center">
-          <div className="order-1">
-            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-accent)] mb-5">
-              AI Engineer ／ 業務改善・自動化
-            </p>
-            <h1 className="font-[family-name:var(--font-display)] text-[1.7rem] sm:text-4xl lg:text-[2.4rem] xl:text-[2.7rem] font-bold leading-[1.2] sm:leading-[1.15]">
-              面倒な作業を手放して、
-              <br />
-              時間を取り戻す。
-            </h1>
-            <p className="mt-7 text-lg text-[var(--color-text-sub)] max-w-xl leading-relaxed">
-              「これ、AIで減らせない？」という段階から一緒に考えます。総務・バックオフィス業務の現場感を持って、要件整理から設計・実装・改善まで一人で対応します。
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-7 py-3.5 text-sm font-medium hover:opacity-90 transition-opacity"
-              >
-                AIで業務改善できるか相談する
-                <span className="font-[family-name:var(--font-mono)]">→</span>
-              </a>
-              <a
-                href="#works"
-                className="inline-flex items-center gap-2 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] hover:text-[var(--color-accent)] transition-colors"
-              >
-                実績を見る →
-              </a>
-            </div>
-
-            <p className="mt-3 text-xs text-[var(--color-text-sub)]">
-              相談内容が固まっていなくてもご相談いただけます。
-            </p>
-          </div>
-
-          {/* Hero メインビジュアル（装飾）。モバイルでは導線の下、PCでは右カラム */}
-          <div className="order-2 mt-12 lg:mt-0 lg:-my-6 pointer-events-none select-none">
-            <HeroAICore className="w-full max-w-lg mx-auto lg:max-w-none" />
-          </div>
-
-          <div className="order-3 lg:col-span-2">
-          {/* Trust badges */}
-          <div className="mt-12 flex items-center gap-2 flex-wrap font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)]">
-            {[
-              `個人開発の実績 ${workCases.length}件+`,
-              "AI / Webアプリ開発",
-              "Next.js / TypeScript / Supabase",
-              "要件整理〜実装まで対応",
-              "GitHub公開",
-            ].map((badge) => (
-              <span
-                key={badge}
-                className="px-3 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-bg-card)]"
-              >
-                {badge}
-              </span>
-            ))}
-          </div>
-
-          {/* Process line — signature element */}
-          <div className="mt-6 flex items-center gap-2 sm:gap-4 flex-wrap font-[family-name:var(--font-mono)] text-xs sm:text-sm text-[var(--color-text-sub)]">
-            {["ヒアリング", "設計", "MVP開発", "改善"].map((step, i) => (
-              <div key={step} className="flex items-center gap-2 sm:gap-4">
-                <span className="px-3 py-1.5 border border-[var(--color-border)] rounded-full">
-                  {step}
-                </span>
-                {i < 3 && <span className="text-[var(--color-accent)]">→</span>}
-              </div>
-            ))}
-          </div>
-          </div>
-        </div>
-      </section>
-
+      {/* ここから下は既存セクション（④以降は後続Phaseで刷新） */}
       {/* About: どのような人物か */}
       <section id="about" className="py-24 px-6 border-b border-[var(--color-border)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
@@ -320,64 +202,6 @@ export default function Home() {
 
             <ConceptDiagram className="mt-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 sm:p-6" />
           </div>
-        </div>
-      </section>
-
-      {/* Pain points */}
-      <section className="py-24 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-4">
-            Pain Points
-          </p>
-          <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold">
-            こんなお悩みありませんか？
-          </h2>
-          <ul className="mt-8 grid sm:grid-cols-2 gap-x-8 gap-y-4 max-w-3xl">
-            {painPoints.map((p) => (
-              <li key={p} className="flex gap-3 leading-relaxed text-[var(--color-text-sub)]">
-                <span className="text-[var(--color-accent)] font-[family-name:var(--font-mono)] shrink-0">→</span>
-                {p}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-10 flex items-center gap-4 flex-wrap">
-            <p className="font-medium">
-              その業務、AIで自動化できるかもしれません。
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 text-sm font-[family-name:var(--font-mono)] text-[var(--color-accent)] hover:opacity-80 transition-opacity"
-            >
-              ご相談はこちら →
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Services */}
-      <section id="services" className="py-24 px-6 border-b border-[var(--color-border)] bg-[var(--color-bg-card)]">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
-            Services
-          </p>
-          <ul className="max-w-2xl space-y-5">
-            {services.map((service) => (
-              <li key={service.name} className="flex gap-4 leading-relaxed">
-                <span
-                  className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-accent)]"
-                  aria-hidden="true"
-                >
-                  <SpotIcon name={service.icon} size={20} />
-                </span>
-                <span>
-                  <span className="font-medium">{service.name}</span>
-                  <span className="block text-sm text-[var(--color-text-sub)] mt-0.5">
-                    {service.desc}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
