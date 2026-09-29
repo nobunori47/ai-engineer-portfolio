@@ -25,6 +25,11 @@
   /* 文字に使う金（アイボリー上で 4.5:1 以上）。線・装飾は --color-gold */
   --color-gold-text: #8A6D3B;
   --color-line: #E4DDCD;
+  /* Phase 2A：光源（朝焼け）と④→⑤の帰還用のネイビー、窓の角丸（④の実画面の枠と共通） */
+  --color-dawn: #E8C889;
+  --color-navy-mid: #24365C;
+  --color-navy-grey: #3A4660;
+  --radius-window: 28px;
 }
 
 @theme inline {
@@ -47,6 +52,9 @@
   --color-gold-soft: var(--color-gold-soft);
   --color-gold-text: var(--color-gold-text);
   --color-line: var(--color-line);
+  --color-dawn: var(--color-dawn);
+  --color-navy-mid: var(--color-navy-mid);
+  --color-navy-grey: var(--color-navy-grey);
 }
 
 * {
@@ -82,25 +90,13 @@ body {
   }
 }
 
-/* ===== Hero AI コアビジュアルの軽微なアニメーション ===== */
-/* すべて装飾。上の prefers-reduced-motion: reduce ブロックで無効化される */
+/* ===== ③ 業務の中枢（HeroAICore）の流れの線 ===== */
+/* 装飾。上の prefers-reduced-motion: reduce ブロックで停止する。
+   Phase 2A：球体の呼吸・周回軌道・漂う粒子のアニメーションは SF 感を弱めるため廃止 */
 @keyframes hac-flow-move {
   from { stroke-dashoffset: 0; }
   to { stroke-dashoffset: -172; }
 }
-@keyframes hac-breathe-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.94; }
-  50% { transform: scale(1.035); opacity: 1; }
-}
-@keyframes hac-orbit-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-@keyframes hac-drift-move {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(6px, -10px); }
-}
-
 .hac-flow {
   animation: hac-flow-move 3.8s linear infinite;
 }
@@ -108,25 +104,233 @@ body {
 .hac-flow-d2 { animation-delay: -2s; }
 .hac-flow-d3 { animation-delay: -2.8s; }
 
-.hac-breathe {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hac-breathe-pulse 6.5s ease-in-out infinite;
+/* =====================================================================
+   Phase 2A：World / Architecture レイヤー（CSS のみ・画像 0 枚・JS なし）
+   光源は全体で1つ：右下の奥から昇る朝焼け（--color-dawn）。
+   装飾はすべて擬似要素／背景で描き、pointer-events: none・読み上げ対象外。
+   各セクションは isolation: isolate で独立した重なりを持ち、内部は z-index -1 / 0 の2段のみ。
+   ===================================================================== */
+
+/* ① HERO：アイボリーの奥から漏れる光と、ごく薄い縦の桟 */
+.world-hero {
+  position: relative;
+  isolation: isolate;
+}
+.world-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 38% at 100% 70%, rgb(232 200 137 / 0.20), transparent 70%),
+    linear-gradient(90deg, transparent calc(100% - 46px), rgb(27 42 74 / 0.07) calc(100% - 46px) calc(100% - 45px), transparent calc(100% - 45px)),
+    linear-gradient(90deg, transparent calc(100% - 22px), rgb(184 149 90 / 0.28) calc(100% - 22px) calc(100% - 21px), transparent calc(100% - 21px));
+}
+@media (min-width: 1024px) {
+  .world-hero::before {
+    background:
+      radial-gradient(38% 50% at 86% 88%, rgb(232 200 137 / 0.24), transparent 72%),
+      linear-gradient(90deg, transparent 56%, rgb(27 42 74 / 0.05) 56% calc(56% + 1px), transparent calc(56% + 1px)),
+      linear-gradient(90deg, transparent 97%, rgb(184 149 90 / 0.22) 97% calc(97% + 1px), transparent calc(97% + 1px));
+  }
 }
 
-.hac-orbit {
-  transform-box: view-box;
-  transform-origin: 286px 212px;
-  animation: hac-orbit-spin 16s linear infinite;
+/* ① HERO：縦長のガラス窓（④で Morning 実画面を入れる枠と同じ角丸・同じ金の縁） */
+.glass-window {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius-window);
+  border: 1px solid rgb(184 149 90 / 0.55);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgb(27 42 74 / 0.07) 0%, rgb(250 247 240 / 0.30) 42%, rgb(232 200 137 / 0.34) 80%, rgb(232 200 137 / 0.14) 100%);
+  box-shadow:
+    0 50px 90px -60px rgb(27 42 74 / 0.55),
+    inset 0 1px 0 rgb(255 255 255 / 0.85);
 }
-.hac-orbit-rev {
-  animation-duration: 22s;
-  animation-direction: reverse;
+/* 桟（縦2本）と、ガラスの斜めの映り込み */
+.glass-window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 36%, rgb(27 42 74 / 0.10) 36% calc(36% + 1px), transparent calc(36% + 1px) 64%, rgb(27 42 74 / 0.10) 64% calc(64% + 1px), transparent calc(64% + 1px)),
+    linear-gradient(118deg, rgb(255 255 255 / 0.55) 0 14%, transparent 14.5% 100%);
+}
+/* 地平線（夜明けの金の線） */
+.glass-window::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 74%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--color-gold) 30% 70%, transparent);
+  box-shadow: 0 0 22px 5px rgb(232 200 137 / 0.35);
 }
 
-.hac-drift {
-  animation: hac-drift-move 14s ease-in-out infinite;
+/* ② PROBLEM：現実へ戻る。ほぼ見えないアイボリーの濃淡と、上端の短い金線だけ */
+.world-problem {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-ivory) 0%, #F7F3EA 100%);
 }
-.hac-drift-d1 { animation-delay: -3s; animation-duration: 17s; }
-.hac-drift-d2 { animation-delay: -6s; animation-duration: 12s; }
-.hac-drift-d3 { animation-delay: -9s; animation-duration: 19s; }
+.world-problem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(160px, 40%);
+  height: 1px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* ③ SOLUTION：下へ行くほど桟が見え始め、末尾で朝焼けの光が差す */
+.world-solution {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, #F7F3EA 0%, var(--color-ivory) 30%, #F2EEE6 100%);
+}
+.world-solution::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(16.66% - 1px), rgb(27 42 74 / 0.055) calc(16.66% - 1px) 16.66%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 35%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 35%, #000 100%);
+}
+.world-solution::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(55% 60% at 72% 100%, rgb(232 200 137 / 0.26), transparent 70%);
+}
+.glass-card {
+  background: rgb(255 255 255 / 0.66);
+  border: 1px solid var(--color-gold-soft);
+  box-shadow: 0 36px 70px -48px rgb(27 42 74 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.9);
+}
+
+/* ③→④ THE GATE（案A：静止したガラス扉 ＋ 案B：夜明けの地平線）。動きなしで成立する */
+.gate {
+  position: relative;
+  isolation: isolate;
+  height: 140px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #F2EEE6 0%, #DDD6CA 34%, #34436A 74%, var(--color-navy-deep) 100%);
+}
+@media (min-width: 1024px) {
+  .gate { height: 220px; }
+}
+/* 左右のすりガラスの扉。中央にわずかな隙間を残して「開きかけ」の静止状態 */
+.gate::before,
+.gate::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgb(250 247 240 / 0.28) calc(25% - 1px) 25%),
+    linear-gradient(180deg, rgb(250 247 240 / 0.85) 0%, rgb(250 247 240 / 0.30) 55%, rgb(250 247 240 / 0) 100%);
+}
+.gate::before {
+  left: 0;
+  right: calc(50% + 14px);
+  border-right: 1px solid rgb(184 149 90 / 0.85);
+}
+.gate::after {
+  left: calc(50% + 14px);
+  right: 0;
+  border-left: 1px solid rgb(184 149 90 / 0.85);
+}
+/* 扉の隙間から差し込む朝の光（④まで続く縦の光） */
+.gate-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 28px;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(232 200 137 / 0.15) 0%, rgb(232 200 137 / 0.85) 70%, rgb(232 200 137 / 0.55) 100%);
+  box-shadow: 0 0 60px 18px rgb(232 200 137 / 0.28);
+}
+/* 夜明けの地平線 */
+.gate-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 30%;
+  height: 1px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 4%, rgb(232 200 137 / 0.9) 50%, transparent 96%);
+  box-shadow: 0 0 24px 4px rgb(232 200 137 / 0.35);
+}
+
+/* ④ FLAGSHIP（Phase 2A は骨格のみ：画像なし。深いネイビー＋朝焼け＋建築の気配） */
+.flagship {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-navy-deep);
+  color: var(--color-ivory);
+}
+.flagship::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 55% at 74% 82%, rgb(232 200 137 / 0.30), transparent 70%),
+    radial-gradient(70% 50% at 50% 38%, rgb(36 54 92 / 0.55), transparent 75%),
+    repeating-linear-gradient(90deg, transparent 0 calc(12.5% - 1px), rgb(250 247 240 / 0.045) calc(12.5% - 1px) 12.5%);
+}
+/* 扉から続く縦の光（上端から中段へ弱まる） */
+.flagship::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 28px;
+  height: 58%;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(232 200 137 / 0.55), rgb(232 200 137 / 0));
+  box-shadow: 0 0 80px 24px rgb(232 200 137 / 0.12);
+}
+@media (max-width: 1023px) {
+  .flagship::after { opacity: 0.35; height: 14%; }
+  /* スマホは文字の背後に朝焼けが重なるため、光を弱めて小さい文字のコントラスト（4.5:1 以上）を守る */
+  .flagship::before {
+    background:
+      radial-gradient(60% 40% at 80% 96%, rgb(232 200 137 / 0.16), transparent 70%),
+      radial-gradient(70% 50% at 50% 38%, rgb(36 54 92 / 0.55), transparent 75%),
+      repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgb(250 247 240 / 0.045) calc(25% - 1px) 25%);
+  }
+}
+/* 暗い面でもフォーカスが埋もれないよう金の枠にする */
+.flagship :focus-visible {
+  outline-color: var(--color-gold-soft);
+}
+/* ④→⑤：いきなり白へ戻さず、ネイビー → ネイビーグレー → アイボリーへ帰還する出口 */
+.flagship-exit {
+  height: 160px;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--color-navy-deep) 0%, var(--color-navy-mid) 30%, var(--color-navy-grey) 52%, #CFCBC2 78%, #FFFFFF 100%);
+}
+@media (min-width: 1024px) {
+  .flagship-exit { height: 220px; }
+}

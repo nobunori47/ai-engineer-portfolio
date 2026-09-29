@@ -3,8 +3,8 @@ import HeroAICore from "@/app/components/illustrations/HeroAICore";
 /**
  * ③ SOLUTION：AIに詳しくない人でも「こうやって楽になるのか」と分かる Before / After。
  * - 技術名（Next.js / Supabase / RAG / LLM / API 等）は主役にしない
- * - HeroAICore は「裏でAIが仕事を整理している」ことを示す補助図（装飾・aria-hidden）
- * - 末尾で④（AIバーチャル本社）の気配として、ごく薄いネイビーと金の光を入れ始める
+ * - HeroAICore は「業務の中枢」の補助図（装飾・aria-hidden）。4段の名称は figcaption の HTML で示す
+ * - 下へ行くほど縦の桟と朝焼けの光が増え、直後の Gate（③→④）へつながる（world-solution、CSS のみ）
  * - ここに並べる流れは仕組みの説明であり、実績の数値主張ではない
  */
 type Flow = { before: string[]; after: string[]; human: string };
@@ -70,7 +70,7 @@ export default function SolutionSection() {
     <section
       id="solution"
       aria-labelledby="solution-title"
-      className="relative bg-[var(--color-ivory)] border-t border-[var(--color-line)]"
+      className="world-solution"
     >
       <div className="px-5 sm:px-6 pt-16 sm:pt-24 pb-12 sm:pb-16">
         <div className="max-w-6xl mx-auto">
@@ -94,7 +94,7 @@ export default function SolutionSection() {
           {/* 中心の Before / After */}
           <article
             aria-labelledby="solution-featured-title"
-            className="mt-10 sm:mt-14 rounded-3xl border border-[var(--color-line)] bg-white/75 p-6 sm:p-10"
+            className="glass-card mt-10 sm:mt-14 rounded-3xl p-6 sm:p-10"
           >
             <h3
               id="solution-featured-title"
@@ -111,9 +111,12 @@ export default function SolutionSection() {
                 </div>
               </div>
 
-              <div className="flex justify-center">
-                <HeroAICore className="w-full max-w-[190px] sm:max-w-[240px] lg:max-w-[300px]" />
-              </div>
+              <figure className="flex flex-col items-center">
+                <HeroAICore className="w-full max-w-[200px] sm:max-w-[240px] lg:max-w-[300px]" />
+                <figcaption className="mt-2 text-xs tracking-wide text-[var(--color-ink-sub)]">
+                  受付 → 分類 → 検索 → 返信案
+                </figcaption>
+              </figure>
 
               <div className="rounded-2xl border border-[var(--color-gold-soft)] bg-white p-5 sm:p-6 shadow-[0_20px_40px_-32px_rgba(27,42,74,0.4)]">
                 <Label tone="after">AFTER ／ AIと分担</Label>
@@ -168,12 +171,6 @@ export default function SolutionSection() {
         </div>
       </div>
 
-      {/* ③→④：AIバーチャル本社の気配（ごく薄いネイビーと朝焼けの金の光）。装飾 */}
-      <div aria-hidden="true" className="relative h-28 sm:h-40 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ivory)] to-[#E8EAF0]" />
-        <div className="absolute left-1/2 bottom-0 h-40 w-[90%] max-w-3xl -translate-x-1/2 translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(201,169,97,0.28),transparent)]" />
-        <div className="absolute left-1/2 bottom-6 sm:bottom-8 h-px w-40 sm:w-64 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-gold)] to-transparent" />
-      </div>
     </section>
   );
 }

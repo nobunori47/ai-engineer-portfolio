@@ -6,6 +6,8 @@ import SiteHeader from "@/app/components/SiteHeader";
 import HeroSection from "@/app/components/sections/HeroSection";
 import ProblemSection from "@/app/components/sections/ProblemSection";
 import SolutionSection from "@/app/components/sections/SolutionSection";
+import FlagshipGate from "@/app/components/sections/FlagshipGate";
+import FlagshipSection from "@/app/components/sections/FlagshipSection";
 import ConceptDiagram from "@/app/components/illustrations/ConceptDiagram";
 import WorkspaceScene from "@/app/components/illustrations/WorkspaceScene";
 import SpotIcon, { type SpotIconName } from "@/app/components/illustrations/SpotIcon";
@@ -114,13 +116,15 @@ const processSteps: {
 export default function Home() {
   return (
     <main className="flex flex-col">
-      {/* 刷新（Phase 1）：ナビゲーション ＋ ① HERO ② PROBLEM ③ SOLUTION */}
+      {/* 刷新：ナビゲーション ＋ ① HERO ② PROBLEM ③ SOLUTION（Phase 1）＋ ③→④ Gate ＋ ④ FLAGSHIP の骨格（Phase 2A） */}
       <SiteHeader />
       <HeroSection />
       <ProblemSection />
       <SolutionSection />
+      <FlagshipGate />
+      <FlagshipSection />
 
-      {/* ここから下は既存セクション（④以降は後続Phaseで刷新） */}
+      {/* ここから下は既存セクション（⑤以降は後続Phaseで刷新） */}
       {/* About: どのような人物か */}
       <section id="about" className="py-24 px-6 border-b border-[var(--color-border)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">

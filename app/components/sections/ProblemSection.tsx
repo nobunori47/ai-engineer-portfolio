@@ -19,7 +19,7 @@ export default function ProblemSection() {
     <section
       id="problem"
       aria-labelledby="problem-title"
-      className="bg-[var(--color-ivory)] px-5 sm:px-6 py-16 sm:py-24 border-t border-[var(--color-line)]"
+      className="world-problem px-5 sm:px-6 py-16 sm:py-24"
     >
       <div className="max-w-6xl mx-auto">
         <p className="flex items-center gap-3 text-xs tracking-[0.12em] text-[var(--color-gold-text)]">

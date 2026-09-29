@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 /**
  * トップページの固定ヘッダー（刷新版ナビゲーション）。
  * - 項目は日本語。「相談する」だけボタンとして区別する
- * - 「AIバーチャル本社」（#flagship）は④の実装時に追加する。存在しないアンカーへはリンクしない
+ * - 「AIバーチャル本社」（#flagship）は Phase 2A で④の骨格とともに追加。存在しないアンカーへはリンクしない
  * - スクロール後は下端に極細のゴールド線を出す
  * - スマホはブランド＋「相談する」＋メニューボタン。メニューはリンク押下・Escで閉じる
  */
 const NAV_ITEMS = [
   { href: "#solution", label: "できること" },
   { href: "#works", label: "事例" },
+  { href: "#flagship", label: "AIバーチャル本社" },
   { href: "#about", label: "私について" },
 ] as const;
 

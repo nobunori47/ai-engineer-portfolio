@@ -1,14 +1,14 @@
 /**
  * ① HERO：3秒で「自分の会社の話かもしれない」と思わせる、静かなBtoBのファーストビュー。
  * - AI本社・AI社員・クロノ・Morning は見せない（④まで温存する）
- * - 右側は文字を持たない抽象的なガラス面のみ（製品UIに似せない・装飾扱い）
+ * - 右側は縦長のガラス窓（PC）。背景は右下から漏れる朝の光と縦の桟（world-hero、CSS のみ）
  */
 export default function HeroSection() {
   return (
     <section
       id="top"
       aria-labelledby="hero-title"
-      className="relative overflow-hidden bg-[var(--color-ivory)] px-5 sm:px-6 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 lg:min-h-[min(100svh,820px)] lg:flex lg:items-center"
+      className="world-hero overflow-hidden bg-[var(--color-ivory)] px-5 sm:px-6 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 lg:min-h-[min(100svh,820px)] lg:flex lg:items-center"
     >
       <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-[7fr_5fr] lg:gap-12 items-center">
         <div>
@@ -55,23 +55,9 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* 抽象的なガラス面（装飾）。PC のみ表示 */}
-        <div aria-hidden="true" className="hidden lg:block relative h-[420px] pointer-events-none select-none">
-          <div className="absolute inset-x-6 top-6 bottom-10 rounded-[28px] border border-[var(--color-gold-soft)]/70 bg-gradient-to-br from-white/70 via-[var(--color-ivory)]/40 to-[var(--color-navy)]/[0.06] shadow-[0_30px_60px_-40px_rgba(27,42,74,0.35)]" />
-          <div className="absolute left-16 right-0 top-20 bottom-0 rounded-[24px] border border-[var(--color-navy)]/10 bg-gradient-to-br from-[var(--color-navy)]/[0.04] to-[var(--color-navy)]/[0.10] backdrop-blur-sm" />
-          <div className="absolute left-24 right-10 top-32 space-y-4">
-            <div className="h-px bg-gradient-to-r from-[var(--color-gold)]/70 to-transparent" />
-            <div className="h-2 w-2/3 rounded-full bg-[var(--color-navy)]/10" />
-            <div className="h-2 w-1/2 rounded-full bg-[var(--color-navy)]/[0.07]" />
-            <div className="h-2 w-3/5 rounded-full bg-[var(--color-navy)]/[0.07]" />
-            <div className="pt-6 h-px bg-gradient-to-r from-transparent via-[var(--color-gold)]/50 to-transparent" />
-            <div className="flex gap-3 pt-4">
-              <div className="h-14 flex-1 rounded-xl border border-[var(--color-navy)]/10 bg-white/50" />
-              <div className="h-14 flex-1 rounded-xl border border-[var(--color-navy)]/10 bg-white/50" />
-              <div className="h-14 flex-1 rounded-xl border border-[var(--color-gold-soft)] bg-white/60" />
-            </div>
-          </div>
-          <div className="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(201,169,97,0.20),transparent)]" />
+        {/* 縦長のガラス窓（装飾・PC のみ）。奥にある空間の予告で、④の実画面の枠と同じ形。文字・UI・人物は入れない */}
+        <div aria-hidden="true" className="hidden lg:flex justify-center items-center pointer-events-none select-none">
+          <div className="glass-window w-[236px] xl:w-[260px]" />
         </div>
       </div>
     </section>
