@@ -243,6 +243,11 @@ body {
     repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgb(250 247 240 / 0.28) calc(25% - 1px) 25%),
     linear-gradient(180deg, rgb(250 247 240 / 0.85) 0%, rgb(250 247 240 / 0.30) 55%, rgb(250 247 240 / 0) 100%);
 }
+.gate::before,
+.gate::after {
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
 .gate::before {
   left: 0;
   right: calc(50% + 14px);
@@ -279,12 +284,26 @@ body {
   box-shadow: 0 0 24px 4px rgb(232 200 137 / 0.35);
 }
 
-/* ④ FLAGSHIP（Phase 2A は骨格のみ：画像なし。深いネイビー＋朝焼け＋建築の気配） */
+/* ④ FLAGSHIP（Phase 2B）：正式 R20 HQ 背景（.flagship-bg）＋可読性のための重ね塗り（::before）。
+   R20 マスターは加工せず、表示位置と重ね塗りだけで構図を作る。
+   重なり：.flagship-bg（z -2）→ ::before 重ね塗り（z -1）→ 本文（z 0）。 */
 .flagship {
   position: relative;
   isolation: isolate;
   background: var(--color-navy-deep);
   color: var(--color-ivory);
+}
+.flagship-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* PC：リング下部・紋章・中央の光の柱・朝日と地平線が1画面に入る帯（中央の光＝扉の光の続き） */
+.flagship-bg img {
+  object-fit: cover;
+  object-position: 50% 41%;
 }
 .flagship::before {
   content: "";
@@ -293,33 +312,45 @@ body {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(46% 55% at 74% 82%, rgb(232 200 137 / 0.30), transparent 70%),
-    radial-gradient(70% 50% at 50% 38%, rgb(36 54 92 / 0.55), transparent 75%),
-    repeating-linear-gradient(90deg, transparent 0 calc(12.5% - 1px), rgb(250 247 240 / 0.045) calc(12.5% - 1px) 12.5%);
+    /* 上端：Gate の深いネイビーから R20 へ溶かす */
+    linear-gradient(180deg, var(--color-navy-deep) 0%, rgb(11 22 48 / 0.7) 10%, rgb(11 22 48 / 0) 30%),
+    /* 下端：出口（④→⑤）へ溶かす */
+    linear-gradient(0deg, var(--color-navy-deep) 0%, rgb(11 22 48 / 0.6) 10%, rgb(11 22 48 / 0) 30%),
+    /* 左：本文の可読性（中央の光の柱の手前で止め、右側の建築は暗くしない） */
+    linear-gradient(90deg, rgb(11 22 48 / 0.92) 0%, rgb(11 22 48 / 0.85) 34%, rgb(11 22 48 / 0.62) 44%, rgb(11 22 48 / 0) 60%);
 }
-/* 扉から続く縦の光（上端から中段へ弱まる） */
+/* 扉の隙間の光を、R20 中央の光の柱へ短くつなぐ */
 .flagship::after {
   content: "";
   position: absolute;
   top: 0;
   left: 50%;
   width: 28px;
-  height: 58%;
+  height: 18%;
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgb(232 200 137 / 0.55), rgb(232 200 137 / 0));
-  box-shadow: 0 0 80px 24px rgb(232 200 137 / 0.12);
+  background: linear-gradient(180deg, rgb(232 200 137 / 0.75), rgb(232 200 137 / 0));
+  clip-path: polygon(0 0, 100% 0, 58% 100%, 42% 100%);
 }
+/* スマホ：縦長の R20 の強みを使い、上部にリング・紋章・光の柱を見せ、本文はその下の暗くした面に置く */
 @media (max-width: 1023px) {
-  .flagship::after { opacity: 0.35; height: 14%; }
-  /* スマホは文字の背後に朝焼けが重なるため、光を弱めて小さい文字のコントラスト（4.5:1 以上）を守る */
+  /* R20 を上部だけに大きめに置き（リング・紋章を見出しより上へ）、下端はネイビーへ溶かす */
+  .flagship-bg {
+    bottom: auto;
+    height: min(215vw, 900px);
+    -webkit-mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 58%, transparent 100%);
+  }
+  .flagship-bg img {
+    object-position: 50% 30%;
+  }
   .flagship::before {
     background:
-      radial-gradient(60% 40% at 80% 96%, rgb(232 200 137 / 0.16), transparent 70%),
-      radial-gradient(70% 50% at 50% 38%, rgb(36 54 92 / 0.55), transparent 75%),
-      repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgb(250 247 240 / 0.045) calc(25% - 1px) 25%);
+      linear-gradient(180deg, var(--color-navy-deep) 0%, rgb(11 22 48 / 0) 6%),
+      linear-gradient(180deg, rgb(11 22 48 / 0) 19%, rgb(11 22 48 / 0.8) 28%, rgb(11 22 48 / 0.9) 45%, var(--color-navy-deep) 70%);
   }
+  .flagship::after { opacity: 0.5; height: 8%; }
 }
 /* 暗い面でもフォーカスが埋もれないよう金の枠にする */
 .flagship :focus-visible {

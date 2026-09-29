@@ -1,11 +1,23 @@
+import Image from "next/image";
+
 /**
- * ④ FLAGSHIP CASE「AIバーチャル本社」— Phase 2A は“聖域の建築前の骨格”。
- * - まだ使わない：R20 HQ 背景・Morning 実画面・クロノ・AI社員画像・似せたUI・プレースホルダー
- * - 背景は .flagship（深いネイビー＋右下の朝焼け＋建築の桟、CSS のみ）
+ * ④ FLAGSHIP CASE「AIバーチャル本社」。
+ * - Phase 2B：背景に正式 R20 HQ（ai-company-dashboard の正式アセットをバイト単位で複製。SHA-256 は R20_HQ_BACKGROUND.sha256）
+ *   マスターは加工せず、表示位置と重ね塗り（globals.css の .flagship / .flagship-bg）だけで構図を作る。
+ *   配信時の最適化（next/image）は CEO 判断で許可済み
+ * - まだ使わない：Morning 実画面・クロノ・AI社員画像・似せたUI・プレースホルダー
  * - PC は左に文章、右は将来 Morning 実画面を置く場所として“何も置かない空間”を確保する
  * - CTA の役割は「もっと知る」。相談（⑧）とは分ける。リンク先は作らず、ページ内の開閉式の説明にする
  * - AI社員8人は名前と役割の文字だけで示す（画像は使わない）
  */
+/** 正式 R20 HQ 背景（public/ai-hq/backgrounds/）。差し替え・破損の検出用に元の SHA-256 を記録する。 */
+export const R20_HQ_BACKGROUND = {
+  src: "/ai-hq/backgrounds/r20-cinematic-empty-headquarters.png",
+  width: 1170,
+  height: 2080,
+  sha256: "83deaaa1699693f2c9a0812faaa2094943ef13c9563592eb794b2fbfee37379a",
+} as const;
+
 const employees: { name: string; role: string }[] = [
   { name: "クロノ", role: "CEO参謀 / オーケストレーター" },
   { name: "コトハ", role: "受付・コミュニケーション" },
@@ -35,7 +47,11 @@ const howSteps: { title: string; body: string }[] = [
 export default function FlagshipSection() {
   return (
     <>
-      <section id="flagship" aria-labelledby="flagship-title" className="flagship px-5 sm:px-6 pt-16 pb-16 lg:pt-28 lg:pb-24 lg:min-h-[760px]">
+      <section id="flagship" aria-labelledby="flagship-title" className="flagship px-5 sm:px-6 pt-[min(38vh,310px)] pb-16 lg:pt-28 lg:pb-24 lg:min-h-[800px]">
+        {/* 背景：正式 R20 HQ（装飾。画面の下方にあるため先読みしない） */}
+        <div aria-hidden="true" className="flagship-bg">
+          <Image src={R20_HQ_BACKGROUND.src} alt="" fill sizes="100vw" />
+        </div>
         <div className="max-w-6xl mx-auto grid lg:grid-cols-[minmax(0,46%)_1fr] lg:gap-12">
           <div>
             <p className="flex items-center gap-3 text-xs tracking-[0.14em] text-[var(--color-gold-soft)]">
@@ -53,7 +69,7 @@ export default function FlagshipSection() {
             <p className="mt-5 text-base sm:text-lg text-[var(--color-gold-soft)]">
               私自身も、この働き方を実践しています。
             </p>
-            <p className="mt-6 max-w-[30em] text-[0.975rem] sm:text-base leading-[1.9] text-[var(--color-ivory)]/85">
+            <p className="mt-6 max-w-[28em] text-[0.975rem] sm:text-base leading-[1.9] text-[var(--color-ivory)]/85">
               AIバーチャル本社では、8人のAI社員が情報整理・営業支援・問い合わせ対応・ナレッジ管理・業務状況の整理を進め、私には判断が必要なことだけが届きます。
               目指しているのは、AIを使うことではなく、時間を取り戻すことです。
             </p>
