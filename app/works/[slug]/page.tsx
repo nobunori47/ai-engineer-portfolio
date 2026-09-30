@@ -83,6 +83,12 @@ export default async function CasePage({
           <p className="mt-6 text-lg text-[var(--color-text-sub)] max-w-xl leading-relaxed">
             {c.oneLiner}
           </p>
+          {/* 事例の性質（区分と、お客様への導入事例ではないこと）を最初の画面で伝える補足。警告調にはしない */}
+          {(c.classification === "self-developed" || c.classification === "learning-verification") && (
+            <p className="mt-4 max-w-xl border-l-2 border-[var(--color-border)] pl-3 text-sm leading-relaxed text-[var(--color-text-sub)]">
+              {classificationBadgeLabel(c.classification)}として設計・開発・検証した事例です（お客様への導入事例ではありません）。
+            </p>
+          )}
 
           <div className="mt-10 flex flex-wrap gap-2">
             {c.tags.map((tag) => (
@@ -270,7 +276,7 @@ export default async function CasePage({
             )}
             {c.result && c.result.length > 0 && (
               <Section
-                title="効果"
+                title="検証結果と期待される効果"
                 content={
                   <ul className="space-y-3">
                     {c.result.map((item) => (

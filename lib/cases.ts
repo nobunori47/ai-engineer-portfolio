@@ -116,7 +116,7 @@ export const cases: CaseStudy[] = [
     number: "01",
     title: "美容サロン向け LINE Bot",
     oneLiner:
-      "美容サロンの問い合わせ対応をAIで効率化し、スタッフが接客に集中できる環境を構築。",
+      "美容サロンの問い合わせ対応を想定し、よくある質問にAIが24時間自動で答え、判断が必要な相談だけを人へ引き継ぐ仕組みを検証用に構築。",
     tags: ["LINE Bot", "Claude API", "Supabase"],
     classification: "learning-verification",
     beforeAfter: {
@@ -128,7 +128,7 @@ export const cases: CaseStudy[] = [
     challenge:
       "美容サロンでは、予約・営業時間・料金などの問い合わせが電話やLINEで日常的に発生する。施術中のスタッフが手を止めて対応したり、同じ質問に何度も答えたりする負担が生じやすい。特に営業時間外の問い合わせには翌営業日まで返信できず、予約機会を逃すリスクもある。",
     proposal:
-      "LINE Messaging APIとClaude APIを組み合わせ、よくある質問（営業時間・料金・予約方法など）にはAIが24時間自動応答し、判断が必要な相談は人へエスカレーションする設計とした。会話・顧客データはSupabaseで管理している。",
+      "LINE Messaging APIとClaude APIを組み合わせ、よくある質問（営業時間・料金・予約方法など）にはAIが24時間自動応答し、判断が必要な相談は人へエスカレーションする設計とした。会話・利用者データはSupabaseで管理している。",
     implementation: [
       "Next.js + TypeScriptでバックエンドを構築",
       "Supabaseで会話・ユーザーデータを管理",
@@ -138,9 +138,9 @@ export const cases: CaseStudy[] = [
     ],
     effort: "要件整理 → 設計 → 実装 → テスト → デプロイまで一貫対応",
     result: [
-      "営業時間外でも問い合わせ対応が可能となり、予約検討中のお客様への対応機会を逃しにくい環境を実現",
+      "営業時間外でも、よくある質問にAIが自動で答えられる仕組みを実装",
       "よくある質問対応をAIが肩代わりすることで、スタッフの接客業務への集中につながり、業務負担軽減が見込める",
-      "本番環境へのデプロイまで完了し、実運用を想定したAI問い合わせ対応基盤を構築",
+      "検証用アプリとして、公開環境（Vercel）へのデプロイまで実施",
     ],
     stack: ["Next.js", "TypeScript", "Supabase", "Claude API", "LINE Messaging API"],
     github: "https://github.com/nobunori47/line-bot-mvp",
@@ -228,20 +228,20 @@ export const cases: CaseStudy[] = [
     slug: "case-3-rag-search",
     number: "03",
     title: "社内文書検索AI (RAG)",
-    oneLiner: "92%の精度を実現した社内向けRAG検索システム。",
+    oneLiner: "12問の検証で11問正解（92%）を確認した、社内文書向けのRAG検索システム。",
     tags: ["RAG", "Supabase pgvector", "OpenAI Embeddings"],
     classification: "learning-verification",
     metric: "92%",
     beforeAfter: {
       before: "社内資料が複数箇所に散在し、必要な情報を探すのに時間がかかる",
-      after: "自然文で質問するだけでAIが該当箇所を検索・回答（精度92%）",
+      after: "自然文で質問するだけでAIが該当箇所を検索・回答（検証12問中11問正解）",
     },
     target:
       "社内マニュアルや規程の検索に時間を取られているバックオフィス担当者様・情報システム担当者様（架空クライアント TechBridge を想定）",
     challenge:
       "社内資料が複数の場所に散在し、必要な情報を探すのに時間がかかる。マニュアル化されていない知識も多く、都度担当者に確認しないと分からない情報が発生していた（架空クライアント TechBridge を想定）。",
     proposal:
-      "Supabase pgvectorとOpenAI Embeddingsを用いたRAG検索システムを設計し、キーワード完全一致に頼らず、自然文での質問に対応できる検索精度92%を実現した。",
+      "Supabase pgvectorとOpenAI Embeddingsを用いたRAG検索システムを設計し、キーワード完全一致に頼らず、自然文での質問に対応できるようにした。12問の検証で11問正解（92%）を確認した。",
     implementation: [
       "Next.js + TypeScriptでフロントエンド・APIを構築",
       "Supabase pgvectorでベクトル検索基盤を構築",
@@ -249,14 +249,14 @@ export const cases: CaseStudy[] = [
       "章単位のチャンク分割(chapter-aware chunking)に変更し類似度スコアを改善",
       "マッチング閾値を0.5→0.45に調整し精度を最適化",
       "Supabase Authでマジックリンク+メールドメイン制限を実装",
-      "Vercel上に本番稼働（rag-search-ai.vercel.app）、Qiita記事として技術解説を公開",
+      "Vercelの公開環境で稼働（デモ用。rag-search-ai.vercel.app）、Qiita記事として技術解説を公開",
     ],
     effort: "設計 → 実装 → 精度検証まで一貫対応",
     result: [
       "資料を探し回る手間や、担当者への都度確認にかかる工数の削減が期待できる",
       "従来のキーワード検索では見つけにくかった関連情報も、質問文の意図を理解して検索できるため、社内ナレッジ活用の促進につながる",
-      "テスト12問中11問正解、92%の精度を達成。誤情報を拾うリスクを抑えた実用レベルの検索体験を実現",
-      "平均応答時間2,622ms、テスト全12問で5秒以内に回答を返却し、実務利用に耐える応答速度を確認",
+      "テスト12問中11問正解（92%）を確認（架空企業 TechBridge を想定した検証）",
+      "平均応答時間2,622ms、全12問で5秒以内に回答（検証環境での計測）",
     ],
     futureScope: [
       "Word・Confluenceなど対応ファイル形式の拡張",
@@ -366,7 +366,6 @@ export const cases: CaseStudy[] = [
         height: 788,
       },
     ],
-    metric: "5分以内SLA",
     beforeAfter: {
       before: "メール・LINEの問い合わせが窓口に集中し、分類・振り分けに時間がかかる",
       after: "AIが内容を自動分類し、最適な担当チャンネルへリアルタイム通知",
@@ -376,7 +375,7 @@ export const cases: CaseStudy[] = [
     challenge:
       "メール・LINEなど複数チャネルからの問い合わせが窓口に集中し、内容の分類や適切な担当への振り分けに時間がかかる。対応漏れ・対応遅延が発生するリスクがあり、特に問い合わせ量が多い店舗や営業チームでは機会損失につながりやすい（架空クライアント 不動産管理会社 を想定）。",
     proposal:
-      "メール・LINEからの問い合わせをAIが自動分類し、内容に応じて最適な経路（Slack・LINE）へリアルタイム通知するマルチチャネル通知Hubを構築。Webhook/Cronによる自動処理で、人手を介さず一次振り分けを完結させ、5分以内の初動対応を想定したSLA設計とした。",
+      "メール・LINEからの問い合わせをAIが自動分類し、内容に応じて最適な経路（Slack・LINE）へリアルタイム通知するマルチチャネル通知Hubを構築。Webhook/Cronによる自動処理で、人手を介さず一次振り分けを完結させ、5分以内の初動対応を目標にした設計とした。",
     implementation: [
       "LINE Webhook署名検証（HMAC-SHA256、タイミングセーフ比較）",
       "external_idによる冪等性（重複通知防止）",
@@ -389,12 +388,12 @@ export const cases: CaseStudy[] = [
       "retry_count・last_errorによる障害追跡",
       "ダッシュボードUI（結線図・通知ログ・問い合わせ一覧）",
     ],
-    effort: "T-11（リスク管理）→ヒアリング→設計・提案→実装→デプロイ→セキュリティ監査まで一貫対応",
+    effort: "リスク整理 → 要件整理（架空の不動産管理会社を想定）→ 設計 → 実装 → 公開環境へのデプロイ → セキュリティ確認まで一人で実施",
     result: [
       "問い合わせの見落とし・対応遅延のリスク軽減につながる",
-      "分類作業の自動化により、初動対応のスピードアップが期待できる（5分以内SLAを想定した設計）",
-      "複数チャネルの問い合わせをSlack上で一元的に把握できる体制になり、運用状況に応じて効果測定が可能",
-      "デモ環境で総受信758件・通知成功率99.6%を実データ相当のフィクスチャで検証済み",
+      "分類作業の自動化により、初動対応のスピードアップが期待できる（5分以内の初動対応を目標にした設計）",
+      "複数チャネルの問い合わせをSlack上で一元的に把握できる構成にした（効果の測定は、実際に運用するときに行う想定）",
+      "デモ環境で、テスト用データ（フィクスチャ）758件を処理し、通知成功率99.6%を確認",
     ],
     stack: [
       "Next.js",
@@ -445,7 +444,7 @@ export const cases: CaseStudy[] = [
     target:
       "部署ごとに機密度の異なる情報を扱う企業の情報システム部門様・Slack運用チーム様",
     challenge:
-      "社内のナレッジは部署ごとに存在しており、Slackから自然言語で横断検索できる仕組みがない一方、無秩序に検索可能にすると部署をまたいだ情報漏洩のリスクが生じる（案件7を想定）。",
+      "社内のナレッジは部署ごとに存在しており、Slackから自然言語で横断検索できる仕組みがない一方、無秩序に検索可能にすると部署をまたいだ情報漏洩のリスクが生じる（業務利用を想定）。",
     proposal:
       "pgvector・OpenAI Embeddingsによる社内文書のRAG検索をSlack Botとして提供し、部署ごとのアクセス制御・監査ログ・Fail-Closed設計を組み込むことで、利便性と安全性を両立するアーキテクチャを設計した。",
     implementation: [
@@ -461,7 +460,7 @@ export const cases: CaseStudy[] = [
       "IT部署ユーザーが他部署文書にアクセスできないことを実データで検証",
       "Slack実チャンネルでのメンション→出典付き回答のE2E動作を確認",
       "query_logsにより「誰が・いつ・何を質問したか」を追跡可能な監査ログを実現",
-      "README・ガバナンス手順書を実装と整合させ、提出物としてクローズ可能な状態に整理",
+      "README・ガバナンス手順書を実装と整合させ、検証内容と実装結果を整理",
     ],
     stack: [
       "Next.js",
@@ -482,9 +481,8 @@ export const cases: CaseStudy[] = [
       "CSVアップロードした売上データをAIが分析し、KPI・ランキング・改善アクションを自動生成する業務支援システム。",
     tags: ["Next.js", "Supabase", "Claude API"],
     classification: "self-developed",
-    metric: "レポート作成 83%削減",
     beforeAfter: {
-      before: "月次レポート作成（集計・グラフ・コメント執筆）に毎回3時間",
+      before: "月次レポート作成（集計・グラフ・コメント執筆）に毎回3時間（想定）",
       after: "CSVをアップロードするだけでKPI集計とAI分析コメントを自動生成",
     },
     target:
@@ -492,7 +490,7 @@ export const cases: CaseStudy[] = [
     challenge:
       "月次レポート作成(グラフ作成・数値集計・コメント執筆)に毎回3時間かかり、翌月のアクション提案も感覚頼りになっていた(架空クライアント アパレルEC「LUMINA」を想定)。",
     proposal:
-      "CSVアップロード→Supabaseへの蓄積→KPI自動計算→Claude APIの構造化出力(JSON Schema)によるAI分析コメント生成という一気通貫のパイプラインを設計し、AI・データ分析に詳しくない経営層でも数値の意味を数十秒で理解できるダッシュボードとして提案した。",
+      "CSVアップロード→Supabaseへの蓄積→KPI自動計算→Claude APIの構造化出力(JSON Schema)によるAI分析コメント生成という一気通貫のパイプラインを構築し、AI・データ分析に詳しくない経営層でも数値の意味を理解しやすいダッシュボードとして設計した。",
     implementation: [
       "Next.js App Router + TypeScriptでCSVアップロード〜KPI集計〜AI分析までのAPIを構築",
       "PapaParseで全行事前検証するCSVバリデーション(行番号つきエラー返却)を実装",
@@ -501,12 +499,12 @@ export const cases: CaseStudy[] = [
       "AI分析結果をアプリ側でも型検証する二重防御を実装し、Vitestのスナップショットテストで回帰を検知",
       "GitHub Actions(TypeCheck→Lint→Test→Build)とVercelのGit連携による自動デプロイ(CI/CD)を構築",
     ],
-    effort: "要件定義〜DB設計〜API実装〜AI連携〜CI/CD構築〜本番デプロイまで一貫対応",
+    effort: "要件定義〜DB設計〜API実装〜AI連携〜CI/CD構築〜公開環境へのデプロイまで一貫対応",
     result: [
-      "CSVアップロードからAI分析コメント生成までを実データでE2E検証(ローカル・本番URL双方)",
-      "月次レポート作成時間を3時間→数分規模に短縮する設計を実現",
+      "CSVアップロードからAI分析コメント生成までのE2E検証を、ローカル環境と公開URLの両方で実施",
+      "想定する月次集計・報告業務に対し、CSVアップロードからKPI集計・AIコメント生成までを自動化する設計にした",
       "APIキー等のシークレットをコードに一切含めない設計とし、Vercel環境変数のみで運用",
-      "GitHub Actions CIとVercel本番デプロイまで公開済み",
+      "GitHub Actions CIとVercelへの公開デプロイまで実施",
     ],
     stack: [
       "Next.js",

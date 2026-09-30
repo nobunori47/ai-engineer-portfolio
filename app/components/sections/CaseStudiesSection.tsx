@@ -76,7 +76,7 @@ const featured: CasePresentation[] = [
     ai: "データを集計し、傾向と改善のヒントをコメントにまとめる",
     human: "数字を見て、次の打ち手を決める",
     premise: "架空のアパレルEC（LUMINA）を想定",
-    evidence: "月3時間の作業を数分規模にする設計（83%削減は設計上の見込み）",
+    evidence: "CSVアップロードからKPI集計・AIコメント生成までを自動化する設計",
     visual: {
       src: "/works/case8/dashboard-preview.png",
       alt: "AI売上分析ダッシュボードのCSVアップロード画面（架空クライアントLUMINAを想定）",
