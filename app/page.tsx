@@ -13,10 +13,16 @@ import FaqSection from "@/app/components/sections/FaqSection";
 import FinalContactSection from "@/app/components/sections/FinalContactSection";
 
 // トップページ固有の metadata（layout の既定値に依存させず、ここで明示的に管理する）。
-// OGP 画像は Phase 4C-2 で制作予定のため images は未設定。完成後に twitter.card を summary_large_image へ変更する。
+// OGP 画像は Phase 4C-2 で CEO が承認した正式版（1200×630、byte-identical で配置）。layout には置かない（OAuth 用ページ等へ継承させないため）。
 const TITLE = "AIで、会社の「面倒」を減らす。｜中小企業のAI業務改善";
 const DESCRIPTION =
   "中小企業・小規模事業者のためのAI業務改善。問い合わせ対応、資料探し、集計・報告など日々の手間を、総務・バックオフィスの実務経験とAI開発の両面から一緒に減らしていきます。相談内容が固まっていなくても大丈夫です。";
+const OG_IMAGE = {
+  url: "/og/portfolio-og-final-1200x630.png",
+  width: 1200,
+  height: 630,
+  alt: "AIで、会社の「面倒」を減らす。中小企業・小規模事業者のためのAI業務改善",
+};
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,11 +34,13 @@ export const metadata: Metadata = {
     url: "/",
     type: "website",
     locale: "ja_JP",
+    images: [OG_IMAGE],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
