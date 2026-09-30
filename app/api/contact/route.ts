@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
 
   if (!name || !email || !message) {
     return NextResponse.json(
-      { ok: false, error: "お名前・メールアドレス・ご相談内容は必須です。" },
+      { ok: false, error: "お名前・返信先メールアドレス・今、困っていることは必須です。" },
       { status: 400 }
     );
   }
@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
   }
   if (message.length > 4000) {
     return NextResponse.json(
-      { ok: false, error: "ご相談内容が長すぎます（4000文字以内でご記入ください）。" },
+      { ok: false, error: "今、困っていることが長すぎます（4000文字以内でご記入ください）。" },
       { status: 400 }
     );
   }

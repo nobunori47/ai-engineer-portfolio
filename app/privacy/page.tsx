@@ -3,7 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "プライバシーポリシー｜中小企業のAI業務改善",
   description:
-    "本ポートフォリオサイトの問い合わせフォームで取得する情報の取り扱いについて説明するプライバシーポリシーです。",
+    "本サイトの相談フォームで取得する情報の取り扱いについて説明するプライバシーポリシーです。",
 };
 
 export default function PrivacyPage() {
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
             プライバシーポリシー
           </h1>
           <p className="mt-4 text-sm text-[var(--color-text-sub)]">
-            最終更新日：2026年9月7日
+            最終更新日：2026年9月30日
           </p>
 
           <div className="mt-12 space-y-10 leading-relaxed">
@@ -38,11 +38,11 @@ export default function PrivacyPage() {
                 1. このポリシーの対象
               </h2>
               <p>
-                本ポリシーは、本ポートフォリオサイト（
+                本ポリシーは、中小企業・小規模事業者向けのAI業務改善のご相談を受け付ける本サイト（
                 <span className="font-[family-name:var(--font-mono)] text-sm">
                   ai-engineer-portfolio-dun.vercel.app
                 </span>
-                、以下「本サイト」）のトップページに設置している問い合わせフォームで取得する情報の取り扱いについて説明するものです。運営者は中村信規（本サイト運営者）です。
+                、以下「本サイト」）のトップページに設置している相談フォームで取得する情報の取り扱いについて定めるものです。運営者は中村信規（本サイト運営者）です。
               </p>
               <p className="mt-3 text-sm text-[var(--color-text-sub)]">
                 本サイト内の「AIカンパニー営業管理表書込み」（
@@ -60,13 +60,10 @@ export default function PrivacyPage() {
                 <li>お名前（必須）</li>
                 <li>会社名（任意）</li>
                 <li>返信先メールアドレス（必須）</li>
-                <li>相談内容の種類（必須・選択式）</li>
-                <li>現在お困りのこと（任意）</li>
-                <li>ご相談内容（必須）</li>
-                <li>希望時期・予算感（いずれも任意）</li>
+                <li>今、困っていること（必須）</li>
                 <li>プライバシーポリシーへの同意の有無、および同意した日時</li>
                 <li>
-                  Works詳細ページ経由でお問い合わせいただいた場合、参照元の事例名（自動的に本文へ記載されます）
+                  事例詳細ページ経由でお問い合わせいただいた場合、参照元の事例名（自動的に本文へ記載されます）
                 </li>
               </ul>
               <p className="mt-3 text-sm text-[var(--color-text-sub)]">
@@ -91,7 +88,7 @@ export default function PrivacyPage() {
                 取得した情報はSupabase（データベースサービス）上に保存します。データベースへの書き込みはサーバー側の処理からのみ行い、サーバー専用の認証情報（サービスロールキー）はクライアント（ブラウザ）側のコードには一切含めていません。
               </p>
               <p className="mt-3">
-                また、匿名の利用者や一般公開されたAPIキーから問い合わせデータを閲覧・一覧取得できない構成としており、保存された内容を確認できるのは運営者（中村信規）本人に限られます。
+                また、匿名の利用者や一般公開されたAPIキーから問い合わせデータを閲覧・一覧取得できない構成としています。保存した情報へのアクセスは、問い合わせ対応および本サイトの運営に必要な範囲に限定します。
               </p>
             </section>
 
