@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
-import { cases, classificationBadgeLabel } from "@/lib/cases";
 import ContactForm from "@/app/components/ContactForm";
 import SiteHeader from "@/app/components/SiteHeader";
 import HeroSection from "@/app/components/sections/HeroSection";
@@ -8,36 +6,10 @@ import ProblemSection from "@/app/components/sections/ProblemSection";
 import SolutionSection from "@/app/components/sections/SolutionSection";
 import FlagshipGate from "@/app/components/sections/FlagshipGate";
 import FlagshipSection from "@/app/components/sections/FlagshipSection";
+import CaseStudiesSection from "@/app/components/sections/CaseStudiesSection";
 import ConceptDiagram from "@/app/components/illustrations/ConceptDiagram";
 import WorkspaceScene from "@/app/components/illustrations/WorkspaceScene";
 import SpotIcon, { type SpotIconName } from "@/app/components/illustrations/SpotIcon";
-
-const workCases = cases.filter((c) => c.slug !== "case-0-portfolio");
-
-// 代表実績として大きく紹介する3件（実データでの検証・デプロイ実績がある3件を選定）
-const featuredSlugs = ["case-1-line-bot", "case-3-rag-search", "case-7-sales-dashboard"];
-const featuredCases = featuredSlugs
-  .map((slug) => workCases.find((c) => c.slug === slug))
-  .filter((c): c is NonNullable<typeof c> => Boolean(c));
-const otherCases = workCases.filter((c) => !featuredSlugs.includes(c.slug));
-
-const highlights = [
-  {
-    number: "92%",
-    label: "社内文書検索AIの検索精度",
-    href: "/works/case-3-rag-search",
-  },
-  {
-    number: "83%削減",
-    label: "月次売上レポート作成時間の削減設計",
-    href: "/works/case-7-sales-dashboard",
-  },
-  {
-    number: "5分以内",
-    label: "問い合わせ自動振り分けの初動SLA設計",
-    href: "/works/case-5-switchboard-notification-hub",
-  },
-];
 
 // About: 事実として確認できる範囲での人物像（現場感／伝わる説明／一貫対応）
 const aboutPoints: { icon: SpotIconName; title: string; body: string }[] = [
@@ -57,29 +29,6 @@ const aboutPoints: { icon: SpotIconName; title: string; body: string }[] = [
     body: "ヒアリング・設計・実装・検証まで一貫して担当。小さく作って使いながら改善します。",
   },
 ];
-
-// 代表実績カードのサムネイル。個人情報・識別子・ブラウザchromeが写っていない実画面のみを使用する
-type FeaturedThumb =
-  | { type: "image"; src: string; alt: string }
-  | { type: "icon"; name: SpotIconName; label: string };
-
-const featuredThumb: Record<string, FeaturedThumb> = {
-  "case-1-line-bot": {
-    type: "image",
-    src: "/works/case1/admin-dashboard.png",
-    alt: "美容サロン向けLINE Botの管理画面。FAQ件数・問い合わせ数・エスカレーション件数のダッシュボード（サンプルデータ）",
-  },
-  "case-3-rag-search": {
-    type: "image",
-    src: "/works/case3/chat-preview.png",
-    alt: "社内文書検索AIのチャット画面。有給休暇に関する質問へ出典付きでAIが回答している例",
-  },
-  "case-7-sales-dashboard": {
-    type: "image",
-    src: "/works/case8/dashboard-preview.png",
-    alt: "AI売上分析ダッシュボードのCSVアップロード画面（架空クライアントLUMINAを想定）",
-  },
-};
 
 const processSteps: {
   step: string;
@@ -123,8 +72,10 @@ export default function Home() {
       <SolutionSection />
       <FlagshipGate />
       <FlagshipSection />
+      {/* ⑤ CASE STUDIES（Phase 3B）：④の直後。旧 Works・Numbers はここへ統合し、トップでの二重表示をなくす */}
+      <CaseStudiesSection />
 
-      {/* ここから下は既存セクション（⑤以降は後続Phaseで刷新） */}
+      {/* ここから下は既存セクション（⑥以降は後続Phaseで刷新） */}
       {/* About: どのような人物か */}
       <section id="about" className="py-24 px-6 border-b border-[var(--color-border)]">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
@@ -206,201 +157,6 @@ export default function Home() {
 
             <ConceptDiagram className="mt-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-5 sm:p-6" />
           </div>
-        </div>
-      </section>
-
-      {/* Numbers */}
-      <section className="py-16 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-8">
-            Numbers
-          </p>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {highlights.map((h) => (
-              <Link
-                key={h.href}
-                href={h.href}
-                className="group block rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 hover:border-[var(--color-accent)] transition-colors"
-              >
-                <p className="font-[family-name:var(--font-display)] text-4xl font-bold text-[var(--color-accent)]">
-                  {h.number}
-                </p>
-                <p className="mt-3 text-sm text-[var(--color-text-sub)] leading-relaxed">
-                  {h.label}
-                </p>
-                <p className="mt-4 text-xs font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] group-hover:text-[var(--color-accent)] transition-colors">
-                  詳しく見る →
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Works */}
-      <section id="works" className="py-24 px-6 border-b border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)] mb-4">
-            Works
-          </p>
-          <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold mb-4">
-            制作実績
-          </h2>
-          <p className="max-w-2xl text-sm text-[var(--color-text-sub)] leading-relaxed mb-12">
-            各事例には「自主開発」（個人で企画・設計・実装したもの）または「学習・検証」（講座受講や技術検証を主目的としたもの）の区分をバッジで表示しています。架空のクライアントを想定して進めたケースを含み、実際の受注・納品実績ではありません。
-          </p>
-
-          {/* 代表実績 3件 */}
-          <p className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)] mb-5">
-            代表実績
-          </p>
-          <div className="grid gap-6">
-            {featuredCases.map((c) => {
-              const thumb = featuredThumb[c.slug];
-              return (
-              <Link
-                key={c.slug}
-                href={`/works/${c.slug}`}
-                className="group block overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
-              >
-                {thumb && (
-                  <div className="relative aspect-[16/5] overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-bg)]">
-                    {thumb.type === "image" ? (
-                      <Image
-                        src={thumb.src}
-                        alt={thumb.alt}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 900px"
-                        className="object-cover object-top"
-                      />
-                    ) : (
-                      <span className="absolute inset-0 flex items-center justify-center text-[var(--color-accent)]">
-                        <SpotIcon name={thumb.name} size={44} title={thumb.label} />
-                      </span>
-                    )}
-                  </div>
-                )}
-                <div className="p-6 sm:p-8">
-                <div className="flex items-start justify-between gap-3 flex-wrap">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
-                      Case {c.number}
-                    </span>
-                    {classificationBadgeLabel(c.classification) && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
-                        {classificationBadgeLabel(c.classification)}
-                      </span>
-                    )}
-                  </div>
-                  {c.metric && (
-                    <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-accent)] text-right leading-tight">
-                      {c.metric}
-                    </span>
-                  )}
-                </div>
-                <h3 className="mt-4 font-[family-name:var(--font-display)] text-2xl font-bold group-hover:text-[var(--color-accent)] transition-colors">
-                  {c.title}
-                </h3>
-                <p className="mt-2 text-[var(--color-text-sub)] leading-relaxed max-w-2xl">
-                  {c.oneLiner}
-                </p>
-
-                {c.beforeAfter && (
-                  <div className="mt-5 grid sm:grid-cols-[1fr_auto_1fr] gap-3 sm:gap-4 items-center text-sm leading-relaxed rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-4 max-w-2xl">
-                    <p className="text-[var(--color-text-sub)]">
-                      <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-sub)] block mb-1">Before</span>
-                      {c.beforeAfter.before}
-                    </p>
-                    <div className="hidden sm:block text-[var(--color-accent)] font-[family-name:var(--font-mono)]">→</div>
-                    <p>
-                      <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)] block mb-1">After</span>
-                      {c.beforeAfter.after}
-                    </p>
-                  </div>
-                )}
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {c.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {c.demo && !c.demoDisabled && (
-                    <span className="text-xs px-2 py-1 rounded-full border border-[var(--color-accent)] text-[var(--color-accent)] font-[family-name:var(--font-mono)]">
-                      Demoあり
-                    </span>
-                  )}
-                  {c.demo && c.demoDisabled && (
-                    <span className="text-xs px-2 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)] font-[family-name:var(--font-mono)]">
-                      デモ環境は現在停止中
-                    </span>
-                  )}
-                </div>
-
-                <p className="mt-5 text-xs font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] group-hover:text-[var(--color-accent)] transition-colors">
-                  詳しく見る →
-                </p>
-                </div>
-              </Link>
-              );
-            })}
-          </div>
-
-          {/* その他の実績（展開表示） */}
-          {otherCases.length > 0 && (
-            <details className="mt-10 group/details">
-              <summary className="cursor-pointer select-none list-none inline-flex items-center gap-2 text-sm font-[family-name:var(--font-mono)] text-[var(--color-text-sub)] hover:text-[var(--color-accent)] transition-colors">
-                <span className="transition-transform group-open/details:rotate-90">→</span>
-                その他の実績（{otherCases.length}件）を見る
-              </summary>
-              <div className="mt-6 grid sm:grid-cols-2 gap-4">
-                {otherCases.map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/works/${c.slug}`}
-                    className="group block p-5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] hover:border-[var(--color-accent)] transition-colors"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-accent)]">
-                          {c.number}
-                        </span>
-                        {classificationBadgeLabel(c.classification) && (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]">
-                            {classificationBadgeLabel(c.classification)}
-                          </span>
-                        )}
-                      </div>
-                      {c.metric && (
-                        <span className="font-[family-name:var(--font-display)] text-sm font-bold text-[var(--color-accent)]">
-                          {c.metric}
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="mt-3 font-[family-name:var(--font-display)] font-bold group-hover:text-[var(--color-accent)] transition-colors">
-                      {c.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm text-[var(--color-text-sub)] leading-relaxed">
-                      {c.oneLiner}
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {c.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-sub)]"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </details>
-          )}
         </div>
       </section>
 

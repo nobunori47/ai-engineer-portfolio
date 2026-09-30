@@ -420,3 +420,27 @@ body {
 @media (min-width: 1024px) {
   .flagship-exit { height: 220px; }
 }
+
+/* ⑤ CASE STUDIES（Phase 3B）：④の出口（白）を受けて、静かにアイボリーへ戻る。
+   ④は変更しない。⑤の上端は白から始め、下端は白へ戻して旧セクション（⑥以降は Phase 3C で刷新）とつなぐ。 */
+.cases-world {
+  position: relative;
+  background: linear-gradient(180deg, #FFFFFF 0, var(--color-ivory) 180px, var(--color-ivory) calc(100% - 140px), #FFFFFF 100%);
+}
+/* 導入部：ごく細い紺グレーの線と、小さな金のアクセント（④の余韻） */
+.cases-world::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(220px, 50%);
+  height: 1px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(58 70 96 / 0.35) 25%, var(--color-gold) 50%, rgb(58 70 96 / 0.35) 75%, transparent);
+}
+.case-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-line);
+  box-shadow: 0 24px 48px -40px rgb(27 42 74 / 0.35);
+}
