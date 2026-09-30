@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,6 +7,40 @@ import CaseFlow from "@/app/components/illustrations/CaseFlow";
 
 export function generateStaticParams() {
   return cases.map((c) => ({ slug: c.slug }));
+}
+
+/**
+ * 事例詳細の metadata。お客様への導入実績と誤認させないことを優先する。
+ * - title は事例名と区分（自主開発／学習・検証）だけ。区分が無い（undetermined）場合は付けない
+ * - description は固定の文言。oneLiner・成果の数値・「実現」等の表現は使わない
+ * - 業務の想定（target）が無い事例は「業務を想定して」と書かない
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const c = cases.find((item) => item.slug === slug);
+  if (!c) return {};
+
+  const label = classificationBadgeLabel(c.classification);
+  const title = label
+    ? `${c.title}（${label}）｜中小企業のAI業務改善`
+    : `${c.title}｜中小企業のAI業務改善`;
+
+  const isOwnWork = c.classification === "self-developed" || c.classification === "learning-verification";
+  const description = !isOwnWork
+    ? "AI業務改善の取り組み事例の詳細です。"
+    : c.target
+      ? "業務を想定して自分で設計・開発し、動作を検証した取り組み事例です（お客様への導入事例ではありません）。"
+      : "自分で設計・開発した取り組み事例です（お客様への導入事例ではありません）。";
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/works/${c.slug}` },
+  };
 }
 
 export default async function CasePage({

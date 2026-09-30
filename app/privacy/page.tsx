@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Nobunori Nakamura Portfolio | プライバシーポリシー",
+  title: "プライバシーポリシー｜中小企業のAI業務改善",
   description:
     "本ポートフォリオサイトの問い合わせフォームで取得する情報の取り扱いについて説明するプライバシーポリシーです。",
 };
