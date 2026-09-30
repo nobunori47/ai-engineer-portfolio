@@ -5,8 +5,10 @@ import Image from "next/image";
  * - Phase 2B：背景に正式 R20 HQ（ai-company-dashboard の正式アセットをバイト単位で複製。SHA-256 は R20_HQ_BACKGROUND.sha256）
  *   マスターは加工せず、表示位置と重ね塗り（globals.css の .flagship / .flagship-bg）だけで構図を作る。
  *   配信時の最適化（next/image）は CEO 判断で許可済み
- * - まだ使わない：Morning 実画面・クロノ・AI社員画像・似せたUI・プレースホルダー
- * - PC は左に文章、右は将来 Morning 実画面を置く場所として“何も置かない空間”を確保する
+ * - Phase 2C-3：右（PC）／見出しの直後（タブレット・スマホ）に、本物の Morning Briefing 実画面を「実際に動いている証拠」として置く。
+ *   ai-company-dashboard の本物の部品・CSS・正式アセットを架空データで描画し撮影したもの（バイト単位の複製。MORNING_PUBLIC_CAPTURE.sha256）。
+ *   画像そのものは加工せず、端末の枠は CSS（.flagship-proof-frame）で付ける
+ * - 使わない：単体のクロノ・AI社員画像・似せたUI・プレースホルダー
  * - CTA の役割は「もっと知る」。相談（⑧）とは分ける。リンク先は作らず、ページ内の開閉式の説明にする
  * - AI社員8人は名前と役割の文字だけで示す（画像は使わない）
  */
@@ -16,6 +18,14 @@ export const R20_HQ_BACKGROUND = {
   width: 1170,
   height: 2080,
   sha256: "83deaaa1699693f2c9a0812faaa2094943ef13c9563592eb794b2fbfee37379a",
+} as const;
+
+/** 本物の Morning Briefing 実画面（架空データ・撮影専用環境で描画）。差し替え・破損の検出用に SHA-256 を記録する。 */
+export const MORNING_PUBLIC_CAPTURE = {
+  src: "/ai-hq/morning/morning-briefing-public-390.png",
+  width: 1170,
+  height: 2412,
+  sha256: "e66336258ee8e17413fb9a23ffcfdcace7b613a9e9394c6c11811bc1137d5582",
 } as const;
 
 const employees: { name: string; role: string }[] = [
@@ -47,13 +57,13 @@ const howSteps: { title: string; body: string }[] = [
 export default function FlagshipSection() {
   return (
     <>
-      <section id="flagship" aria-labelledby="flagship-title" className="flagship px-5 sm:px-6 pt-[min(38vh,310px)] pb-16 lg:pt-28 lg:pb-24 lg:min-h-[800px]">
+      <section id="flagship" aria-labelledby="flagship-title" className="flagship px-5 sm:px-6 pt-[min(38vh,310px)] pb-16 lg:pt-20 lg:pb-20 lg:min-h-[800px]">
         {/* 背景：正式 R20 HQ（装飾。画面の下方にあるため先読みしない） */}
         <div aria-hidden="true" className="flagship-bg">
           <Image src={R20_HQ_BACKGROUND.src} alt="" fill sizes="100vw" />
         </div>
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-[minmax(0,46%)_1fr] lg:gap-12">
-          <div>
+        <div className="flagship-grid max-w-6xl mx-auto">
+          <div className="flagship-head">
             <p className="flex items-center gap-3 text-xs tracking-[0.14em] text-[var(--color-gold-soft)]">
               <span aria-hidden="true" className="inline-block h-px w-6 bg-[var(--color-gold-soft)]" />
               FLAGSHIP CASE ／ 自社で実運用中
@@ -69,7 +79,26 @@ export default function FlagshipSection() {
             <p className="mt-5 text-base sm:text-lg text-[var(--color-gold-soft)]">
               私自身も、この働き方を実践しています。
             </p>
-            <p className="mt-6 max-w-[28em] text-[0.975rem] sm:text-base leading-[1.9] text-[var(--color-ivory)]/85">
+          </div>
+
+          {/* 証拠：本物の Morning Briefing 実画面（端末の枠は CSS。画像は無加工） */}
+          <figure className="flagship-proof">
+            <div className="flagship-proof-frame">
+              <Image
+                src={MORNING_PUBLIC_CAPTURE.src}
+                alt="AIバーチャル本社のMorning Briefing画面。CEO判断待ちの件数と推定所要時間を表示"
+                width={MORNING_PUBLIC_CAPTURE.width}
+                height={MORNING_PUBLIC_CAPTURE.height}
+                sizes="(min-width: 1024px) 330px, (min-width: 768px) 320px, 80vw"
+              />
+            </div>
+            <figcaption className="mt-3 text-center text-[11px] leading-relaxed text-[var(--color-ivory)]/85">
+              実際に運用しているAI本社の朝の画面（表示用の架空データ）
+            </figcaption>
+          </figure>
+
+          <div className="flagship-rest">
+            <p className="max-w-[28em] text-[0.975rem] sm:text-base leading-[1.9] text-[var(--color-ivory)]/85">
               AIバーチャル本社では、8人のAI社員が情報整理・営業支援・問い合わせ対応・ナレッジ管理・業務状況の整理を進め、私には判断が必要なことだけが届きます。
               目指しているのは、AIを使うことではなく、時間を取り戻すことです。
             </p>
@@ -107,9 +136,6 @@ export default function FlagshipSection() {
               </ol>
             </details>
           </div>
-
-          {/* 将来 Morning 実画面を置く空間（Phase 2A では何も置かない。枠・文字・似せたUIを置かない） */}
-          <div aria-hidden="true" className="hidden lg:block" />
         </div>
       </section>
       {/* ④→⑤：ネイビー → ネイビーグレー → アイボリーへ帰還する出口（装飾） */}

@@ -345,12 +345,67 @@ body {
   .flagship-bg img {
     object-position: 50% 30%;
   }
+  /* 暗くする位置は④全体の高さではなく R20 の帯（固定高さ）に対して決める（Morning 実画面の追加で④が伸びても、
+     ラベル・見出しの背後の暗さが Phase 2B と同じ位置に保たれる） */
   .flagship::before {
-    background:
-      linear-gradient(180deg, var(--color-navy-deep) 0%, rgb(11 22 48 / 0) 6%),
-      linear-gradient(180deg, rgb(11 22 48 / 0) 19%, rgb(11 22 48 / 0.8) 28%, rgb(11 22 48 / 0.9) 45%, var(--color-navy-deep) 70%);
+    background: linear-gradient(180deg, var(--color-navy-deep) 0%, rgb(11 22 48 / 0) 5%);
+  }
+  .flagship-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(11 22 48 / 0) 23.5%, rgb(11 22 48 / 0.8) 34.5%, rgb(11 22 48 / 0.9) 56%, var(--color-navy-deep) 87%);
   }
   .flagship::after { opacity: 0.5; height: 8%; }
+}
+/* ④ Phase 2C-3：見出し（head）／本物の Morning 実画面（proof）／本文・役割・CTA（rest）の配置。
+   タブレット・スマホは head → proof → rest の1列（主張の直後に証拠）。PC は左に head と rest、右に proof。 */
+.flagship-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "proof" "rest";
+}
+.flagship-head { grid-area: head; }
+.flagship-rest { grid-area: rest; margin-top: 36px; }
+.flagship-proof {
+  grid-area: proof;
+  justify-self: center;
+  width: min(80vw, 312px);
+  margin: 36px 0 0;
+}
+@media (min-width: 768px) {
+  .flagship-proof { width: 320px; }
+}
+@media (min-width: 1024px) {
+  .flagship-grid {
+    grid-template-columns: minmax(0, 46%) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "head proof" "rest proof";
+    column-gap: 48px;
+  }
+  .flagship-rest { margin-top: 24px; }
+  .flagship-proof {
+    width: 330px;
+    margin: 0;
+    align-self: center;
+  }
+}
+/* 端末の枠（画像には焼き込まない）：細い金の縁・角丸（--radius-window）・ごく弱いガラスの縁と影。発光・ネオンは使わない */
+.flagship-proof-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-window);
+  border: 1px solid rgb(220 201 160 / 0.6);
+  background: var(--color-navy-deep);
+  aspect-ratio: 1170 / 2412;
+  box-shadow:
+    0 0 0 5px rgb(250 247 240 / 0.05),
+    0 40px 80px -36px rgb(0 0 0 / 0.65);
+}
+.flagship-proof-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 /* 暗い面でもフォーカスが埋もれないよう金の枠にする */
 .flagship :focus-visible {
