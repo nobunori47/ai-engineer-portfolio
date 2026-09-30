@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ContactForm from "@/app/components/ContactForm";
 import SiteHeader from "@/app/components/SiteHeader";
 import HeroSection from "@/app/components/sections/HeroSection";
 import ProblemSection from "@/app/components/sections/ProblemSection";
@@ -9,6 +8,8 @@ import FlagshipSection from "@/app/components/sections/FlagshipSection";
 import CaseStudiesSection from "@/app/components/sections/CaseStudiesSection";
 import WhyMeSection from "@/app/components/sections/WhyMeSection";
 import ProcessSection from "@/app/components/sections/ProcessSection";
+import FaqSection from "@/app/components/sections/FaqSection";
+import FinalContactSection from "@/app/components/sections/FinalContactSection";
 
 export default function Home() {
   return (
@@ -27,50 +28,15 @@ export default function Home() {
       <WhyMeSection />
       <ProcessSection />
 
-      {/* ここから下は既存セクション（FAQ・FINAL CTA・Contact は Phase 3D で刷新） */}
-      {/* Contact */}
-      <section id="contact" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-[120px_1fr] gap-8">
-          <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-sub)]">
-            Contact
-          </p>
-          <div className="max-w-2xl">
-            <p className="leading-relaxed mb-3">
-              「これ、AIで減らせる？」という段階からご相談いただけます。
-            </p>
-            <p className="leading-relaxed text-[var(--color-text-sub)] mb-10">
-              相談内容が具体的に決まっていなくても、現在困っている作業や業務を簡単にお知らせください。フォームからのご連絡は、内容を確認のうえ通常1〜2営業日以内にご返信します。
-            </p>
+      {/* ⑧ FAQ ＋ ⑨ FINAL CTA / CONTACT（短縮フォーム）＋ 最小フッター — Phase 3D-2 */}
+      <FaqSection />
+      <FinalContactSection />
 
-            <ContactForm />
-
-            <div className="mt-10 pt-8 border-t border-[var(--color-border)] flex flex-col gap-3 font-[family-name:var(--font-mono)] text-sm">
-              <p className="text-xs text-[var(--color-text-sub)] mb-1 font-[family-name:var(--font-body)]">
-                メールやGitHubから直接ご連絡いただくことも可能です。
-              </p>
-              <a href="mailto:nobunori47@gmail.com" className="hover:text-[var(--color-accent)] transition-colors w-fit">
-                → Email
-              </a>
-              <a href="https://github.com/nobunori47" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-accent)] transition-colors w-fit">
-                → GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="px-6 py-8 border-t border-[var(--color-border)]">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between gap-2 text-xs text-[var(--color-text-sub)]">
-          <span>© {new Date().getFullYear()} Nobunori Nakamura</span>
-          <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-[var(--color-accent)] transition-colors">
-              Privacy Policy
-            </Link>
-            <span className="font-[family-name:var(--font-mono)]">
-              Built with MVP thinking. Refined through hands-on iteration.
-            </span>
-          </div>
+      <footer className="site-footer px-5 sm:px-6 py-8">
+        <div className="max-w-6xl mx-auto flex justify-center sm:justify-start text-xs text-[var(--color-ink-sub)]">
+          <Link href="/privacy" className="inline-flex items-center min-h-[44px] hover:text-[var(--color-navy)] transition-colors">
+            プライバシーポリシー
+          </Link>
         </div>
       </footer>
     </main>

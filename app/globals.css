@@ -527,3 +527,56 @@ body {
     background: linear-gradient(90deg, var(--color-gold), rgb(184 149 90 / 0.3));
   }
 }
+
+/* ⑧ FAQ（Phase 3D-2）：⑦の下端（白）を受けて、ごく明るいアイボリーに細い罫線のアコーディオン */
+.faq-world {
+  background: linear-gradient(180deg, #FFFFFF 0, #FCFAF6 140px);
+}
+.faq-summary { border-radius: 4px; }
+.faq-summary:hover h3 { text-decoration: underline; text-decoration-color: var(--color-gold); text-underline-offset: 6px; }
+/* ＋／− の目印（閉じている時は＋、開いている時は−） */
+.faq-indicator {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+.faq-indicator::before,
+.faq-indicator::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: var(--color-gold);
+  transform: translate(-50%, -50%);
+}
+.faq-indicator::before { width: 14px; height: 1.5px; }
+.faq-indicator::after { width: 1.5px; height: 14px; transition: opacity 0.2s ease; }
+.faq-item[open] .faq-indicator::after { opacity: 0; }
+
+/* ⑨ FINAL CTA ＋ CONTACT（Phase 3D-2）：アイボリーの上の深いネイビーの面で静かに締める。フォームは白い面で読みやすく */
+.contact-world {
+  background: linear-gradient(180deg, #FCFAF6 0, var(--color-ivory) 100%);
+}
+.contact-panel {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(160deg, var(--color-navy) 0%, var(--color-navy-deep) 70%);
+  border: 1px solid rgb(220 201 160 / 0.35);
+  box-shadow: 0 40px 80px -56px rgb(11 22 48 / 0.6);
+}
+.contact-panel :focus-visible {
+  outline-color: var(--color-gold-soft);
+}
+.contact-form-panel {
+  background: #FFFFFF;
+  box-shadow: 0 24px 48px -36px rgb(0 0 0 / 0.5);
+}
+.contact-form-panel :focus-visible {
+  outline-color: var(--color-navy);
+}
+
+/* 最小フッター（Phase 3D-2）：プライバシーポリシーのみ */
+.site-footer {
+  background: var(--color-ivory);
+  border-top: 1px solid var(--color-line);
+}

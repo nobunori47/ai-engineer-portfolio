@@ -1,23 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-  type ReactNode,
-} from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { cases } from "@/lib/cases";
 import { INQUIRY_TYPES } from "@/lib/contact-options";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+/**
+ * 相談フォーム（Phase 3D-2 で短縮）。
+ * - 表示する項目は5つ：お名前／返信先メールアドレス／会社名（任意）／今、困っていること／プライバシーポリシーへの同意
+ * - 送信先・送信内容の形（POST /api/contact の契約）は変えない：
+ *   「今、困っていること」は message として送る。inquiryType は画面に出さず、既存の許可値
+ *   「まだ具体的に決まっていない」を送る。currentIssue・timeline・budget は空で送る（API は空を許容し null 保存）
+ * - スパム対策の隠し項目（website）と、事例詳細からの参照事例（?case=<slug> → sourceCase）は維持する
+ */
+const DEFAULT_INQUIRY_TYPE = INQUIRY_TYPES.find((t) => t === "まだ具体的に決まっていない") ?? "まだ具体的に決まっていない";
+
+const inputClass =
+  "w-full rounded-lg border border-[var(--color-line)] bg-white px-3.5 py-3 text-base text-[var(--color-ink)] placeholder:text-[var(--color-ink-sub)]/70 focus:outline-none focus:border-[var(--color-navy)] focus:ring-2 focus:ring-[var(--color-gold-soft)] transition-colors";
+
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [currentIssue, setCurrentIssue] = useState("");
+  const [message, setMessage] = useState("");
   const [sourceCaseSlug, setSourceCaseSlug] = useState<string>("");
   const submittingRef = useRef(false);
 
@@ -34,18 +40,14 @@ export default function ContactForm() {
       const matched = cases.find((c) => c.slug === slug);
       if (!matched) return;
       setSourceCaseSlug(matched.slug);
-      setCurrentIssue(
-        (prev) => prev || `「${matched.title}」のような仕組みについて相談したいです。`
-      );
+      setMessage((prev) => prev || `「${matched.title}」のような仕組みについて相談したいです。`);
     } catch {
       // window.location等が利用できない環境では何もしない
     }
   }, []);
   /* eslint-enable react-hooks/set-state-in-effect */
 
-  const referencedCase = sourceCaseSlug
-    ? cases.find((c) => c.slug === sourceCaseSlug)
-    : undefined;
+  const referencedCase = sourceCaseSlug ? cases.find((c) => c.slug === sourceCaseSlug) : undefined;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,11 +63,11 @@ export default function ContactForm() {
       name: data.get("name")?.toString() ?? "",
       company: data.get("company")?.toString() ?? "",
       email: data.get("email")?.toString() ?? "",
-      inquiryType: data.get("inquiryType")?.toString() ?? "",
-      currentIssue: data.get("currentIssue")?.toString() ?? "",
+      inquiryType: DEFAULT_INQUIRY_TYPE,
+      currentIssue: "",
       message: data.get("message")?.toString() ?? "",
-      timeline: data.get("timeline")?.toString() ?? "",
-      budget: data.get("budget")?.toString() ?? "",
+      timeline: "",
+      budget: "",
       sourceCase: sourceCaseSlug,
       consent: data.get("consent") === "on",
       website: data.get("website")?.toString() ?? "",
@@ -86,7 +88,7 @@ export default function ContactForm() {
       }
       setStatus("success");
       form.reset();
-      setCurrentIssue("");
+      setMessage("");
     } catch {
       setStatus("error");
       setErrorMessage("送信に失敗しました。通信環境をご確認のうえ、再度お試しください。");
@@ -96,12 +98,10 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] p-8">
-        <p className="font-medium">
-          お問い合わせありがとうございます。内容を確認のうえ、ご入力いただいたメールアドレスへご連絡します。
-        </p>
-        <p className="mt-2 text-sm text-[var(--color-text-sub)] leading-relaxed">
-          通常1〜2営業日以内にご返信します。
+      <div role="status" className="rounded-xl border border-[var(--color-line)] bg-white p-6 sm:p-8">
+        <p className="font-medium text-[var(--color-navy)]">送信ありがとうございました。</p>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink-sub)]">
+          内容を確認のうえ、通常1〜2営業日以内にご返信します。
         </p>
       </div>
     );
@@ -118,81 +118,69 @@ export default function ContactForm() {
       </div>
 
       {referencedCase && (
-        <div className="rounded-md border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 text-xs text-[var(--color-text-sub)] leading-relaxed">
-          「{referencedCase.title}」の事例についてのお問い合わせとして送信されます。内容は下の「ご相談内容」欄で自由に編集できます。
-        </div>
+        <p className="rounded-lg border border-[var(--color-line)] bg-[var(--color-ivory)] px-4 py-3 text-xs leading-relaxed text-[var(--color-ink-sub)]">
+          「{referencedCase.title}」の事例についてのご相談として送信されます。内容は下の欄で自由に編集できます。
+        </p>
       )}
 
-      <div className="grid sm:grid-cols-2 gap-5">
+      <div className="grid gap-5 sm:grid-cols-2">
         <Field label="お名前" name="name" required autoComplete="name" />
         <Field label="会社名（任意）" name="company" autoComplete="organization" />
       </div>
 
-      <Field
-        label="返信先メールアドレス"
-        name="email"
-        type="email"
-        required
-        autoComplete="email"
-      />
+      <Field label="返信先メールアドレス" name="email" type="email" required autoComplete="email" />
 
-      <SelectField label="相談内容の種類" name="inquiryType" required options={INQUIRY_TYPES} />
+      <label className="block">
+        <span className="block mb-1.5 text-sm text-[var(--color-ink)]">
+          今、困っていること<span className="ml-1 text-[var(--color-gold-text)]" aria-hidden="true">*</span>
+          <span className="sr-only">（必須）</span>
+        </span>
+        <textarea
+          name="message"
+          required
+          rows={5}
+          value={message}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
+          placeholder="例：問い合わせへの返信に毎日時間がかかっている、Excelへの転記が多い など"
+          className={`${inputClass} leading-relaxed resize-y`}
+        />
+      </label>
 
-      <TextAreaField
-        label="現在お困りのこと（任意）"
-        name="currentIssue"
-        placeholder="例：Excelでの月次集計に毎回時間がかかっている 等"
-        value={currentIssue}
-        onChange={setCurrentIssue}
-      />
-
-      <TextAreaField
-        label="ご相談内容"
-        name="message"
-        required
-        rows={5}
-        placeholder="実現したいこと、気になっていることなど、自由にご記入ください。「これ、AIで減らせる？」という段階でも大丈夫です。"
-      />
-
-      <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="希望時期（任意）" name="timeline" placeholder="例：9月頃、できるだけ早く 等" />
-        <Field label="予算感（任意）" name="budget" placeholder="例：10〜30万円 等" />
-      </div>
-
-      <p className="text-xs text-[var(--color-text-sub)]">
-        相談内容が固まっていなくても大丈夫です。現在困っている作業や業務を簡単にお知らせください。
-      </p>
-
-      <label className="flex items-start gap-2 text-xs text-[var(--color-text-sub)] leading-relaxed">
+      <label className="flex items-start gap-2.5 text-sm leading-relaxed text-[var(--color-ink-sub)]">
         <input
           type="checkbox"
           name="consent"
           required
-          className="mt-0.5 shrink-0 accent-[var(--color-accent)]"
+          className="mt-1 h-4 w-4 shrink-0 accent-[var(--color-navy)]"
         />
         <span>
           <Link
             href="/privacy"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--color-accent)] underline underline-offset-2"
+            className="text-[var(--color-navy)] underline decoration-[var(--color-gold)] underline-offset-4"
           >
             プライバシーポリシー
           </Link>
-          の内容を確認し、同意の上で送信します。
+          に同意する<span className="ml-1 text-[var(--color-gold-text)]" aria-hidden="true">*</span>
+          <span className="sr-only">（必須）</span>
         </span>
       </label>
 
-      {status === "error" && <p className="text-sm text-red-600" role="alert">{errorMessage}</p>}
+      {status === "error" && (
+        <p className="text-sm text-red-700" role="alert">
+          {errorMessage}
+        </p>
+      )}
 
       <button
         type="submit"
         disabled={status === "submitting"}
         aria-busy={status === "submitting"}
-        className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] text-white px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[var(--color-navy)] px-8 min-h-[52px] text-[0.95rem] font-medium text-[var(--color-ivory)] hover:bg-[var(--color-navy-deep)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {status === "submitting" ? "送信中..." : "送信する"}
-        <span className="font-[family-name:var(--font-mono)]">→</span>
+        {status === "submitting" ? "送信中..." : "相談内容を送る"}
+        <span aria-hidden="true">→</span>
       </button>
     </form>
   );
@@ -203,104 +191,26 @@ function Field({
   name,
   type = "text",
   required = false,
-  placeholder,
   autoComplete,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
-  placeholder?: string;
   autoComplete?: string;
 }) {
   return (
-    <label className="block text-sm">
-      <span className="block mb-1.5 text-[var(--color-text-sub)]">
+    <label className="block">
+      <span className="block mb-1.5 text-sm text-[var(--color-ink)]">
         {label}
-        {required && <span className="text-[var(--color-accent)]"> *</span>}
+        {required && (
+          <>
+            <span className="ml-1 text-[var(--color-gold-text)]" aria-hidden="true">*</span>
+            <span className="sr-only">（必須）</span>
+          </>
+        )}
       </span>
-      <input
-        type={type}
-        name={name}
-        required={required}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2.5 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors"
-      />
-    </label>
-  );
-}
-
-function SelectField({
-  label,
-  name,
-  required = false,
-  options,
-}: {
-  label: string;
-  name: string;
-  required?: boolean;
-  options: readonly string[];
-}) {
-  return (
-    <label className="block text-sm">
-      <span className="block mb-1.5 text-[var(--color-text-sub)]">
-        {label}
-        {required && <span className="text-[var(--color-accent)]"> *</span>}
-      </span>
-      <select
-        name={name}
-        required={required}
-        defaultValue=""
-        className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2.5 text-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors"
-      >
-        <option value="" disabled>
-          選択してください
-        </option>
-        {options.map((opt) => (
-          <option key={opt} value={opt}>
-            {opt}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function TextAreaField({
-  label,
-  name,
-  required = false,
-  rows = 3,
-  placeholder,
-  value,
-  onChange,
-}: {
-  label: string;
-  name: string;
-  required?: boolean;
-  rows?: number;
-  placeholder?: string;
-  value?: string;
-  onChange?: (value: string) => void;
-}): ReactNode {
-  const isControlled = value !== undefined;
-  return (
-    <label className="block text-sm">
-      <span className="block mb-1.5 text-[var(--color-text-sub)]">
-        {label}
-        {required && <span className="text-[var(--color-accent)]"> *</span>}
-      </span>
-      <textarea
-        name={name}
-        required={required}
-        rows={rows}
-        placeholder={placeholder}
-        {...(isControlled
-          ? { value, onChange: (e: ChangeEvent<HTMLTextAreaElement>) => onChange?.(e.target.value) }
-          : {})}
-        className="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2.5 text-sm leading-relaxed focus:outline-none focus:border-[var(--color-accent)] transition-colors resize-y"
-      />
+      <input type={type} name={name} required={required} autoComplete={autoComplete} className={inputClass} />
     </label>
   );
 }
