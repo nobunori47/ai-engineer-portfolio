@@ -444,3 +444,86 @@ body {
   border: 1px solid var(--color-line);
   box-shadow: 0 24px 48px -40px rgb(27 42 74 / 0.35);
 }
+
+/* ⑥ WHY ME（Phase 3C）：⑤の下端（白）を受けてアイボリーへ。カードは使わず、罫線と金の番号の編集的なレイアウト */
+.whyme-world {
+  position: relative;
+  background: linear-gradient(180deg, #FFFFFF 0, var(--color-ivory) 160px);
+}
+.whyme-world::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(160px, 40%);
+  height: 1px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* ⑦ PROCESS（Phase 3C）：少し深いアイボリーで区切り、下端は白へ戻して旧 Contact（Phase 3D で刷新）とつなぐ */
+.process-world {
+  background: linear-gradient(180deg, #F6F1E6 0, #F6F1E6 calc(100% - 120px), #FFFFFF 100%);
+}
+/* 時系列：スマホ・タブレットは縦（左に細い線）、PC は横（番号を細い金の線でつなぐ）。カードは使わない */
+.process-steps {
+  display: grid;
+  gap: 28px;
+}
+.process-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 16px;
+  align-content: start;
+}
+.process-step-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-gold);
+  background: var(--color-ivory);
+  color: var(--color-navy);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  z-index: 1;
+}
+.process-step-body { padding-top: 8px; }
+/* 縦の線（最後のステップ以外） */
+.process-step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 44px;
+  bottom: -28px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--color-gold), rgb(184 149 90 / 0.25));
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  .process-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px;
+  }
+  .process-step {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 20px;
+  }
+  .process-step-body { padding-top: 0; }
+  /* 横の線（番号から次の番号へ） */
+  .process-step:not(:last-child)::before {
+    left: 56px;
+    right: -36px;
+    top: 22px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-gold), rgb(184 149 90 / 0.3));
+  }
+}
