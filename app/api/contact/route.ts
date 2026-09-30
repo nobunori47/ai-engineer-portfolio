@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
 import { isValidInquiryType } from "@/lib/contact-options";
 import { cases } from "@/lib/cases";
+import { isContactExternalWriteAllowed } from "@/lib/contact-environment";
 
 export const runtime = "nodejs";
 
@@ -94,6 +95,15 @@ function getClientKey(req: NextRequest): string {
 }
 
 export async function POST(req: NextRequest) {
+  // Production と確認できない環境（Preview・Development・未設定等）では、何より先に止める（fail-closed）。
+  // リクエスト本文の読み取り・レート制限等の状態更新・Supabase / Slack の秘密情報の参照より前に置くこと。
+  if (!isContactExternalWriteAllowed()) {
+    return NextResponse.json(
+      { error: "この環境ではフォームは送信されません。" },
+      { status: 403 }
+    );
+  }
+
   let body: ContactPayload;
   try {
     body = await req.json();
